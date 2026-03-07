@@ -8,8 +8,8 @@
                     <i class="ki-filled ki-menu">
                     </i>
                 </button>
-                <a class="mx-1" href="#">
-                    <img class="dark:hidden min-h-[24px]" src="{{ asset('assets/media/app/mini-logo-primary.svg') }}"/>
+                <a class="mx-1" href="{{ route('dashboard.main') }}">
+                    <img class="dark:hidden min-h-[24px]" src="{{ asset('assets/media/app/fundepag-simbolo.svg') }}"/>
                     <img class="hidden dark:block min-h-[24px]"
                          src="{{ asset('assets/media/app/mini-logo-primary-dark.svg') }}"/>
                 </a>
@@ -98,6 +98,9 @@
         <div class="flex items-center lg:gap-3.5">
             <!-- Action -->
             <a class="kt-btn kt-btn-primary mr-1 sm:me-0" href="#">
+                Get Started
+            </a>
+            <a class="kt-btn kt-btn-secondary mr-1 sm:me-0" href="#">
                 Get Started
             </a>
             <!-- End of Action -->

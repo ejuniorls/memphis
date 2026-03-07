@@ -23,11 +23,18 @@
                                     task organization, and progress tracking, all in one place.
                                 </p>
                             </div>
-                            <div class="flex justify-center">
-                                <a class="kt-btn kt-btn-mono" href="#">
-                                    Create Team
-                                </a>
+                            <div class="flex justify-center grid gap-4">
+                                <button type="button" class="kt-btn">Primary</button>
+                                <button type="button" class="kt-btn kt-btn-secondary">Secondary</button>
+                                <button type="button" class="kt-btn kt-btn-destructive">Destructive</button>
+                                <button type="button" class="kt-btn kt-btn-mono">Mono</button>
+                                <button type="button" class="kt-btn kt-btn-outline">Outline</button>
+                                <button type="button" class="kt-btn kt-btn-ghost">Ghost</button>
+
+                                <div class="icon-users"></div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>

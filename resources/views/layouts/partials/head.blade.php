@@ -1,4 +1,4 @@
-<title>Metronic - Tailwind CSS</title>
+<title>{{ env('APP_NAME', 'memphis') }}</title>
 <meta charset="utf-8" />
 <meta content="follow, index" name="robots" />
 <link href="{{ url(request()->path()) }}" rel="canonical" />
@@ -7,14 +7,14 @@
 <meta content="@keenthemes" name="twitter:site" />
 <meta content="@keenthemes" name="twitter:creator" />
 <meta content="summary_large_image" name="twitter:card" />
-<meta content="Metronic - Tailwind CSS " name="twitter:title" />
+<meta content="{{ env('APP_NAME', 'memphis') }} " name="twitter:title" />
 <meta content="" name="twitter:description" />
 <meta content="{{ asset('assets/media/app/og-image.png') }}" name="twitter:image" />
 <meta content="{{ url(request()->path()) }}" property="og:url" />
 <meta content="en_US" property="og:locale" />
 <meta content="website" property="og:type" />
 <meta content="@keenthemes" property="og:site_name" />
-<meta content="Metronic - Tailwind CSS " property="og:title" />
+<meta content="{{ env('APP_NAME', 'memphis') }} " property="og:title" />
 <meta content="" property="og:description" />
 <meta content="{{ asset('assets/media/app/og-image.png') }}" property="og:image" />
 <link href="{{ asset('assets/media/app/apple-touch-icon.png') }}" rel="apple-touch-icon" sizes="180x180" />
@@ -25,3 +25,9 @@
 <link href="{{ asset('assets/vendors/apexcharts/apexcharts.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/vendors/keenicons/styles.bundle.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+
+{{--fonts--}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
