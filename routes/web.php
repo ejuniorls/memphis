@@ -17,10 +17,28 @@ use App\Livewire\Demo7\Index as Demo7Index;
 use App\Livewire\Demo8\Index as Demo8Index;
 use App\Livewire\Demo9\Index as Demo9Index;
 use App\Livewire\Demo10\Index as Demo10Index;
+use App\Livewire\Dashboard\Main as DashboardMain;
+use App\Livewire\Auth\SignIn as AuthSignIn;
+use App\Livewire\Auth\SignUp as AuthSignUp;
+use App\Livewire\Auth\ChangePassword as AuthChangePassword;
+use App\Livewire\Auth\CheckEmail as AuthCheckEmail;
+use App\Livewire\Auth\EnterEmail as AuthEnterEmail;
+use App\Livewire\Auth\PasswordChanged as AuthPasswordChanged;
 
 Route::get('/', function () {
-    return redirect()->route('demo1.index');
+    return redirect()->route('dashboard.main');
 });
+
+// Auth
+Route::get('/sign-in', AuthSignIn::class)->name('auth.sign-in');
+Route::get('/sign-up', AuthSignUp::class)->name('auth.sign-up');
+Route::get('/change-password', AuthChangePassword::class)->name('auth.change-password');
+Route::get('/check-email', AuthCheckEmail::class)->name('auth.check-email');
+Route::get('/enter-email', AuthEnterEmail::class)->name('auth.enter-email');
+Route::get('/password-changed', AuthPasswordChanged::class)->name('auth.password-changed');
+
+// Dashboard
+Route::get('/dashboard', DashboardMain::class)->name('dashboard.main');
 
 // Demo1 routes
 Route::get('/demo1', Demo1Index::class)->name('demo1.index');
