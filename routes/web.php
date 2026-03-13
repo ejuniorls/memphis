@@ -18,6 +18,7 @@ use App\Livewire\Demo8\Index as Demo8Index;
 use App\Livewire\Demo9\Index as Demo9Index;
 use App\Livewire\Demo10\Index as Demo10Index;
 use App\Livewire\Dashboard\Main as DashboardMain;
+use App\Livewire\Documentation\Index as DocumentationIndex;
 use App\Livewire\Auth\SignIn as AuthSignIn;
 use App\Livewire\Auth\SignUp as AuthSignUp;
 use App\Livewire\Auth\ChangePassword as AuthChangePassword;
@@ -39,6 +40,7 @@ Route::get('/password-changed', AuthPasswordChanged::class)->name('auth.password
 
 // Dashboard
 Route::get('/dashboard', DashboardMain::class)->name('dashboard.main');
+Route::get('/documentation', DocumentationIndex::class)->name('documentation.index');
 
 // Demo1 routes
 Route::get('/demo1', Demo1Index::class)->name('demo1.index');

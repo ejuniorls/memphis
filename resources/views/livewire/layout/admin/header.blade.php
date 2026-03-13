@@ -9,7 +9,7 @@
                     </i>
                 </button>
                 <a class="mx-1" href="{{ route('dashboard.main') }}">
-                    <img class="dark:hidden min-h-[24px]" src="{{ asset('assets/media/app/fundepag-simbolo.svg') }}"/>
+                    <img class="dark:hidden min-h-[24px]" src="{{ asset('assets/media/app/mini-logo-primary.svg') }}"/>
                     <img class="hidden dark:block min-h-[24px]"
                          src="{{ asset('assets/media/app/mini-logo-primary-dark.svg') }}"/>
                 </a>
