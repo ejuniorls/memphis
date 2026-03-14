@@ -1,50 +1,56 @@
 @props([
-    'variant' => null,
-    'size' => null,
-    'icon' => null,
-    'href' => null,
-    'circle' => false,
-    'iconOnly' => false
+    'variant'  => null,       // null (primary) | 'secondary' | 'destructive' | 'mono' | 'outline' | 'ghost'
+    'ghost'    => null,       // null | 'primary' | 'destructive' — ghost com cor (kt-btn-ghost kt-btn-{color})
+    'size'     => null,       // null | 'sm' | 'lg'
+    'iconOnly' => false,      // bool — botão somente ícone (kt-btn-icon)
+    'circle'   => false,      // bool — adiciona rounded-full
+    'dim'      => false,      // bool — variante dim (usado em icon-only)
+    'type'     => 'button',   // 'button' | 'submit' | 'reset'
+    'tag'      => 'button',   // 'button' | 'a' — renderiza como <a> quando necessário
+    'href'     => null,       // string — usado quando tag='a'
+    'disabled' => false,      // bool
+    'icon'     => null,       // string — nome do ícone lucide (ex: 'search', 'plus') para ícone antes do texto
+    'iconEnd'  => null,       // string — ícone lucide após o texto
 ])
 
 @php
-    $tag = $href ? 'a' : 'button';
+    $classes = 'kt-btn';
 
-    $variants = [
-        'primary' => 'kt-btn-primary',
-        'secondary' => 'kt-btn-secondary',
-        'destructive' => 'kt-btn-destructive',
-        'mono' => 'kt-btn-mono',
-        'outline' => 'kt-btn-outline',
-        'ghost' => 'kt-btn-ghost',
-        'dim' => 'kt-btn-dim',
-    ];
+    if ($iconOnly)              $classes .= ' kt-btn-icon';
+    if ($dim)                   $classes .= ' kt-btn-dim';
+    elseif ($ghost !== null)    $classes .= ' kt-btn-ghost kt-btn-' . $ghost;
+    elseif ($variant)           $classes .= ' kt-btn-' . $variant;
 
-    $sizes = [
-        'sm' => 'kt-btn-sm',
-        'lg' => 'kt-btn-lg'
-    ];
+    if ($size)                  $classes .= ' kt-btn-' . $size;
+    if ($circle)                $classes .= ' rounded-full';
 @endphp
 
-<{{ $tag }}
-{{ $attributes->merge([
-    'href' => $href,
-    'class' => \Illuminate\Support\Arr::toCssClasses([
-        'kt-btn',
-        $variants[$variant] ?? null,
-        $sizes[$size] ?? null,
-        'kt-btn-icon' => $iconOnly,
-        'rounded-full' => $circle,
-    ])
-]) }}
->
-
-@if($icon)
-    <i class="{{ $icon }}"></i>
+@if ($tag === 'a')
+    <a
+        href="{{ $href ?? '#' }}"
+        {{ $attributes->merge(['class' => $classes]) }}
+        @if($disabled) aria-disabled="true" tabindex="-1" @endif
+    >
+        @if ($icon)
+            @svg('lucide-' . $icon)
+        @endif
+        {{ $slot }}
+        @if ($iconEnd)
+            @svg('lucide-' . $iconEnd)
+        @endif
+    </a>
+@else
+    <button
+        type="{{ $type }}"
+        {{ $attributes->merge(['class' => $classes]) }}
+        @disabled($disabled)
+    >
+        @if ($icon)
+            @svg('lucide-' . $icon)
+        @endif
+        {{ $slot }}
+        @if ($iconEnd)
+            @svg('lucide-' . $iconEnd)
+        @endif
+    </button>
 @endif
-
-@if(!$iconOnly)
-    {{ $slot }}
-@endif
-
-</{{ $tag }}>

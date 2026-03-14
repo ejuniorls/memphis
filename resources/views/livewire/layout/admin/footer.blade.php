@@ -5,10 +5,10 @@
         <div class="flex flex-col md:flex-row justify-center md:justify-between items-center gap-3 py-2">
             <div class="flex order-2 md:order-1 gap-2 font-normal text-sm">
                 <span class="text-muted-foreground">
-                    2025©
+                    {{ now()->year }}©
                 </span>
                 <a class="text-secondary-foreground hover:text-primary" href="https://keenthemes.com">
-                    Keenthemes Inc.
+                    {{ env("APP_NAME") }}
                 </a>
             </div>
             <nav class="flex order-1 md:order-2 gap-4 font-normal text-sm text-secondary-foreground">

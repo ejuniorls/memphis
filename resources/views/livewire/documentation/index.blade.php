@@ -8,52 +8,57 @@
                     <div class="kt-card-content flex flex-col place-content-center gap-5">
                         <h1>Buttons</h1>
 
-                        <h2>Basic Usage</h2>
+                        {{-- Basic Usage --}}
+                        <h2>Basic usage</h2>
                         <div class="flex flex-wrap gap-4">
-                            <x-ui.button>Botão</x-ui.button>
-                            <x-ui.button variant="secondary">Botão</x-ui.button>
-                            <x-ui.button variant="destructive">Botão</x-ui.button>
-                            <x-ui.button variant="mono">Botão</x-ui.button>
-                            <x-ui.button variant="outline">Botão</x-ui.button>
-                            <x-ui.button variant="ghost">Botão</x-ui.button>
+                            <x-ui.button>Primary</x-ui.button>
+                            <x-ui.button variant="secondary">Secondary</x-ui.button>
+                            <x-ui.button variant="destructive">Destructive</x-ui.button>
+                            <x-ui.button variant="mono">Mono</x-ui.button>
+                            <x-ui.button variant="outline">Outline</x-ui.button>
+                            <x-ui.button variant="ghost">Ghost</x-ui.button>
                         </div>
 
+                        {{-- Circle --}}
                         <h2>Circle</h2>
                         <div class="flex flex-wrap gap-4">
-                            <x-ui.button circle>Botão</x-ui.button>
-                            <x-ui.button circle variant="secondary">Botão</x-ui.button>
-                            <x-ui.button circle variant="destructive">Botão</x-ui.button>
-                            <x-ui.button circle variant="mono">Botão</x-ui.button>
-                            <x-ui.button circle variant="outline">Botão</x-ui.button>
-                            <x-ui.button circle variant="ghost">Botão</x-ui.button>
+                            <x-ui.button circle>Primary</x-ui.button>
+                            <x-ui.button circle variant="secondary">Secondary</x-ui.button>
+                            <x-ui.button circle variant="destructive">Destructive</x-ui.button>
+                            <x-ui.button circle variant="mono">Mono</x-ui.button>
+                            <x-ui.button circle variant="outline">Outline</x-ui.button>
+                            <x-ui.button circle variant="ghost">Ghost</x-ui.button>
                         </div>
 
+                        {{-- Ghost --}}
                         <h2>Ghost</h2>
                         <div class="flex flex-wrap gap-4">
                             <x-ui.button ghost>Default</x-ui.button>
-                            <x-ui.button ghost variant="primary">Primary</x-ui.button>
-                            <x-ui.button ghost variant="destructive">Destructive</x-ui.button>
+                            <x-ui.button ghost="primary">Primary</x-ui.button>
+                            <x-ui.button ghost="destructive">Destructive</x-ui.button>
                         </div>
 
+                        {{-- With Icon --}}
                         <h2>With Icon</h2>
                         <div class="flex flex-wrap gap-4">
-                            <x-ui.button icon="ki-outline ki-setting-2">Primary</x-ui.button>
-                            <x-ui.button icon="ki-outline ki-setting-2" variant="secondary">Secondary</x-ui.button>
-                            <x-ui.button icon="ki-outline ki-setting-2" variant="destructive">Destructive</x-ui.button>
-                            <x-ui.button icon="ki-outline ki-setting-2" variant="mono">Mono</x-ui.button>
-                            <x-ui.button icon="ki-outline ki-setting-2" variant="outline">Outline</x-ui.button>
-                            <x-ui.button icon="ki-outline ki-setting-2" variant="ghost">Ghost</x-ui.button>
+                            <x-ui.button icon="settings">Primary</x-ui.button>
+                            <x-ui.button icon="settings" variant="secondary">Secondary</x-ui.button>
+                            <x-ui.button icon="settings" variant="destructive">Destructive</x-ui.button>
+                            <x-ui.button icon="settings" variant="mono">Mono</x-ui.button>
+                            <x-ui.button icon="settings" variant="outline">Outline</x-ui.button>
+                            <x-ui.button icon="settings" variant="ghost">Ghost</x-ui.button>
                         </div>
 
+                        {{-- Icon Only --}}
                         <h2>Icon Only</h2>
                         <div class="flex flex-wrap gap-4">
-                            <x-ui.button iconOnly icon="ki-outline ki-setting-2"></x-ui.button>
-                            <x-ui.button iconOnly icon="ki-outline ki-setting-2" variant="secondary"></x-ui.button>
-                            <x-ui.button iconOnly icon="ki-outline ki-setting-2" variant="destructive"></x-ui.button>
-                            <x-ui.button iconOnly icon="ki-outline ki-setting-2" variant="mono"></x-ui.button>
-                            <x-ui.button iconOnly icon="ki-outline ki-setting-2" variant="outline"></x-ui.button>
+                            <x-ui.button :icon-only="true" icon="dog"/>
+                            <x-ui.button :icon-only="true" icon="cat" variant="secondary"/>
+                            <x-ui.button :icon-only="true" icon="panda" variant="destructive"/>
+                            <x-ui.button :icon-only="true" icon="bird" variant="mono"/>
                         </div>
 
+                        {{-- Size --}}
                         <h2>Size</h2>
                         <div class="flex flex-wrap gap-4">
                             <x-ui.button size="sm">Small</x-ui.button>
@@ -63,270 +68,171 @@
                     </div>
                 </div>
             </div>
-            <div class="lg:col-span-1">
+
+            <div class="lg:col-span-2">
                 <div class="kt-card h-full">
-                    <div class="kt-card-header">
-                        <h3 class="kt-card-title">
-                            Highlights
-                        </h3>
-                        <div class="kt-menu" data-kt-menu="true">
-                            <div class="kt-menu-item kt-menu-item-dropdown" data-kt-menu-item-offset="0, 10px"
-                                 data-kt-menu-item-placement="bottom-start" data-kt-menu-item-toggle="dropdown"
-                                 data-kt-menu-item-trigger="click">
-                                <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost">
-                                    <i class="ki-filled ki-dots-vertical text-lg">
-                                    </i>
-                                </button>
-                                <div class="kt-menu-dropdown kt-menu-default w-full max-w-[200px]"
-                                     data-kt-menu-dismiss="true">
-                                    <div class="kt-menu-item">
-                                        <a class="kt-menu-link" href="html/demo3/account/activity.html">
-                                            <span class="kt-menu-icon">
-                                                <i class="ki-filled ki-cloud-change">
-                                                </i>
-                                            </span>
-                                            <span class="kt-menu-title">
-                                                Activity
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="kt-menu-item">
-                                        <a class="kt-menu-link" data-kt-modal-toggle="#share_profile_modal" href="#">
-                                            <span class="kt-menu-icon">
-                                                <i class="ki-filled ki-share">
-                                                </i>
-                                            </span>
-                                            <span class="kt-menu-title">
-                                                Share
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="kt-menu-item kt-menu-item-dropdown" data-kt-menu-item-offset="-15px, 0"
-                                         data-kt-menu-item-placement="right-start" data-kt-menu-item-toggle="dropdown"
-                                         data-kt-menu-item-trigger="click|lg:hover">
-                                        <div class="kt-menu-link">
-                                            <span class="kt-menu-icon">
-                                                <i class="ki-filled ki-notification-status">
-                                                </i>
-                                            </span>
-                                            <span class="kt-menu-title">
-                                                Notifications
-                                            </span>
-                                            <span class="kt-menu-arrow">
-                                                <i class="ki-filled ki-right text-xs rtl:transform rtl:rotate-180">
-                                                </i>
-                                            </span>
-                                        </div>
-                                        <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]">
-                                            <div class="kt-menu-item">
-                                                <a class="kt-menu-link"
-                                                   href="html/demo3/account/home/settings-sidebar.html">
-                                                    <span class="kt-menu-icon">
-                                                        <i class="ki-filled ki-sms">
-                                                        </i>
-                                                    </span>
-                                                    <span class="kt-menu-title">
-                                                        Email
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="kt-menu-item">
-                                                <a class="kt-menu-link"
-                                                   href="html/demo3/account/home/settings-sidebar.html">
-                                                    <span class="kt-menu-icon">
-                                                        <i class="ki-filled ki-message-notify">
-                                                        </i>
-                                                    </span>
-                                                    <span class="kt-menu-title">
-                                                        SMS
-                                                    </span>
-                                                </a>
-                                            </div>
-                                            <div class="kt-menu-item">
-                                                <a class="kt-menu-link"
-                                                   href="html/demo3/account/home/settings-sidebar.html">
-                                                    <span class="kt-menu-icon">
-                                                        <i class="ki-filled ki-notification-status">
-                                                        </i>
-                                                    </span>
-                                                    <span class="kt-menu-title">
-                                                        Push
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="kt-menu-item">
-                                        <a class="kt-menu-link" data-kt-modal-toggle="#report_user_modal" href="#">
-                                            <span class="kt-menu-icon">
-                                                <i class="ki-filled ki-dislike">
-                                                </i>
-                                            </span>
-                                            <span class="kt-menu-title">
-                                                Report
-                                            </span>
-                                        </a>
-                                    </div>
-                                    <div class="kt-menu-separator">
-                                    </div>
-                                    <div class="kt-menu-item">
-                                        <a class="kt-menu-link" href="html/demo3/account/home/settings-enterprise.html">
-                                            <span class="kt-menu-icon">
-                                                <i class="ki-filled ki-setting-3">
-                                                </i>
-                                            </span>
-                                            <span class="kt-menu-title">
-                                                Settings
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="kt-card-content flex flex-col place-content-center gap-5">
+                        <h1>Alerts</h1>
+
+                        {{-- Basic Usage --}}
+                        <h2>Basic Usage</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.alert :dismissible="true" title="This is a default alert"/>
+                            <x-ui.alert :dismissible="true" variant="primary" title="This is a primary alert"/>
+                            <x-ui.alert :dismissible="true" variant="success" title="This is a success alert"/>
+                            <x-ui.alert :dismissible="true" variant="info" title="This is an info alert"/>
+                            <x-ui.alert :dismissible="true" variant="destructive" title="This is a destructive alert"/>
+                            <x-ui.alert :dismissible="true" variant="warning" title="This is a warning alert"/>
+                            <x-ui.alert :dismissible="true" variant="mono" title="This is a mono alert"/>
                         </div>
-                    </div>
-                    <div class="kt-card-content flex flex-col gap-4 p-5 lg:p-7.5 lg:pt-4">
-                        <div class="flex flex-col gap-0.5">
-                            <span class="text-sm font-normal text-secondary-foreground">
-                                All time sales
-                            </span>
-                            <div class="flex items-center gap-2.5">
-                                <span class="text-3xl font-semibold text-mono">
-                                    $295.7k
-                                </span>
-                                <span class="kt-badge kt-badge-outline kt-badge-success kt-badge-sm">
-                                    +2.7%
-                                </span>
-                            </div>
+
+                        {{-- Mono --}}
+                        <h2>Mono</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.alert :dismissible="true" style="mono" variant="primary"
+                                        title="This is a primary alert"/>
+                            <x-ui.alert :dismissible="true" style="mono" variant="success"
+                                        title="This is a success alert"/>
+                            <x-ui.alert :dismissible="true" style="mono" variant="info" title="This is an info alert"/>
+                            <x-ui.alert :dismissible="true" style="mono" variant="destructive"
+                                        title="This is a destructive alert"/>
+                            <x-ui.alert :dismissible="true" style="mono" variant="warning"
+                                        title="This is a warning alert"/>
                         </div>
-                        <div class="flex items-center gap-1 mb-1.5">
-                            <div class="bg-green-500 h-2 w-full max-w-[60%] rounded-xs">
-                            </div>
-                            <div class="bg-destructive h-2 w-full max-w-[25%] rounded-xs">
-                            </div>
-                            <div class="bg-violet-500 h-2 w-full max-w-[15%] rounded-xs">
-                            </div>
+
+                        {{-- Outline --}}
+                        <h2>Outline</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.alert :dismissible="true" style="outline" variant="primary"
+                                        title="This is a primary alert"/>
+                            <x-ui.alert :dismissible="true" style="outline" variant="success"
+                                        title="This is a success alert"/>
+                            <x-ui.alert :dismissible="true" style="outline" variant="info"
+                                        title="This is an info alert"/>
+                            <x-ui.alert :dismissible="true" style="outline" variant="destructive"
+                                        title="This is a destructive alert"/>
+                            <x-ui.alert :dismissible="true" style="outline" variant="warning"
+                                        title="This is a warning alert"/>
                         </div>
-                        <div class="flex items-center flex-wrap gap-4 mb-1">
-                            <div class="flex items-center gap-1.5">
-                                <span class="rounded-full size-2 rounded-full kt-badge-success">
-                                </span>
-                                <span class="text-sm font-normal text-foreground">
-                                    Metronic
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="rounded-full size-2 rounded-full kt-badge-destructive">
-                                </span>
-                                <span class="text-sm font-normal text-foreground">
-                                    Bundle
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-1.5">
-                                <span class="rounded-full size-2 rounded-full kt-badge-info">
-                                </span>
-                                <span class="text-sm font-normal text-foreground">
-                                    MetronicNest
-                                </span>
-                            </div>
+
+                        {{-- Light --}}
+                        <h2>Light</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.alert :dismissible="true" style="light" variant="primary"
+                                        title="This is a primary alert"/>
+                            <x-ui.alert :dismissible="true" style="light" variant="success"
+                                        title="This is a success alert"/>
+                            <x-ui.alert :dismissible="true" style="light" variant="info" title="This is an info alert"/>
+                            <x-ui.alert :dismissible="true" style="light" variant="destructive"
+                                        title="This is a destructive alert"/>
+                            <x-ui.alert :dismissible="true" style="light" variant="warning"
+                                        title="This is a warning alert"/>
                         </div>
-                        <div class="border-b border-input">
+
+                        {{-- Size --}}
+                        <h2>Size</h2>
+                        <div class="flex flex-wrap items-start gap-4">
+                            <x-ui.alert :dismissible="true" size="sm" style="outline" variant="primary"
+                                        title="This is a small alert"/>
+                            <x-ui.alert :dismissible="true" style="outline" variant="primary"
+                                        title="This is a default alert"/>
+                            <x-ui.alert :dismissible="true" size="lg" style="outline" variant="primary"
+                                        title="This is a large alert"/>
                         </div>
-                        <div class="grid gap-3">
-                            <div class="flex items-center justify-between flex-wrap gap-2">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="ki-filled ki-shop text-base text-muted-foreground">
-                                    </i>
-                                    <span class="text-sm font-normal text-mono">
-                                        Online Store
-                                    </span>
-                                </div>
-                                <div class="flex items-center text-sm font-medium text-foreground gap-6">
-                                    <span class="lg:text-right">
-                                        $172k
-                                    </span>
-                                    <span class="lg:text-right">
-                                        <i class="ki-filled ki-arrow-up text-green-500">
-                                        </i>
-                                        3.9%
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between flex-wrap gap-2">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="ki-filled ki-facebook text-base text-muted-foreground">
-                                    </i>
-                                    <span class="text-sm font-normal text-mono">
-                                        Facebook
-                                    </span>
-                                </div>
-                                <div class="flex items-center text-sm font-medium text-foreground gap-6">
-                                    <span class="lg:text-right">
-                                        $85k
-                                    </span>
-                                    <span class="lg:text-right">
-                                        <i class="ki-filled ki-arrow-down text-destructive">
-                                        </i>
-                                        0.7%
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between flex-wrap gap-2">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="ki-filled ki-instagram text-base text-muted-foreground">
-                                    </i>
-                                    <span class="text-sm font-normal text-mono">
-                                        Instagram
-                                    </span>
-                                </div>
-                                <div class="flex items-center text-sm font-medium text-foreground gap-6">
-                                    <span class="lg:text-right">
-                                        $36k
-                                    </span>
-                                    <span class="lg:text-right">
-                                        <i class="ki-filled ki-arrow-up text-green-500">
-                                        </i>
-                                        8.2%
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between flex-wrap gap-2">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="ki-filled ki-google text-base text-muted-foreground">
-                                    </i>
-                                    <span class="text-sm font-normal text-mono">
-                                        Google
-                                    </span>
-                                </div>
-                                <div class="flex items-center text-sm font-medium text-foreground gap-6">
-                                    <span class="lg:text-right">
-                                        $26k
-                                    </span>
-                                    <span class="lg:text-right">
-                                        <i class="ki-filled ki-arrow-up text-green-500">
-                                        </i>
-                                        8.2%
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-between flex-wrap gap-2">
-                                <div class="flex items-center gap-1.5">
-                                    <i class="ki-filled ki-shop text-base text-muted-foreground">
-                                    </i>
-                                    <span class="text-sm font-normal text-mono">
-                                        Retail
-                                    </span>
-                                </div>
-                                <div class="flex items-center text-sm font-medium text-foreground gap-6">
-                                    <span class="lg:text-right">
-                                        $7k
-                                    </span>
-                                    <span class="lg:text-right">
-                                        <i class="ki-filled ki-arrow-down text-destructive">
-                                        </i>
-                                        0.7%
-                                    </span>
-                                </div>
-                            </div>
+
+                        {{-- Icon customizado --}}
+                        <h2>Custom Icon</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.alert :dismissible="true" variant="warning" icon="shield-alert"
+                                        title="Ícone customizado com shield-alert"/>
+                            <x-ui.alert :dismissible="true" variant="info" :icon="false" title="Sem ícone"/>
+                        </div>
+
+                        {{-- Actions: action-label (prop atalho) --}}
+                        <h2>Actions — prop atalho</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.alert
+                                style="outline"
+                                title="Example Alert Title"
+                                description="Insert the alert description here. It would look better as two lines of text."
+                                action-label="Upgrade"
+                                action-href="/upgrade"
+                                :dismissible="true"
+                            />
+                            <x-ui.alert
+                                style="outline"
+                                variant="destructive"
+                                title="Example Alert Title"
+                                description="Insert the alert description here. It would look better as two lines of text."
+                                action-label="Upgrade"
+                                action-href="/upgrade"
+                                :dismissible="true"
+                            />
+                            <x-ui.alert
+                                style="outline"
+                                variant="warning"
+                                title="Example Alert Title"
+                                description="Insert the alert description here. It would look better as two lines of text."
+                                action-label="Upgrade"
+                                action-href="/upgrade"
+                                :dismissible="true"
+                            />
+                        </div>
+
+                        {{-- Actions: slot com múltiplos botões/links --}}
+                        <h2>Actions — múltiplas ações via slot</h2>
+                        <div class="flex flex-wrap gap-4">
+
+                            {{-- Slot simples, sem descrição --}}
+                            <x-ui.alert variant="primary" title="Você tem mensagens novas." :dismissible="true">
+                                <x-slot:actions>
+                                    <a href="/mensagens" class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Ver
+                                        agora</a>
+                                </x-slot:actions>
+                            </x-ui.alert>
+
+                            {{-- Slot simples, dois botões --}}
+                            <x-ui.alert variant="warning" style="outline" title="Plano próximo do limite."
+                                        :dismissible="true">
+                                <x-slot:actions>
+                                    <a href="/upgrade"
+                                       class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Fazer
+                                        upgrade</a>
+                                    <button class="kt-link kt-link-xs text-mono-foreground">Ignorar</button>
+                                </x-slot:actions>
+                            </x-ui.alert>
+
+                            {{-- Com descrição + dois links --}}
+                            <x-ui.alert
+                                style="outline"
+                                variant="destructive"
+                                title="Example Alert Title"
+                                description="Insert the alert description here."
+                                :dismissible="true"
+                            >
+                                <x-slot:actions>
+                                    <a href="/upgrade"
+                                       class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</a>
+                                    <button class="kt-link kt-link-xs text-mono-foreground">Dismiss</button>
+                                </x-slot:actions>
+                            </x-ui.alert>
+
+                            {{-- Com descrição + dois links de navegação --}}
+                            <x-ui.alert
+                                style="outline"
+                                variant="destructive"
+                                title="Falha ao salvar"
+                                description="Ocorreu um erro inesperado. Tente novamente ou contate o suporte."
+                                :dismissible="true"
+                            >
+                                <x-slot:actions>
+                                    <a href="/retry" class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Tentar
+                                        novamente</a>
+                                    <a href="/suporte" class="kt-link kt-link-xs text-mono-foreground">Contatar
+                                        suporte</a>
+                                </x-slot:actions>
+                            </x-ui.alert>
+
                         </div>
                     </div>
                 </div>
