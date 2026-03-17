@@ -70,8 +70,11 @@
                 Remember me
             </span>
         </label>
-        <button class="kt-btn kt-btn-primary flex justify-center grow">
-            Sign In
-        </button>
+
+        <x-ui.button>Sign In</x-ui.button>
+
+        <x-ui.button tag="a" href="https://exemplo.com" target="_blank" rel="noopener" variant="destructive">
+            Abrir externo
+        </x-ui.button>
     </form>
 </div>

@@ -38,6 +38,7 @@ Route::get('/check-email', AuthCheckEmail::class)->name('auth.check-email');
 Route::get('/enter-email', AuthEnterEmail::class)->name('auth.enter-email');
 Route::get('/password-changed', AuthPasswordChanged::class)->name('auth.password-changed');
 
+
 // Dashboard
 Route::get('/dashboard', DashboardMain::class)->name('dashboard.main');
 Route::get('/documentation', DocumentationIndex::class)->name('documentation.index');

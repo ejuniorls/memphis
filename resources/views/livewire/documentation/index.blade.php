@@ -237,8 +237,273 @@
                     </div>
                 </div>
             </div>
+
+            <div class="lg:col-span-2">
+                <div class="kt-card h-full">
+                    <div class="kt-card-content flex flex-col place-content-center gap-5">
+                        <h1>Badges</h1>
+
+                        {{-- Basic --}}
+                        <h2>Basic</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge>Default</x-ui.badge>
+                            <x-ui.badge :stroke="true">Stroke</x-ui.badge>
+                        </div>
+
+                        {{-- Solid --}}
+                        <h2>Solid</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="primary">Primary</x-ui.badge>
+                            <x-ui.badge variant="secondary">Secondary</x-ui.badge>
+                            <x-ui.badge variant="success">Success</x-ui.badge>
+                            <x-ui.badge variant="destructive">Destructive</x-ui.badge>
+                            <x-ui.badge variant="warning">Warning</x-ui.badge>
+                            <x-ui.badge variant="info">Info</x-ui.badge>
+                            <x-ui.badge variant="mono">Mono</x-ui.badge>
+                        </div>
+
+                        {{-- Outline --}}
+                        <h2>Outline</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="primary">Primary</x-ui.badge>
+                            <x-ui.badge style="outline" variant="secondary">Secondary</x-ui.badge>
+                            <x-ui.badge style="outline" variant="success">Success</x-ui.badge>
+                            <x-ui.badge style="outline" variant="destructive">Destructive</x-ui.badge>
+                            <x-ui.badge style="outline" variant="warning">Warning</x-ui.badge>
+                            <x-ui.badge style="outline" variant="info">Info</x-ui.badge>
+                            <x-ui.badge style="outline" variant="mono">Mono</x-ui.badge>
+                        </div>
+
+                        {{-- Light --}}
+                        <h2>Light</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="light" variant="primary">Primary</x-ui.badge>
+                            <x-ui.badge style="light" variant="secondary">Secondary</x-ui.badge>
+                            <x-ui.badge style="light" variant="success">Success</x-ui.badge>
+                            <x-ui.badge style="light" variant="destructive">Destructive</x-ui.badge>
+                            <x-ui.badge style="light" variant="warning">Warning</x-ui.badge>
+                            <x-ui.badge style="light" variant="info">Info</x-ui.badge>
+                            <x-ui.badge style="light" variant="mono">Mono</x-ui.badge>
+                        </div>
+
+                        {{-- Circle --}}
+                        <h2>Circle</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="light" :circle="true" variant="primary">Primary</x-ui.badge>
+                            <x-ui.badge style="light" :circle="true" variant="secondary">Secondary</x-ui.badge>
+                            <x-ui.badge style="light" :circle="true" variant="success">Success</x-ui.badge>
+                            <x-ui.badge style="light" :circle="true" variant="destructive">Destructive</x-ui.badge>
+                            <x-ui.badge style="light" :circle="true" variant="warning">Warning</x-ui.badge>
+                            <x-ui.badge style="light" :circle="true" variant="info">Info</x-ui.badge>
+                            <x-ui.badge style="light" :circle="true" variant="mono">Mono</x-ui.badge>
+                        </div>
+
+                        {{-- Ghost --}}
+                        <h2>Ghost</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="ghost" :circle="true" variant="primary">Primary</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="secondary">Secondary</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="success">Success</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="destructive">Destructive</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="warning">Warning</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="info">Info</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="mono">Mono</x-ui.badge>
+                        </div>
+
+                        {{-- Square --}}
+                        <h2>Square</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="ghost" :circle="true" variant="primary">Primary</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="secondary">Secondary</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="success">Success</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="destructive">Destructive</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="warning">Warning</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="info">Info</x-ui.badge>
+                            <x-ui.badge style="ghost" :circle="true" variant="mono">Mono</x-ui.badge>
+                        </div>
+
+                        {{-- Dot --}}
+                        <h2>Dot</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="ghost" :dot="true" variant="">Ghost</x-ui.badge>
+                            <x-ui.badge variant="">Solid</x-ui.badge>
+                            <x-ui.badge style="outline" :dot="true" variant="">Outline</x-ui.badge>
+                            <x-ui.badge style="light" :dot="true" variant="">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="primary" style="ghost" :dot="true">Ghost</x-ui.badge>
+                            <x-ui.badge variant="primary">Solid</x-ui.badge>
+                            <x-ui.badge variant="primary" style="outline" :dot="true">Outline</x-ui.badge>
+                            <x-ui.badge variant="primary" style="light" :dot="true">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="destructive" style="ghost" :dot="true">Ghost</x-ui.badge>
+                            <x-ui.badge variant="destructive">Solid</x-ui.badge>
+                            <x-ui.badge variant="destructive" style="outline" :dot="true">Outline</x-ui.badge>
+                            <x-ui.badge variant="destructive" style="light" :dot="true">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="warning" style="ghost" :dot="true">Ghost</x-ui.badge>
+                            <x-ui.badge variant="warning">Solid</x-ui.badge>
+                            <x-ui.badge variant="warning" style="outline" :dot="true">Outline</x-ui.badge>
+                            <x-ui.badge variant="warning" style="light" :dot="true">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="success" style="ghost" :dot="true">Ghost</x-ui.badge>
+                            <x-ui.badge variant="success">Solid</x-ui.badge>
+                            <x-ui.badge variant="success" style="outline" :dot="true">Outline</x-ui.badge>
+                            <x-ui.badge variant="success" style="light" :dot="true">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="info" style="ghost" :dot="true">Ghost</x-ui.badge>
+                            <x-ui.badge variant="info">Solid</x-ui.badge>
+                            <x-ui.badge variant="info" style="outline" :dot="true">Outline</x-ui.badge>
+                            <x-ui.badge variant="info" style="light" :dot="true">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="mono" style="ghost" :dot="true">Ghost</x-ui.badge>
+                            <x-ui.badge variant="mono">Solid</x-ui.badge>
+                            <x-ui.badge variant="mono" style="outline" :dot="true">Outline</x-ui.badge>
+                            <x-ui.badge variant="mono" style="light" :dot="true">Light</x-ui.badge>
+                        </div>
+
+                        {{-- Icon --}}
+                        <h2>Icon</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="primary" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="primary" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="primary" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="primary" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="secondary" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="secondary" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="secondary" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="secondary" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="destructive" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="destructive" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="destructive" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="destructive" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="warning" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="warning" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="warning" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="warning" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="success" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="success" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="success" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="success" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="info" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="info" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="info" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="info" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge variant="mono" style="ghost" icon="tag">Ghost</x-ui.badge>
+                            <x-ui.badge variant="mono" icon="mail">Solid</x-ui.badge>
+                            <x-ui.badge variant="mono" style="outline" icon="file">Outline</x-ui.badge>
+                            <x-ui.badge variant="mono" style="light" icon="activity">Light</x-ui.badge>
+                        </div>
+
+
+                        {{-- Size --}}
+                        <h2>Size</h2>
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="primary" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="primary" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="primary" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="primary" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="secondary" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="secondary" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="secondary" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="secondary" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="destructive" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="destructive" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="destructive" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="destructive" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="warning" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="warning" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="warning" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="warning" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="success" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="success" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="success" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="success" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="info" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="info" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="info" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="info" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        <div class="flex flex-wrap gap-4">
+                            <x-ui.badge style="outline" variant="mono" size="xs" :circle="true">Extra small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="mono" size="sm" :circle="true">Small</x-ui.badge>
+                            <x-ui.badge style="outline" variant="mono" :circle="true">Default</x-ui.badge>
+                            <x-ui.badge style="outline" variant="mono" size="lg" :circle="true">Large</x-ui.badge>
+                        </div>
+
+                        {{-- Com ícone --}}
+                        <x-ui.badge variant="secondary" icon="tag">Tag</x-ui.badge>
+                        <x-ui.badge style="light" variant="info" icon="activity">Live</x-ui.badge>
+
+                        {{-- Removable --}}
+                        <x-ui.badge variant="primary" :removable="true">Primary</x-ui.badge>
+                        <x-ui.badge style="outline" variant="destructive" :removable="true">Remover</x-ui.badge>
+
+                        {{-- Como link --}}
+                        <x-ui.badge tag="a" href="/categoria/php" variant="secondary" style="outline">PHP</x-ui.badge>
+
+                        {{-- Contador numérico (Square da doc) --}}
+                        <x-ui.badge variant="primary" :circle="true">2</x-ui.badge>
+                        <x-ui.badge style="ghost" variant="destructive" :circle="true">3</x-ui.badge>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <!-- end: grid -->
     </div>
+    <!-- end: grid -->
+</div>
 </div>
 <!-- End of Container -->
