@@ -18,13 +18,16 @@ use App\Livewire\Demo8\Index as Demo8Index;
 use App\Livewire\Demo9\Index as Demo9Index;
 use App\Livewire\Demo10\Index as Demo10Index;
 use App\Livewire\Dashboard\Main as DashboardMain;
-use App\Livewire\Documentation\Index as DocumentationIndex;
+
 use App\Livewire\Auth\SignIn as AuthSignIn;
 use App\Livewire\Auth\SignUp as AuthSignUp;
 use App\Livewire\Auth\ChangePassword as AuthChangePassword;
 use App\Livewire\Auth\CheckEmail as AuthCheckEmail;
 use App\Livewire\Auth\EnterEmail as AuthEnterEmail;
 use App\Livewire\Auth\PasswordChanged as AuthPasswordChanged;
+
+use App\Livewire\Docs\Index as DocsIndex;
+use App\Livewire\Docs\UiDocs as DocsUiDocs;
 
 Route::get('/', function () {
     return redirect()->route('dashboard.main');
@@ -41,7 +44,15 @@ Route::get('/password-changed', AuthPasswordChanged::class)->name('auth.password
 
 // Dashboard
 Route::get('/dashboard', DashboardMain::class)->name('dashboard.main');
-Route::get('/documentation', DocumentationIndex::class)->name('documentation.index');
+
+// Docs
+Route::prefix('docs')->group(function () {
+    Route::get('/', \App\Livewire\Docs\UiDocs::class)->name('ui-docs.index');
+    Route::get('/{component?}', \App\Livewire\Docs\UiDocs::class)
+        ->name('ui-docs')
+        ->where('component', '[a-z-]+');
+});
+
 
 // Demo1 routes
 Route::get('/demo1', Demo1Index::class)->name('demo1.index');

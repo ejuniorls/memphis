@@ -25,9 +25,11 @@
 <link href="{{ asset('assets/vendors/apexcharts/apexcharts.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/vendors/keenicons/styles.bundle.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
 
 {{--fonts--}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+@vite(['resources/css/app.css'])

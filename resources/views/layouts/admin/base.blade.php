@@ -20,11 +20,8 @@
                 <!-- Main -->
                 <livewire:layout.admin.navbar/>
 
-                <div
-                    class="flex grow rounded-b-xl bg-background border-x border-b border-input lg:mt-(--navbar-height) mx-5 lg:ms-(--sidebar-width) mb-5">
-                    <div
-                        class="flex flex-col grow kt-scrollable-y lg:[scrollbar-width:auto] pt-7 lg:[&_.kt-container-fluid]:pe-4"
-                        id="scrollable_content">
+                <div class="flex grow rounded-b-xl bg-background border-x border-b border-input lg:mt-(--navbar-height) mx-5 lg:ms-(--sidebar-width) mb-5">
+                    <div class="flex flex-col grow kt-scrollable-y lg:[scrollbar-width:auto] pt-7 lg:[&_.kt-container-fluid]:pe-4" id="scrollable_content">
                         <!-- Content -->
                         <main class="grow" role="content">
                             {{ $slot }}
