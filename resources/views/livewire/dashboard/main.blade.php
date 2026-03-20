@@ -29,6 +29,94 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Basic Usage --}}
+                    <x-ui.input type="text" placeholder="Example input" />
+
+                    {{-- Disabled --}}
+                    <x-ui.input placeholder="Example input" disabled />
+
+                    {{-- Readonly --}}
+                    <x-ui.input placeholder="Example input" readonly />
+
+                    {{-- File --}}
+                    <x-ui.input type="file" />
+
+                    {{-- Icon --}}
+                    <x-ui.input icon="mail" placeholder="Email address" />
+                    <x-ui.input iconEnd="paperclip" placeholder="File name" />
+
+                    <x-ui.input wrapper>
+                        <x-ui.button iconOnly ghost="" size="xs" class="-ms-0.5 size-6" data-kt-tooltip="true">
+                            @svg('lucide-user')
+                            <span class="kt-tooltip" data-kt-tooltip-content="true">Lookup for user.</span>
+                        </x-ui.button>
+                        <input type="text" class="kt-input" placeholder="Clickable icon button" />
+                    </x-ui.input>
+
+                    <x-ui.input wrapper>
+                        <input type="text" class="kt-input" placeholder="Clickable icon button" />
+                        <x-ui.button iconOnly ghost="" size="xs" class="-me-1.5 size-6" data-kt-tooltip="true">
+                            @svg('lucide-download')
+                            <span class="kt-tooltip" data-kt-tooltip-content="true">Download a file.</span>
+                        </x-ui.button>
+                    </x-ui.input>
+
+                    {{-- Group --}}
+                    <x-ui.input-group addon="Addon">
+                        <x-ui.input placeholder="Start addon" />
+                    </x-ui.input-group>
+
+                    <x-ui.input-group addonEnd="Addon">
+                        <x-ui.input placeholder="End addon" />
+                    </x-ui.input-group>
+
+                    <x-ui.input-group addonIcon="euro">
+                        <x-ui.input placeholder="Start icon addon" />
+                    </x-ui.input-group>
+
+                    <x-ui.input-group addonIconEnd="ticket-percent">
+                        <x-ui.input placeholder="End icon addon" />
+                    </x-ui.input-group>
+
+                    <x-ui.input-group addonIcon="mail">
+                        <x-ui.input placeholder="Email address" />
+                        <x-ui.button variant="outline">Button</x-ui.button>
+                    </x-ui.input-group>
+
+                    {{-- Error --}}
+                    <x-ui.input type="password" :invalid="true" placeholder="Example Input" />
+
+                    {{-- Size --}}
+                    <x-ui.input size="sm" placeholder="Small" />
+                    <x-ui.input placeholder="Default" />
+                    <x-ui.input size="lg" placeholder="Large" />
+
+                    {{-- Form --}}
+                    <form class="kt-form">
+                        <div class="kt-form-item">
+                            <label class="kt-form-label">Email address:</label>
+                            <div class="kt-form-control">
+                                <x-ui.input type="text" placeholder="Email address" />
+                            </div>
+                            <div class="kt-form-description">Enter your email to proceed.</div>
+                            <div class="kt-form-message">Please enter a valid email address.</div>
+                        </div>
+
+                        <div class="kt-form-item">
+                            <label class="kt-form-label">Password:</label>
+                            <div class="kt-form-control">
+                                <x-ui.input type="password" placeholder="Password" :invalid="true" />
+                            </div>
+                            <div class="kt-form-description">Enter your password to proceed.</div>
+                            <div class="kt-form-message">Please enter a valid password.</div>
+                        </div>
+
+                        <div class="kt-form-actions">
+                            <x-ui.button type="reset" variant="outline">Reset</x-ui.button>
+                            <x-ui.button type="submit">Submit</x-ui.button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="lg:col-span-1">

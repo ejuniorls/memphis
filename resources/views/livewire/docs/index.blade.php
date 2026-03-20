@@ -25,7 +25,7 @@
                 ['slug' => 'modal',      'label' => 'Modal',      'desc' => 'Diálogos sobrepostos com foco.',                    'icon' => 'ki-maximize'],
                 ['slug' => 'accordion',  'label' => 'Accordion',  'desc' => 'Seções expansíveis de conteúdo.',                   'icon' => 'ki-row-vertical'],
                 ['slug' => 'table',      'label' => 'Table',      'desc' => 'Tabelas de dados com suporte a ordenação.',         'icon' => 'ki-tablet'],
-                ['slug' => 'form-input', 'label' => 'Form Input', 'desc' => 'Campos de formulário com validação e estados.',     'icon' => 'ki-text-align-left'],
+                ['slug' => 'form-form-input', 'label' => 'Form Input', 'desc' => 'Campos de formulário com validação e estados.',     'icon' => 'ki-text-align-left'],
             ] as $comp)
                 <a href="{{ route('docs.component', $comp['slug']) }}"
                    class="card hover:shadow-md transition-shadow group">

@@ -49,7 +49,7 @@ class UiDocs extends Component
                 'table' => ['label' => 'Table', 'icon' => 'lucide-table'],
             ],
             'Forms' => [
-                'form-input' => ['label' => 'Form Input', 'icon' => 'lucide-text-cursor-input'],
+                'form-input' => ['label' => 'Form Input', 'icon' => 'lucide-text-cursor-form-input'],
             ],
         ];
     }
