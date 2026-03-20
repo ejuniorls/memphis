@@ -1,6 +1,6 @@
 @props(['title' => null, 'language' => 'blade', 'preview' => true, 'code' => ''])
 
-<div class="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+<div class="rounded-xl border border-gray-200 dark:border-gray-700 overflow-hidden p-4">
 
     @if($preview)
         <div x-data="{ tab: 'preview', copied: false }">

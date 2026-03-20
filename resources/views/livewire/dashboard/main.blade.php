@@ -117,6 +117,57 @@
                             <x-ui.button type="submit">Submit</x-ui.button>
                         </div>
                     </form>
+
+                    <hr>
+
+                    {{-- Básico --}}
+                    <x-ui.select placeholder="Selecione um framework">
+                        <option value="react">React</option>
+                        <option value="vue">Vue</option>
+                        <option value="angular">Angular</option>
+                    </x-ui.select>
+
+                    {{-- Com scroll e tamanho --}}
+                    <x-ui.select size="lg" placeholder="Selecione..." :optionsScrollable="true">
+                        <option value="1">Opção 1</option>
+                        <option value="2">Opção 2</option>
+                    </x-ui.select>
+
+                    {{-- Múltipla seleção com limite --}}
+                    <x-ui.select placeholder="Selecione até 3" :multiple="true" :maxSelections="3" :config="['displaySeparator' => ' | ']">
+                        <option value="react">React</option>
+                        <option value="vue">Vue</option>
+                        <option value="angular">Angular</option>
+                    </x-ui.select>
+
+                    {{-- Tags com pré-selecionados --}}
+                    <x-ui.select placeholder="Países..." :multiple="true" :tags="true" preSelected="de,fr">
+                        <option value="de">Germany</option>
+                        <option value="fr">France</option>
+                        <option value="es">Spain</option>
+                    </x-ui.select>
+
+                    {{-- Com busca --}}
+                    <x-ui.select placeholder="Buscar marca..." :search="true" :optionsScrollable="true">
+                        <option value="apple">Apple</option>
+                        <option value="google">Google</option>
+                        <option value="amazon">Amazon</option>
+                    </x-ui.select>
+
+                    {{-- Desabilitado --}}
+                    <x-ui.select placeholder="Selecione..." :disabled="true">
+                        <option value="1">Opção 1</option>
+                    </x-ui.select>
+
+                    {{-- Remoto --}}
+                    <x-ui.select
+                        placeholder="Buscar usuário..."
+                        :remote="true"
+                        dataUrl="https://jsonplaceholder.typicode.com/users"
+                        dataFieldValue="id"
+                        dataFieldText="name"
+                        :search="true"
+                    />
                 </div>
             </div>
             <div class="lg:col-span-1">
