@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html class="h-full" data-kt-theme="true" data-kt-theme-mode="light" dir="ltr" lang="en">
+<html class="h-full" data-kt-theme="true" data-kt-theme-mode="light" dir="ltr"
+      lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('layouts.partials.head')
         @livewireStyles
@@ -12,11 +13,10 @@
         <!-- Page -->
         <style>
             .branded-bg {
-                background-image: url('assets/media/images/2600x1600/1.png');
+                background-image: url('{{ asset('assets/media/images/2600x1600/1.png') }}');
             }
-
             .dark .branded-bg {
-                background-image: url('assets/media/images/2600x1600/1-dark.png');
+                background-image: url('{{ asset('assets/media/images/2600x1600/1-dark.png') }}');
             }
         </style>
         <div class="grid lg:grid-cols-2 grow">
@@ -27,23 +27,20 @@
             <div
                 class="lg:rounded-xl lg:border lg:border-border lg:m-5 order-1 lg:order-2 bg-top xxl:bg-center xl:bg-cover bg-no-repeat branded-bg">
                 <div class="flex flex-col p-8 lg:p-16 gap-4">
-                    <a href="html/demo1.html">
-                        <img class="h-[28px] max-w-none" src="assets/media/app/mini-logo.svg"/>
+                    <a href="{{ route('dashboard.main') }}">
+                        <img class="h-[28px] max-w-none" src="{{ asset('assets/media/app/mini-logo.svg') }}"/>
                     </a>
                     <div class="flex flex-col gap-3">
                         <h3 class="text-2xl font-semibold text-mono">
-                            Secure Access Portal
+                            {{ __('auth.layout.portal_title') }}
                         </h3>
                         <div class="text-base font-medium text-secondary-foreground">
-                            A robust authentication gateway ensuring
+                            {{ __('auth.layout.portal_description') }}
                             <br/>
-                            secure
                             <span class="text-mono font-semibold">
-                                efficient user access
+                                {{ __('auth.layout.portal_highlight') }}
                             </span>
-                            to the Metronic
-                            <br/>
-                            Dashboard interface.
+                            {{ __('auth.layout.portal_suffix') }}
                         </div>
                     </div>
                 </div>

@@ -3,23 +3,25 @@
           method="post">
         <div class="text-center">
             <h3 class="text-lg font-medium text-mono">
-                Your Email
+                {{ __('auth.enter_email.title') }}
             </h3>
             <span class="text-sm text-secondary-foreground">
-                Enter your email to reset password
+                {{ __('auth.enter_email.subtitle') }}
             </span>
         </div>
         <div class="flex flex-col gap-1">
             <label class="kt-form-label font-normal text-mono">
-                Email
+                {{ __('auth.enter_email.email_label') }}
             </label>
-            <input class="kt-input" placeholder="email@email.com" type="text" value=""/>
+            <input class="kt-input"
+                   placeholder="{{ __('auth.enter_email.email_placeholder') }}"
+                   type="text"
+                   value=""/>
         </div>
         <a class="kt-btn kt-btn-primary flex justify-center grow"
-           href="html/demo1/authentication/branded/reset-password/check-email.html">
-            Continue
-            <i class="ki-filled ki-black-right">
-            </i>
+           href="{{ route('auth.check-email') }}">
+            {{ __('auth.enter_email.submit') }}
+            <i class="ki-filled ki-black-right"></i>
         </a>
     </form>
 </div>

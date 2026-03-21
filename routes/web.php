@@ -53,6 +53,14 @@ Route::prefix('docs')->group(function () {
         ->where('component', '[a-z-]+');
 });
 
+// Language
+Route::get('/lang/{locale}', function ($locale) {
+    if (in_array($locale, ['pt_BR', 'en'])) {
+        session(['locale' => $locale]);
+    }
+    return back();
+})->name('lang.switch');
+
 
 // Demo1 routes
 Route::get('/demo1', Demo1Index::class)->name('demo1.index');

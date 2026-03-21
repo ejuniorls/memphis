@@ -132,81 +132,55 @@
                     Dev Forum
                 </a>
             </li>
+
             <li data-kt-dropdown="true" data-kt-dropdown-placement="right-start" data-kt-dropdown-trigger="hover">
                 <button class="kt-dropdown-menu-toggle py-1" data-kt-dropdown-toggle="true">
                     <span class="flex items-center gap-2">
-                        <i class="ki-filled ki-icon">
-                        </i>
-                        Language
+                        <i class="ki-filled ki-icon"></i>
+                        {{ __('layout.language') }}
                     </span>
                     <span class="kt-badge kt-badge-stroke ms-auto shrink-0">
-                        English
-                        <img alt="" class="inline-block size-3.5 rounded-full"
-                            src="{{ asset('assets/media/flags/united-states.svg') }}" />
+                        @if(app()->getLocale() == 'pt_BR')
+                            {{ __('layout.portuguese') }}
+                            <img alt="" class="inline-block size-3.5 rounded-full"
+                                 src="{{ asset('assets/media/flags/brazil.svg') }}" />
+                        @else
+                            {{ __('layout.english') }}
+                            <img alt="" class="inline-block size-3.5 rounded-full"
+                                 src="{{ asset('assets/media/flags/united-states.svg') }}" />
+                        @endif
                     </span>
                 </button>
                 <div class="kt-dropdown-menu w-[180px]" data-kt-dropdown-menu="true">
                     <ul class="kt-dropdown-menu-sub">
-                        <li class="active">
-                            <a class="kt-dropdown-menu-link" href="?dir=ltr">
+                        <li class="{{ app()->getLocale() == 'en' ? 'active' : '' }}">
+                            <a class="kt-dropdown-menu-link" href="{{ route('lang.switch', 'en') }}">
                                 <span class="flex items-center gap-2">
                                     <img alt="" class="inline-block size-4 rounded-full"
-                                        src="{{ asset('assets/media/flags/united-states.svg') }}" />
-                                    <span class="kt-menu-title">
-                                        English
-                                    </span>
+                                         src="{{ asset('assets/media/flags/united-states.svg') }}" />
+                                    <span class="kt-menu-title">{{ __('layout.english') }}</span>
                                 </span>
-                                <i class="ki-solid ki-check-circle ms-auto text-base text-green-500">
-                                </i>
+                                @if(app()->getLocale() == 'en')
+                                    <i class="ki-solid ki-check-circle ms-auto text-base text-green-500"></i>
+                                @endif
                             </a>
                         </li>
-                        <li class="">
-                            <a class="kt-dropdown-menu-link" href="?dir=rtl">
+                        <li class="{{ app()->getLocale() == 'pt_BR' ? 'active' : '' }}">
+                            <a class="kt-dropdown-menu-link" href="{{ route('lang.switch', 'pt_BR') }}">
                                 <span class="flex items-center gap-2">
                                     <img alt="" class="inline-block size-4 rounded-full"
-                                        src="{{ asset('assets/media/flags/saudi-arabia.svg') }}" />
-                                    <span class="kt-menu-title">
-                                        Arabic(Saudi)
-                                    </span>
+                                         src="{{ asset('assets/media/flags/brazil.svg') }}" />
+                                    <span class="kt-menu-title">{{ __('layout.portuguese') }}</span>
                                 </span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="kt-dropdown-menu-link" href="?dir=ltr">
-                                <span class="flex items-center gap-2">
-                                    <img alt="" class="inline-block size-4 rounded-full"
-                                        src="{{ asset('assets/media/flags/spain.svg') }}" />
-                                    <span class="kt-menu-title">
-                                        Spanish
-                                    </span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="kt-dropdown-menu-link" href="?dir=ltr">
-                                <span class="flex items-center gap-2">
-                                    <img alt="" class="inline-block size-4 rounded-full"
-                                        src="{{ asset('assets/media/flags/germany.svg') }}" />
-                                    <span class="kt-menu-title">
-                                        German
-                                    </span>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="kt-dropdown-menu-link" href="?dir=ltr">
-                                <span class="flex items-center gap-2">
-                                    <img alt="" class="inline-block size-4 rounded-full"
-                                        src="{{ asset('assets/media/flags/japan.svg') }}" />
-                                    <span class="kt-menu-title">
-                                        Japanese
-                                    </span>
-                                </span>
+                                @if(app()->getLocale() == 'pt_BR')
+                                    <i class="ki-solid ki-check-circle ms-auto text-base text-green-500"></i>
+                                @endif
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
+
             <li>
                 <div class="kt-dropdown-menu-separator">
                 </div>

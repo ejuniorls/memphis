@@ -5,29 +5,28 @@
             <img alt="image" class="light:hidden max-h-[130px]" src="assets/media/illustrations/30-dark.svg"/>
         </div>
         <h3 class="text-lg font-medium text-mono text-center mb-3">
-            Check your email
+            {{ __('auth.check_email.title') }}
         </h3>
         <div class="text-sm text-center text-secondary-foreground mb-7.5">
-            Please click the link sent to your email
+            {{ __('auth.check_email.description') }}
             <a class="text-sm text-foreground font-medium hover:text-primary" href="#">
-                bob@reui.io
+                {{ $email ?? 'bob@reui.io' }}
             </a>
             <br/>
-            to reset your password. Thank you
+            {{ __('auth.check_email.description_end') }}
         </div>
         <div class="flex justify-center mb-5">
             <a class="kt-btn kt-btn-primary flex justify-center"
-               href="html/demo1/authentication/branded/reset-password/change-password.html">
-                Skip for now
+               href="{{ route('auth.change-password') }}">
+                {{ __('auth.check_email.skip') }}
             </a>
         </div>
         <div class="flex items-center justify-center gap-1">
             <span class="text-xs text-secondary-foreground">
-                Didn’t receive an email?
+                {{ __('auth.check_email.no_email') }}
             </span>
-            <a class="text-xs font-medium link"
-               href="html/demo1/authentication/branded/reset-password/enter-email.html">
-                Resend
+            <a class="text-xs font-medium link" href="{{ route('auth.enter-email') }}">
+                {{ __('auth.check_email.resend') }}
             </a>
         </div>
     </div>

@@ -5,16 +5,14 @@
             <img alt="image" class="light:hidden max-h-[180px]" src="assets/media/illustrations/32-dark.svg"/>
         </div>
         <h3 class="text-lg font-medium text-mono text-center mb-4">
-            Your password is changed
+            {{ __('auth.password_changed.title') }}
         </h3>
         <div class="text-sm text-center text-secondary-foreground mb-7.5">
-            Your password has been successfully updated.
-            <br/>
-            Your account's security is our priority.
+            {{ __('auth.password_changed.description') }}
         </div>
         <div class="flex justify-center">
-            <a class="kt-btn kt-btn-primary" href="html/demo1/authentication/branded/sign-in.html">
-                Sign in
+            <a class="kt-btn kt-btn-primary" href="{{ route('auth.sign-in') }}">
+                {{ __('auth.password_changed.sign_in') }}
             </a>
         </div>
     </div>
