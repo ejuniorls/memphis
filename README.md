@@ -1,28 +1,37 @@
-# Metronic Tailwind HTML Laravel Livewire Integration
+# Memphis — Admin Panel for ERP
 
-This project integrates Metronic Tailwind HTML themes (Demo1 and Demo2) into a Laravel 11 application with Livewire 3.x components, following the exact folder structure pattern from the Metronic Tailwind Symfony version.
+Memphis is the admin interface for a future ERP system, built from the ground up with a modern Laravel stack. It is currently in early development, focusing on establishing the foundation: layout system, base UI components, internationalization, and a living documentation layer.
 
-## Project Overview
+---
 
-**Goal**: Convert Metronic Tailwind HTML demo1 and demo2 index.html files into Laravel Livewire, maintaining the Symfony-style view structure with demo1/ and demo2/ directories for layouts and partials.
+## Overview
+
+Memphis is a full redesign of an existing ERP's admin panel, replacing legacy tooling with a clean, maintainable architecture. The project uses the Metronic 9 theme as a design base, adapted through Tailwind CSS and integrated deeply with Laravel Livewire for reactive server-side components.
+
+---
 
 ## Tech Stack
 
-- **Laravel**: 11.x (Latest)
-- **Livewire**: 3.x
-- **Tailwind CSS**: 4.x
-- **Alpine.js**: 3.x
-- **Vite**: 6.x
-- **Node.js**: Latest compatible version
+| Layer | Technology |
+|---|---|
+| Backend | Laravel 12.x |
+| Frontend Reactivity | Livewire 3.x |
+| UI Theme | Metronic 9 (Tailwind CSS) |
+| Interactivity | Alpine.js 3.x |
+| Build Tool | Vite 6.x |
+| Database | MySQL |
+| Node.js | Latest LTS |
+
+---
 
 ## Project Structure
 
 ```
 resources/
 ├── css/
-│   └── app.css (Tailwind + Metronic custom styles)
+│   └── app.css                  # Tailwind + Metronic custom styles
 ├── js/
-│   └── app.js (Alpine.js + Livewire integration)
+│   └── app.js                   # Alpine.js + Livewire integration
 └── views/
     ├── layouts/
     │   ├── partials/
@@ -60,87 +69,140 @@ resources/
             └── notification-dropdown.blade.php
 ```
 
-## Features Implemented
+---
 
-### ✅ Completed Features
+## Features
 
-1. **Laravel Project Setup**
-   - Fresh Laravel 11.x installation
-   - Livewire 3.x integration
-   - Tailwind CSS 4.x configuration
-   - Alpine.js integration
-   - Vite 6.x build system
+### Completed
 
-2. **Routing System**
-   - Demo1 routes (`/demo1`)
-   - Demo2 routes (`/demo2`)
-   - Controllers: `Demo1Controller`, `Demo2Controller`
+#### Layouts
+- **Admin layout** — full sidebar-based admin shell
+- **Auth layout** — clean authentication pages shell
 
-3. **Livewire Components**
-   - **Demo1 Components**:
-     - `NavigationMenu` - Sidebar navigation with active states
-     - `SidebarToggle` - Mobile sidebar toggle functionality
-     - `UserDropdown` - User account dropdown with settings
-   - **Demo2 Components**:
-     - `NavigationMenu` - Horizontal navigation menu
-     - `BalanceWidget` - Balance display component
-     - `UserDropdown` - User account dropdown
-   - **Shared Components**:
-     - `ThemeMode` - Dark/light theme toggle
-     - `SearchBox` - Global search with results
-     - `NotificationDropdown` - Notification management
+#### Authentication Pages
+- Login, Register, Password Reset (and related pages)
 
-4. **Layout System**
-   - **Demo1**: Sidebar-based layout (traditional admin)
-   - **Demo2**: Vertical layout (modern dashboard)
-   - Shared partials (head, scripts, theme-mode)
-   - Proper asset management with `asset()` helpers
+#### Internationalization
+- Language switching feature with `lang` support
+- Currently applied to core layout and auth pages
+- Pending: translation of remaining pages and components
 
-5. **UI Components**
-   - Dashboard cards with statistics
-   - Interactive menus and dropdowns
-   - Responsive design with mobile support
-   - Chart placeholders (ready for ApexCharts/Chart.js)
-   - Data tables with sorting/filtering readiness
+#### UI Components (with documentation and examples)
+- Alert
+- Badge
+- Button
+- Input
+- Input Group
+- Select
 
-6. **Build System**
-   - Vite configuration optimized for Laravel
-   - Tailwind CSS with custom Metronic classes
-   - PostCSS processing
-   - Development and production builds working
+#### Documentation
+- Live examples for all completed components
+- Known corrections pending in current docs
 
-### 🔧 Livewire Component Classes Needed
+---
 
-The following PHP classes need to be created for full functionality:
+### 🔧 Livewire PHP Classes (Pending)
 
-```php
-// Demo1 Components
+The following component PHP classes still need to be created:
+
+```
 app/Livewire/Demo1/NavigationMenu.php
 app/Livewire/Demo1/SidebarToggle.php
 app/Livewire/Demo1/UserDropdown.php
 
-// Demo2 Components
 app/Livewire/Demo2/NavigationMenu.php
 app/Livewire/Demo2/BalanceWidget.php
 app/Livewire/Demo2/UserDropdown.php
 
-// Shared Components
 app/Livewire/Shared/ThemeMode.php
 app/Livewire/Shared/SearchBox.php
 app/Livewire/Shared/NotificationDropdown.php
 ```
 
-### 🎨 Styling System
+---
+
+### 🗂 Components Roadmap
+
+The following UI components are planned. Items already implemented are marked.
+
+| Component | Status  |
+|---|---------|
+| Accordion | Pending |
+| Alert | Done    |
+| Avatar | Pending |
+| Badge | Done    |
+| Breadcrumb | Pending |
+| Button | Done    |
+| Card | Pending |
+| Checkbox | Pending |
+| Collapse | Pending |
+| Datatable | Pending |
+| Dismiss | Pending |
+| Drawer | Pending |
+| Dropdown | Pending |
+| Image | Pending |
+| Input | Done    |
+| Input Group | Done    |
+| Input Update | Pending |
+| Kbd | Pending |
+| Link | Pending |
+| Modal | Pending |
+| Pagination | Pending |
+| Progress | Pending |
+| Radio Group | Pending |
+| Rating | Pending |
+| Reparent | Pending |
+| Repeater | Pending |
+| Scrollable | Pending |
+| Scrollspy Update | Pending |
+| Scrollto | Pending |
+| Select | Done    |
+| Separator | Pending |
+| Skeleton | Pending |
+| Stepper | Pending |
+| Sticky | Pending |
+| Switch | Pending |
+| Tabs | Pending |
+| Textarea | Pending |
+| Theme Switch | Pending |
+| Toast | Pending |
+| Toggle | Pending |
+| Toggle Group | Pending |
+| Toggle Password | Pending |
+| Tooltip | Pending |
+
+---
+
+### Internationalization Roadmap
+
+- [x] Language switching mechanism
+- [x] Auth pages translated
+- [ ] Admin layout translated
+- [ ] All UI components translated
+- [ ] All remaining pages translated
+
+---
+
+### Planned Features
+
+- **Default font switcher** — user/system preference to change the default font family used across the admin panel
+
+---
+
+## Styling System
 
 - **Tailwind CSS 4.x** with custom Metronic utilities
-- **Custom CSS classes**: `kt-*` prefixed components
-- **Dark mode support** with theme switching
-- **Responsive design** with mobile-first approach
-- **Custom color variables** matching Metronic design system
+- **Custom CSS classes** using `kt-*` prefix
+- **Dark mode** with theme switching support
+- **Responsive design** using a mobile-first approach
+- **CSS custom properties** matching the Metronic design system
 
-## Usage
+---
+
+## Getting Started
 
 ### Development
+
 ```bash
 # Install dependencies
 npm install
@@ -151,55 +213,42 @@ php artisan serve
 npm run dev
 ```
 
-### Production Build
+### Production
+
 ```bash
 npm run build
 ```
 
 ### Routes
-- **Demo1 Dashboard**: `/demo1` - Sidebar-based layout
-- **Demo2 Dashboard**: `/demo2` - Vertical layout
 
-## Next Steps
+| Path | Description |
+|---|---|
+| `/demo1` | Sidebar-based admin layout (Demo1) |
+| `/demo2` | Vertical layout (Demo2) |
 
-### Immediate Tasks
-1. **Create Livewire PHP Classes** - Implement the component logic
-2. **Add Media Assets** - Copy Metronic images and icons
-3. **Enhance Interactivity** - Add chart libraries, form validation
-4. **Database Integration** - Connect real data sources
-5. **Authentication** - Integrate Laravel Breeze/Jetstream
+---
 
-### Enhancement Opportunities
-1. **Advanced Components**
-   - Data tables with server-side processing
-   - Real-time notifications
-   - File upload components
-   - Form builders
+## Architecture Notes
 
-2. **Performance Optimization**
-   - Lazy loading for components
-   - Asset optimization
-   - Caching strategies
+### Layout System
+- **Demo1** — traditional sidebar-based admin shell
+- **Demo2** — modern vertical layout shell
+- **Shared partials** — head, scripts, theme-mode reused across both layouts
 
-3. **Additional Features**
-   - Multi-language support
-   - API integration
-   - WebSocket notifications
-   - Advanced search
+### Technology Decisions
 
-## Architecture Decisions
+- **Livewire over Vue/React** — keeps the stack Laravel-native and reduces JavaScript complexity
+- **Tailwind CSS** — utility-first, aligns naturally with Metronic's design system
+- **Alpine.js** — lightweight interactivity layer without a full JS framework
+- **Vite** — fast modern build tool with hot reloading during development
 
-### Why This Structure?
-- **Symfony Pattern Compliance**: Matches the original Metronic structure
-- **Separation of Concerns**: Demo1 and Demo2 are completely separate
-- **Reusable Components**: Shared components reduce duplication
-- **Maintainability**: Clear organization makes updates easier
+### Structure Philosophy
+- Symfony-inspired view folder structure for familiarity and consistency
+- Demo1 and Demo2 are kept fully separate to avoid layout coupling
+- Shared components reduce duplication across layouts
+- Documentation lives alongside components as first-class deliverables
 
-### Technology Choices
-- **Livewire over Vue/React**: Simpler for Laravel developers
-- **Tailwind CSS**: Utility-first, matches Metronic approach
-- **Alpine.js**: Lightweight interactivity for enhanced UX
-- **Vite**: Modern build tool with hot reloading
+---
 
 ## Contributing
 
@@ -207,10 +256,13 @@ When adding new components or features:
 
 1. Follow the established directory structure
 2. Use proper Blade syntax with `{{-- comments --}}`
-3. Implement Livewire wire:model for forms
-4. Maintain responsive design principles
-5. Test both Demo1 and Demo2 layouts
+3. Use `wire:model` for Livewire form bindings
+4. Maintain responsive, mobile-first design
+5. Add documentation with working examples for every new component
+6. Ensure new components support internationalization from the start
+
+---
 
 ## License
 
-This integration follows the Metronic license terms. The Laravel application code is open source.
+Memphis admin code is proprietary, developed as part of an internal ERP system. The Metronic theme is used under its commercial license.
