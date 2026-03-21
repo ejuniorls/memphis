@@ -121,7 +121,7 @@ app/Livewire/Shared/NotificationDropdown.php
 
 ---
 
-### 🗂 Components Roadmap
+### Components Roadmap
 
 The following UI components are planned. Items already implemented are marked.
 
