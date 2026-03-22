@@ -168,6 +168,36 @@
                         dataFieldText="name"
                         :search="true"
                     />
+
+                    <hr>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb-item href="/" icon="house" first />
+                        <x-ui.breadcrumb-item href="/dashboard">Dashboard</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item href="/dashboard/settings">Settings</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item href="/dashboard/settings/profile">Profile</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item active>Edit</x-ui.breadcrumb-item>
+                    </x-ui.breadcrumb>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb-item href="#" :first="true">Home</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item href="#">Components</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item active>Breadcrumb</x-ui.breadcrumb-item>
+                    </x-ui.breadcrumb>
+
+                    {{-- Com ícone --}}
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb-item href="#" icon="house" :first="true" />
+                        <x-ui.breadcrumb-item href="#">Components</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item active>Breadcrumb</x-ui.breadcrumb-item>
+                    </x-ui.breadcrumb>
+
+                    {{-- Bolinha --}}
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb-item href="#" icon="house" :first="true" separator="dot" />
+                        <x-ui.breadcrumb-item href="#" separator="dot">Components</x-ui.breadcrumb-item>
+                        <x-ui.breadcrumb-item active separator="dot">Breadcrumb</x-ui.breadcrumb-item>
+                    </x-ui.breadcrumb>
                 </div>
             </div>
             <div class="lg:col-span-1">

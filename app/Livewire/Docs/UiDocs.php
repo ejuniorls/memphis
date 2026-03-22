@@ -52,6 +52,9 @@ class UiDocs extends Component
                 'form-input' => ['label' => 'Form Input', 'icon' => 'lucide-text-cursor-input'],
                 'select'     => ['label' => 'Select',     'icon' => 'lucide-chevrons-up-down'],
             ],
+            'Navigation' => [
+                'breadcrumb' => ['label' => 'Breadcrumb', 'icon' => 'lucide-chevrons-down'],
+            ]
         ];
     }
 
