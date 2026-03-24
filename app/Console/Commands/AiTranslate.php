@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Http;
 use OpenAI;
 
 class AiTranslate extends Command
@@ -13,15 +12,13 @@ class AiTranslate extends Command
      *
      * @var string
      */
-    // protected $signature = 'app:ai-translate';
-    protected $signature = 'ai:translate {file} {--from=en} {--to=pt}';
+    protected $signature = 'ai:translate {file} {--from=pt_BR} {--to=en}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    // protected $description = 'Command description';
     protected $description = 'Translate language file using AI';
 
     /**
@@ -44,50 +41,77 @@ class AiTranslate extends Command
         $source = include $pathFrom;
         $target = file_exists($pathTo) ? include $pathTo : [];
 
-        $apiKey = env('GEMINI_API_KEY');
-        $projectId = '743069271348'; // seu project ID
-        $location = 'us-central1';
-        $model = 'gemini-1.5-chat';
+        if (!is_array($target)) {
+            $target = [];
+        }
 
+        // cria pasta se não existir
+        $dir = dirname($pathTo);
+        if (!is_dir($dir)) {
+            mkdir($dir, 0755, true);
+        }
+
+        // pega só o que falta traduzir
+        $toTranslate = [];
         foreach ($source as $key => $value) {
+            if (!isset($target[$key])) {
+                $toTranslate[$key] = $value;
+            }
+        }
 
-            // pula se já traduzido
-            if (isset($target[$key])) {
+        if (empty($toTranslate)) {
+            $this->info('Nada para traduzir');
+            return;
+        }
+
+        $this->info('Traduzindo em lote...');
+
+        $client = OpenAI::client(env('OPENAI_API_KEY'));
+
+        foreach ($toTranslate as $key => $value) {
+
+            // ignora se não for string
+            if (!is_string($value)) {
                 continue;
             }
 
             $this->info("Traduzindo: $key");
 
-            // monta requisição para Gemini
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $apiKey,
-                'Content-Type'  => 'application/json',
-            ])->post(
-                "https://$location-aiplatform.googleapis.com/v1/projects/$projectId/locations/$location/publishers/google/models/$model:predict",
-                [
-                    'instances' => [
-                        ['content' => $value]
+            try {
+                $response = $client->chat()->create([
+                    'model' => 'gpt-5-nano',
+                    'messages' => [
+                        [
+                            'role' => 'system',
+                            'content' => "You are a professional UI/UX translator.
+                            Translate UI text from $from to $to.
+
+                            Rules:
+                            - Return ONLY the translated text
+                            - No explanations
+                            - Keep it short and natural for UI
+                            - Use neutral language
+                            "
+                        ],
+                        [
+                            'role' => 'user',
+                            'content' => $value
+                        ]
                     ],
-                    'parameters' => [
-                        'temperature' => 0.7,
-                        'maxOutputTokens' => 256
-                    ]
-                ]
-            );
+                ]);
 
-            if (!$response->ok()) {
-                $this->error("Erro ao traduzir '$key': " . $response->body());
-                continue;
+                $translated = trim($response->choices[0]->message->content);
+
+                $target[$key] = $translated;
+
+            } catch (\Throwable $e) {
+                $this->error("Erro ao traduzir $key: " . $e->getMessage());
             }
-
-            $predictions = $response->json('predictions');
-            $translated = trim($predictions[0]['content'] ?? '');
-
-            $target[$key] = $translated;
         }
 
-        // salva arquivo
+        // salva
         $content = "<?php\n\nreturn " . var_export($target, true) . ";\n";
+
         file_put_contents($pathTo, $content);
 
         $this->info("Tradução concluída: $pathTo");

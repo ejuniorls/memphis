@@ -54,6 +54,7 @@ class UiDocs extends Component
             ],
             'Navigation' => [
                 'breadcrumb' => ['label' => 'Breadcrumb', 'icon' => 'lucide-chevrons-down'],
+                'link' => ['label' => 'Link', 'icon' => 'lucide-link'],
             ]
         ];
     }

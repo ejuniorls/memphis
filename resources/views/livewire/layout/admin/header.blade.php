@@ -97,12 +97,8 @@
         <!-- Topbar -->
         <div class="flex items-center lg:gap-3.5">
             <!-- Action -->
-            <a class="kt-btn kt-btn-primary mr-1 sm:me-0" href="#">
-                Get Started
-            </a>
-            <a class="kt-btn kt-btn-secondary mr-1 sm:me-0" href="#">
-                Get Started
-            </a>
+            <x-ui.button class="mr-1 sm:me-0" tag="a" href="#">Get Started</x-ui.button>
+
             <!-- End of Action -->
             <livewire:shared.topbar-search-modal/>
             <livewire:shared.topbar-chat/>

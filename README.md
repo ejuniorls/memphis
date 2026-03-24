@@ -262,6 +262,10 @@ When adding new components or features:
 6. Ensure new components support internationalization from the start
 
 ---
+## Artisan Commands
+1. php artisan ai:translate sign --from=en --to=pt_BR
+
+---
 
 ## License
 

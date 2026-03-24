@@ -30,174 +30,33 @@
                         </div>
                     </div>
 
-                    {{-- Basic Usage --}}
-                    <x-ui.input type="text" placeholder="Example input" />
-
-                    {{-- Disabled --}}
-                    <x-ui.input placeholder="Example input" disabled />
-
-                    {{-- Readonly --}}
-                    <x-ui.input placeholder="Example input" readonly />
-
-                    {{-- File --}}
-                    <x-ui.input type="file" />
-
-                    {{-- Icon --}}
-                    <x-ui.input icon="mail" placeholder="Email address" />
-                    <x-ui.input iconEnd="paperclip" placeholder="File name" />
-
-                    <x-ui.input wrapper>
-                        <x-ui.button iconOnly ghost="" size="xs" class="-ms-0.5 size-6" data-kt-tooltip="true">
-                            @svg('lucide-user')
-                            <span class="kt-tooltip" data-kt-tooltip-content="true">Lookup for user.</span>
-                        </x-ui.button>
-                        <input type="text" class="kt-input" placeholder="Clickable icon button" />
-                    </x-ui.input>
-
-                    <x-ui.input wrapper>
-                        <input type="text" class="kt-input" placeholder="Clickable icon button" />
-                        <x-ui.button iconOnly ghost="" size="xs" class="-me-1.5 size-6" data-kt-tooltip="true">
-                            @svg('lucide-download')
-                            <span class="kt-tooltip" data-kt-tooltip-content="true">Download a file.</span>
-                        </x-ui.button>
-                    </x-ui.input>
-
-                    {{-- Group --}}
-                    <x-ui.input-group addon="Addon">
-                        <x-ui.input placeholder="Start addon" />
-                    </x-ui.input-group>
-
-                    <x-ui.input-group addonEnd="Addon">
-                        <x-ui.input placeholder="End addon" />
-                    </x-ui.input-group>
-
-                    <x-ui.input-group addonIcon="euro">
-                        <x-ui.input placeholder="Start icon addon" />
-                    </x-ui.input-group>
-
-                    <x-ui.input-group addonIconEnd="ticket-percent">
-                        <x-ui.input placeholder="End icon addon" />
-                    </x-ui.input-group>
-
-                    <x-ui.input-group addonIcon="mail">
-                        <x-ui.input placeholder="Email address" />
-                        <x-ui.button variant="outline">Button</x-ui.button>
-                    </x-ui.input-group>
-
-                    {{-- Error --}}
-                    <x-ui.input type="password" :invalid="true" placeholder="Example Input" />
-
-                    {{-- Size --}}
-                    <x-ui.input size="sm" placeholder="Small" />
-                    <x-ui.input placeholder="Default" />
-                    <x-ui.input size="lg" placeholder="Large" />
-
-                    {{-- Form --}}
-                    <form class="kt-form">
-                        <div class="kt-form-item">
-                            <label class="kt-form-label">Email address:</label>
-                            <div class="kt-form-control">
-                                <x-ui.input type="text" placeholder="Email address" />
-                            </div>
-                            <div class="kt-form-description">Enter your email to proceed.</div>
-                            <div class="kt-form-message">Please enter a valid email address.</div>
-                        </div>
-
-                        <div class="kt-form-item">
-                            <label class="kt-form-label">Password:</label>
-                            <div class="kt-form-control">
-                                <x-ui.input type="password" placeholder="Password" :invalid="true" />
-                            </div>
-                            <div class="kt-form-description">Enter your password to proceed.</div>
-                            <div class="kt-form-message">Please enter a valid password.</div>
-                        </div>
-
-                        <div class="kt-form-actions">
-                            <x-ui.button type="reset" variant="outline">Reset</x-ui.button>
-                            <x-ui.button type="submit">Submit</x-ui.button>
-                        </div>
-                    </form>
-
-                    <hr>
 
                     {{-- Básico --}}
-                    <x-ui.select placeholder="Selecione um framework">
-                        <option value="react">React</option>
-                        <option value="vue">Vue</option>
-                        <option value="angular">Angular</option>
-                    </x-ui.select>
+                    <x-ui.link href="#">Example link</x-ui.link>
 
-                    {{-- Com scroll e tamanho --}}
-                    <x-ui.select size="lg" placeholder="Selecione..." :optionsScrollable="true">
-                        <option value="1">Opção 1</option>
-                        <option value="2">Opção 2</option>
-                    </x-ui.select>
+                    {{-- Underline no hover --}}
+                    <x-ui.link href="#" underline>Example underline link</x-ui.link>
 
-                    {{-- Múltipla seleção com limite --}}
-                    <x-ui.select placeholder="Selecione até 3" :multiple="true" :maxSelections="3" :config="['displaySeparator' => ' | ']">
-                        <option value="react">React</option>
-                        <option value="vue">Vue</option>
-                        <option value="angular">Angular</option>
-                    </x-ui.select>
+                    {{-- Sempre sublinhado --}}
+                    <x-ui.link href="#" underlined>Example underlined link</x-ui.link>
 
-                    {{-- Tags com pré-selecionados --}}
-                    <x-ui.select placeholder="Países..." :multiple="true" :tags="true" preSelected="de,fr">
-                        <option value="de">Germany</option>
-                        <option value="fr">France</option>
-                        <option value="es">Spain</option>
-                    </x-ui.select>
+                    {{-- Tracejado --}}
+                    <x-ui.link href="#" underlined dashed>Example dashed link</x-ui.link>
 
-                    {{-- Com busca --}}
-                    <x-ui.select placeholder="Buscar marca..." :search="true" :optionsScrollable="true">
-                        <option value="apple">Apple</option>
-                        <option value="google">Google</option>
-                        <option value="amazon">Amazon</option>
-                    </x-ui.select>
+                    {{-- Inverse --}}
+                    <x-ui.link href="#" underlined inverse>Example inverse link</x-ui.link>
+
+                    {{-- Mono --}}
+                    <x-ui.link href="#" underlined mono>Example mono link</x-ui.link>
 
                     {{-- Desabilitado --}}
-                    <x-ui.select placeholder="Selecione..." :disabled="true">
-                        <option value="1">Opção 1</option>
-                    </x-ui.select>
+                    <x-ui.link href="#" underlined disabled>Example disabled link</x-ui.link>
 
-                    {{-- Remoto --}}
-                    <x-ui.select
-                        placeholder="Buscar usuário..."
-                        :remote="true"
-                        dataUrl="https://jsonplaceholder.typicode.com/users"
-                        dataFieldValue="id"
-                        dataFieldText="name"
-                        :search="true"
-                    />
+                    {{-- Tamanhos --}}
+                    <x-ui.link href="#" underlined size="sm">Small link</x-ui.link>
+                    <x-ui.link href="#" underlined>Default link</x-ui.link>
+                    <x-ui.link href="#" underlined size="lg">Large link</x-ui.link>
 
-                    <hr>
-
-                    <x-ui.breadcrumb>
-                        <x-ui.breadcrumb-item href="/" icon="house" first />
-                        <x-ui.breadcrumb-item href="/dashboard">Dashboard</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item href="/dashboard/settings">Settings</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item href="/dashboard/settings/profile">Profile</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item active>Edit</x-ui.breadcrumb-item>
-                    </x-ui.breadcrumb>
-
-                    <x-ui.breadcrumb>
-                        <x-ui.breadcrumb-item href="#" :first="true">Home</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item href="#">Components</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item active>Breadcrumb</x-ui.breadcrumb-item>
-                    </x-ui.breadcrumb>
-
-                    {{-- Com ícone --}}
-                    <x-ui.breadcrumb>
-                        <x-ui.breadcrumb-item href="#" icon="house" :first="true" />
-                        <x-ui.breadcrumb-item href="#">Components</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item active>Breadcrumb</x-ui.breadcrumb-item>
-                    </x-ui.breadcrumb>
-
-                    {{-- Bolinha --}}
-                    <x-ui.breadcrumb>
-                        <x-ui.breadcrumb-item href="#" icon="house" :first="true" separator="dot" />
-                        <x-ui.breadcrumb-item href="#" separator="dot">Components</x-ui.breadcrumb-item>
-                        <x-ui.breadcrumb-item active separator="dot">Breadcrumb</x-ui.breadcrumb-item>
-                    </x-ui.breadcrumb>
                 </div>
             </div>
             <div class="lg:col-span-1">
