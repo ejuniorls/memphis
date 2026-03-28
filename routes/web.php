@@ -17,6 +17,7 @@ use App\Livewire\Demo7\Index as Demo7Index;
 use App\Livewire\Demo8\Index as Demo8Index;
 use App\Livewire\Demo9\Index as Demo9Index;
 use App\Livewire\Demo10\Index as Demo10Index;
+
 use App\Livewire\Dashboard\Main as DashboardMain;
 
 use App\Livewire\Auth\SignIn as AuthSignIn;
@@ -26,8 +27,20 @@ use App\Livewire\Auth\CheckEmail as AuthCheckEmail;
 use App\Livewire\Auth\EnterEmail as AuthEnterEmail;
 use App\Livewire\Auth\PasswordChanged as AuthPasswordChanged;
 
-use App\Livewire\Docs\Index as DocsIndex;
-use App\Livewire\Docs\UiDocs as DocsUiDocs;
+use App\Livewire\Account\Profile\Index as ProfileIndex;
+use App\Livewire\Account\Profile\Experience\Index as ExperienceIndex;
+use App\Livewire\Account\Profile\Education\Index as EducationIndex;
+use App\Livewire\Account\Profile\Skills\Index as SkillsIndex;
+
+use App\Livewire\Account\Preferences\Appearance\Index as AppearanceIndex;
+use App\Livewire\Account\Preferences\Notifications\Index as NotificationsIndex;
+use App\Livewire\Account\Preferences\EmailSignatures\Index as EmailSignaturesIndex;
+
+use App\Livewire\Account\Security\Index as SecurityIndex;
+use App\Livewire\Account\Integrations\Index as IntegrationsIndex;
+
+use App\Livewire\Documentation\Index as DocumentationIndex;
+use App\Livewire\Documentation\Components as DocumentationComponents;
 
 Route::get('/', function () {
     return redirect()->route('dashboard.main');
@@ -46,12 +59,16 @@ Route::get('/password-changed', AuthPasswordChanged::class)->name('auth.password
 Route::get('/dashboard', DashboardMain::class)->name('dashboard.main');
 
 // Docs
-Route::prefix('docs')->group(function () {
-    Route::get('/', \App\Livewire\Docs\UiDocs::class)->name('ui-docs.index');
-    Route::get('/{component?}', \App\Livewire\Docs\UiDocs::class)
-        ->name('ui-docs')
-        ->where('component', '[a-z-]+');
-});
+Route::prefix('documentation')
+    ->name('documentation.')
+    ->group(function () {
+
+        Route::get('/', DocumentationIndex::class)->name('index');
+
+        Route::get('/components/{component?}', DocumentationComponents::class)
+            ->name('components')
+            ->where('component', '[a-z-]+');
+    });
 
 // Language
 Route::get('/lang/{locale}', function ($locale) {
@@ -60,6 +77,37 @@ Route::get('/lang/{locale}', function ($locale) {
     }
     return back();
 })->name('lang.switch');
+
+// Account
+Route::prefix('account')
+    ->name('account.')
+    // ->middleware(['auth'])
+    ->group(function () {
+
+        Route::get('/', ProfileIndex::class)->name('index');
+
+        // PROFILE
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('/', ProfileIndex::class)->name('index');
+            Route::get('/experience', ExperienceIndex::class)->name('experience');
+            Route::get('/education', EducationIndex::class)->name('education');
+            Route::get('/skills', SkillsIndex::class)->name('skills');
+        });
+
+        // PREFERENCES
+        Route::prefix('preferences')->name('preferences.')->group(function () {
+            Route::get('/appearance', AppearanceIndex::class)->name('appearance');
+            Route::get('/notifications', NotificationsIndex::class)->name('notifications');
+            Route::get('/email-signatures', EmailSignaturesIndex::class)->name('email-signatures');
+        });
+
+        // SECURITY
+        Route::get('/security', SecurityIndex::class)->name('security');
+
+        // INTEGRATIONS
+        Route::get('/integrations', IntegrationsIndex::class)->name('integrations');
+
+    });
 
 
 // Demo1 routes
@@ -97,3 +145,4 @@ Route::get('/demo9', Demo9Index::class)->name('demo9.index');
 
 // Demo10 routes
 Route::get('/demo10', Demo10Index::class)->name('demo10.index');
+

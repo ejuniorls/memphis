@@ -29,34 +29,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    {{-- Básico --}}
-                    <x-ui.link href="#">Example link</x-ui.link>
-
-                    {{-- Underline no hover --}}
-                    <x-ui.link href="#" underline>Example underline link</x-ui.link>
-
-                    {{-- Sempre sublinhado --}}
-                    <x-ui.link href="#" underlined>Example underlined link</x-ui.link>
-
-                    {{-- Tracejado --}}
-                    <x-ui.link href="#" underlined dashed>Example dashed link</x-ui.link>
-
-                    {{-- Inverse --}}
-                    <x-ui.link href="#" underlined inverse>Example inverse link</x-ui.link>
-
-                    {{-- Mono --}}
-                    <x-ui.link href="#" underlined mono>Example mono link</x-ui.link>
-
-                    {{-- Desabilitado --}}
-                    <x-ui.link href="#" underlined disabled>Example disabled link</x-ui.link>
-
-                    {{-- Tamanhos --}}
-                    <x-ui.link href="#" underlined size="sm">Small link</x-ui.link>
-                    <x-ui.link href="#" underlined>Default link</x-ui.link>
-                    <x-ui.link href="#" underlined size="lg">Large link</x-ui.link>
-
                 </div>
             </div>
             <div class="lg:col-span-1">

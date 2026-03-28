@@ -48,7 +48,7 @@
 
         {{-- Introdução --}}
         <a
-            href="{{ route('ui-docs') }}"
+            href="{{ route('documentation.index') }}"
             wire:navigate
             @class([
                 'flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-sm font-medium transition-colors',
@@ -78,7 +78,7 @@
                 @foreach($items as $slug => $comp)
                     <li>
                         <a
-                            href="{{ route('ui-docs', $slug) }}"
+                            href="{{ route('documentation.components', ['component' => $slug]) }}"
                             wire:navigate
                             @class([
                                 'flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-sm transition-colors',

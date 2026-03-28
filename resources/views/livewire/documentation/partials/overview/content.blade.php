@@ -52,7 +52,7 @@
             ['slug' => 'accordion',  'label' => 'Accordion',  'desc' => 'Seções expansíveis de conteúdo.',                   'icon' => 'lucide-panel-top-open',    'stable' => false],
             ['slug' => 'table',      'label' => 'Table',      'desc' => 'Tabelas de dados com suporte a ordenação.',         'icon' => 'lucide-table',             'stable' => false],
         ] as $comp)
-            <a href="{{ route('ui-docs', $comp['slug']) }}"
+            <a href="{{ route('documentation.index', $comp['slug']) }}"
                class="kt-card hover:shadow-md transition-all group cursor-pointer">
                 <div class="kt-card-content p-4">
                     <div class="flex items-start justify-between mb-3">

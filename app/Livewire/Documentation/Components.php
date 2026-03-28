@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Livewire\Docs;
+namespace App\Livewire\Documentation;
 
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 
 #[Layout('layouts.admin.base')]
-class UiDocs extends Component
+class Components extends Component
 {
     #[Url(as: 'c')]
     public string $active = 'overview';
@@ -68,7 +68,7 @@ class UiDocs extends Component
             ? ['label' => 'Introdução']
             : $all->get($this->active, ['label' => $this->active]);
 
-        return view('livewire.docs.ui-docs', [
+        return view('livewire.documentation.components', [
             'components' => $components,
             'currentComponent' => $currentComponent,
         ])->title($currentComponent['label'] . ' — UI Docs');
