@@ -1,59 +1,107 @@
 <x-layouts::auth :title="__('Log in')">
-    <div class="flex flex-col gap-6">
-        <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
-
-        <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
-
-        <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
+    <div class="kt-card max-w-[370px] w-full">
+        <form action="{{ route('login.store') }}" class="kt-card-content flex flex-col gap-5 p-10" id="sign_in_form" method="POST">
             @csrf
 
-            <!-- Email Address -->
-            <flux:input
-                name="email"
-                :label="__('Email address')"
-                :value="old('email')"
-                type="email"
-                required
-                autofocus
-                autocomplete="email"
-                placeholder="email@example.com"
-            />
+            <div class="text-center mb-2.5">
+                <h3 class="text-lg font-medium text-mono leading-none mb-2.5">
+                    {{ __('Sign in') }}
+                </h3>
+                <div class="flex items-center justify-center font-medium">
+                    <span class="text-sm text-secondary-foreground me-1.5">
+                        {{ __('Need an account?') }}
+                    </span>
+                    @if (Route::has('register'))
+                        <a class="text-sm link" href="{{ route('register') }}" wire:navigate>
+                            {{ __('Sign up') }}
+                        </a>
+                    @endif
+                </div>
+            </div>
 
-            <!-- Password -->
-            <div class="relative">
-                <flux:input
-                    name="password"
-                    :label="__('Password')"
-                    type="password"
+            <x-auth-session-status class="text-center text-sm text-red-600" :status="session('status')" />
+
+            <div class="grid grid-cols-2 gap-2.5">
+                <a class="kt-btn kt-btn-outline justify-center" href="#">
+                    <img alt="" class="size-3.5 shrink-0" src="assets/media/brand-logos/google.svg"/>
+                    Google
+                </a>
+                <a class="kt-btn kt-btn-outline justify-center" href="#">
+                    <img alt="" class="size-3.5 shrink-0 dark:hidden" src="assets/media/brand-logos/apple-black.svg"/>
+                    Apple
+                </a>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span class="border-t border-border w-full"></span>
+                <span class="text-xs text-muted-foreground font-medium uppercase">Or</span>
+                <span class="border-t border-border w-full"></span>
+            </div>
+
+            <div class="flex flex-col gap-1">
+                <label class="kt-form-label font-normal text-mono" for="email">
+                    {{ __('Email') }}
+                </label>
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    class="kt-input @error('email') border-red-500 @enderror"
+                    placeholder="email@email.com"
+                    value="{{ old('email') }}"
                     required
-                    autocomplete="current-password"
-                    :placeholder="__('Password')"
-                    viewable
+                    autofocus
                 />
-
-                @if (Route::has('password.request'))
-                    <flux:link class="absolute top-0 text-sm end-0" :href="route('password.request')" wire:navigate>
-                        {{ __('Forgot your password?') }}
-                    </flux:link>
-                @endif
+                @error('email')
+                <span class="text-xs text-red-500">{{ $message }}</span>
+                @enderror
             </div>
 
-            <!-- Remember Me -->
-            <flux:checkbox name="remember" :label="__('Remember me')" :checked="old('remember')" />
-
-            <div class="flex items-center justify-end">
-                <flux:button variant="primary" type="submit" class="w-full" data-test="login-button">
-                    {{ __('Log in') }}
-                </flux:button>
+            <div class="flex flex-col gap-1">
+                <div class="flex items-center justify-between gap-1">
+                    <label class="kt-form-label font-normal text-mono" for="password">
+                        {{ __('Password') }}
+                    </label>
+                    @if (Route::has('password.request'))
+                        <a class="text-sm kt-link shrink-0" href="{{ route('password.request') }}" wire:navigate>
+                            {{ __('Forgot Password?') }}
+                        </a>
+                    @endif
+                </div>
+                <div class="kt-input flex items-center" data-kt-toggle-password="true">
+                    <input
+                        id="password"
+                        name="password"
+                        placeholder="{{ __('Enter Password') }}"
+                        type="password"
+                        class="w-full bg-transparent border-none focus:ring-0"
+                        required
+                    />
+                    <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5"
+                            data-kt-toggle-password-trigger="true" type="button">
+                        <span class="kt-toggle-password-active:hidden">
+                            <i class="ki-filled ki-eye text-muted-foreground"></i>
+                        </span>
+                        <span class="hidden kt-toggle-password-active:block">
+                            <i class="ki-filled ki-eye-slash text-muted-foreground"></i>
+                        </span>
+                    </button>
+                </div>
+                @error('password')
+                <span class="text-xs text-red-500">{{ $message }}</span>
+                @enderror
             </div>
+
+            <label class="kt-label">
+                <input class="kt-checkbox kt-checkbox-sm" name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}/>
+                <span class="kt-checkbox-label">
+                    {{ __('Remember me') }}
+                </span>
+            </label>
+
+            <button type="submit" class="kt-btn kt-btn-primary flex justify-center grow">
+                {{ __('Sign In') }}
+            </button>
         </form>
-
-        @if (Route::has('register'))
-            <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
-                <span>{{ __('Don\'t have an account?') }}</span>
-                <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
-            </div>
-        @endif
     </div>
 </x-layouts::auth>
