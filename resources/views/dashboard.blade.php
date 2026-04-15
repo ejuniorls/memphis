@@ -7,8 +7,10 @@
                     <div class="kt-card h-full">
                         <div class="kt-card-content flex flex-col place-content-center gap-5">
                             <div class="flex justify-center">
-                                <img alt="image" class="dark:hidden max-h-[180px]" src="assets/media/illustrations/32.svg"/>
-                                <img alt="image" class="light:hidden max-h-[180px]" src="assets/media/illustrations/32-dark.svg"/>
+                                <img alt="image" class="dark:hidden max-h-[180px]"
+                                     src="assets/media/illustrations/32.svg"/>
+                                <img alt="image" class="light:hidden max-h-[180px]"
+                                     src="assets/media/illustrations/32-dark.svg"/>
                             </div>
                             <div class="flex flex-col gap-4">
                                 <div class="flex flex-col gap-3 text-center">
@@ -37,12 +39,15 @@
                                 Highlights
                             </h3>
                             <div class="kt-menu" data-kt-menu="true">
-                                <div class="kt-menu-item" data-kt-menu-item-offset="0, 10px" data-kt-menu-item-placement="bottom-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="click">
+                                <div class="kt-menu-item" data-kt-menu-item-offset="0, 10px"
+                                     data-kt-menu-item-placement="bottom-start" data-kt-menu-item-toggle="dropdown"
+                                     data-kt-menu-item-trigger="click">
                                     <button class="kt-menu-toggle kt-btn kt-btn-sm kt-btn-icon kt-btn-ghost">
                                         <i class="ki-filled ki-dots-vertical text-lg">
                                         </i>
                                     </button>
-                                    <div class="kt-menu-dropdown kt-menu-default w-full max-w-[200px]" data-kt-menu-dismiss="true">
+                                    <div class="kt-menu-dropdown kt-menu-default w-full max-w-[200px]"
+                                         data-kt-menu-dismiss="true">
                                         <div class="kt-menu-item">
                                             <a class="kt-menu-link" href="html/demo4/account/activity.html">
                                                 <span class="kt-menu-icon">
@@ -55,7 +60,8 @@
                                             </a>
                                         </div>
                                         <div class="kt-menu-item">
-                                            <a class="kt-menu-link" data-kt-modal-toggle="#share_profile_modal" href="#">
+                                            <a class="kt-menu-link" data-kt-modal-toggle="#share_profile_modal"
+                                               href="#">
                                                 <span class="kt-menu-icon">
                                                     <i class="ki-filled ki-share">
                                                     </i>
@@ -65,7 +71,10 @@
                                                 </span>
                                             </a>
                                         </div>
-                                        <div class="kt-menu-item" data-kt-menu-item-offset="-15px, 0" data-kt-menu-item-placement="right-start" data-kt-menu-item-toggle="dropdown" data-kt-menu-item-trigger="click|lg:hover">
+                                        <div class="kt-menu-item" data-kt-menu-item-offset="-15px, 0"
+                                             data-kt-menu-item-placement="right-start"
+                                             data-kt-menu-item-toggle="dropdown"
+                                             data-kt-menu-item-trigger="click|lg:hover">
                                             <div class="kt-menu-link">
                                                 <span class="kt-menu-icon">
                                                     <i class="ki-filled ki-notification-status">
@@ -81,7 +90,8 @@
                                             </div>
                                             <div class="kt-menu-dropdown kt-menu-default w-full max-w-[175px]">
                                                 <div class="kt-menu-item">
-                                                    <a class="kt-menu-link" href="html/demo4/account/home/settings-sidebar.html">
+                                                    <a class="kt-menu-link"
+                                                       href="html/demo4/account/home/settings-sidebar.html">
                                                         <span class="kt-menu-icon">
                                                             <i class="ki-filled ki-sms">
                                                             </i>
@@ -92,7 +102,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="kt-menu-item">
-                                                    <a class="kt-menu-link" href="html/demo4/account/home/settings-sidebar.html">
+                                                    <a class="kt-menu-link"
+                                                       href="html/demo4/account/home/settings-sidebar.html">
                                                         <span class="kt-menu-icon">
                                                             <i class="ki-filled ki-message-notify">
                                                             </i>
@@ -103,7 +114,8 @@
                                                     </a>
                                                 </div>
                                                 <div class="kt-menu-item">
-                                                    <a class="kt-menu-link" href="html/demo4/account/home/settings-sidebar.html">
+                                                    <a class="kt-menu-link"
+                                                       href="html/demo4/account/home/settings-sidebar.html">
                                                         <span class="kt-menu-icon">
                                                             <i class="ki-filled ki-notification-status">
                                                             </i>
@@ -129,7 +141,8 @@
                                         <div class="kt-menu-separator">
                                         </div>
                                         <div class="kt-menu-item">
-                                            <a class="kt-menu-link" href="html/demo4/account/home/settings-enterprise.html">
+                                            <a class="kt-menu-link"
+                                               href="html/demo4/account/home/settings-enterprise.html">
                                                 <span class="kt-menu-icon">
                                                     <i class="ki-filled ki-setting-3">
                                                     </i>
@@ -304,17 +317,21 @@
                                 <div class="kt-input max-w-48">
                                     <i class="ki-filled ki-magnifier">
                                     </i>
-                                    <input data-kt-datatable-search="#kt_datatable_1" placeholder="Search Teams" type="text"/>
+                                    <input data-kt-datatable-search="#kt_datatable_1" placeholder="Search Teams"
+                                           type="text"/>
                                 </div>
                             </div>
                             <div class="kt-card-table">
-                                <div class="grid" data-kt-datatable="true" data-kt-datatable-page-size="5" id="teams_datatable">
+                                <div class="grid" data-kt-datatable="true" data-kt-datatable-page-size="5"
+                                     id="teams_datatable">
                                     <div class="kt-scrollable-x-auto">
-                                        <table class="kt-table kt-table-border table-fixed" data-kt-datatable-table="true" id="kt_datatable_1">
+                                        <table class="kt-table kt-table-border table-fixed"
+                                               data-kt-datatable-table="true" id="kt_datatable_1">
                                             <thead>
                                             <tr>
                                                 <th class="w-[50px]">
-                                                    <input class="kt-checkbox kt-checkbox-sm" data-kt-datatable-check="true" type="checkbox"/>
+                                                    <input class="kt-checkbox kt-checkbox-sm"
+                                                           data-kt-datatable-check="true" type="checkbox"/>
                                                 </th>
                                                 <th class="w-[280px]">
                                                     <span class="kt-table-col">
@@ -357,14 +374,18 @@
                                             <tbody>
                                             <tr>
                                                 <td>
-                                                    <input class="kt-checkbox kt-checkbox-sm" data-kt-datatable-row-check="true" type="checkbox" value="1"/>
+                                                    <input class="kt-checkbox kt-checkbox-sm"
+                                                           data-kt-datatable-row-check="true" type="checkbox"
+                                                           value="1"/>
                                                 </td>
                                                 <td>
                                                     <div class="flex flex-col gap-2">
-                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary" href="#">
+                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary"
+                                                           href="#">
                                                             Product Management
                                                         </a>
-                                                        <span class="text-2sm text-secondary-foreground font-normal leading-3">
+                                                        <span
+                                                            class="text-2sm text-secondary-foreground font-normal leading-3">
                                                             Product development & lifecycle
                                                         </span>
                                                     </div>
@@ -409,16 +430,23 @@
                                                 <td>
                                                     <div class="flex -space-x-2">
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-4.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-4.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-1.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-1.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-2.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-2.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <span class="relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-[30px] text-white ring-background bg-green-500">
+                                                            <span
+                                                                class="relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-[30px] text-white ring-background bg-green-500">
                                                                 +10
                                                             </span>
                                                         </div>
@@ -427,14 +455,18 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input class="kt-checkbox kt-checkbox-sm" data-kt-datatable-row-check="true" type="checkbox" value="2"/>
+                                                    <input class="kt-checkbox kt-checkbox-sm"
+                                                           data-kt-datatable-row-check="true" type="checkbox"
+                                                           value="2"/>
                                                 </td>
                                                 <td>
                                                     <div class="flex flex-col gap-2">
-                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary" href="#">
+                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary"
+                                                           href="#">
                                                             Marketing Team
                                                         </a>
-                                                        <span class="text-2sm text-secondary-foreground font-normal leading-3">
+                                                        <span
+                                                            class="text-2sm text-secondary-foreground font-normal leading-3">
                                                             Campaigns & market analysis
                                                         </span>
                                                     </div>
@@ -460,7 +492,8 @@
                                                             </i>
                                                         </div>
                                                         <div class="kt-rating-label indeterminate">
-                                                            <i class="kt-rating-on ki-solid ki-star text-base leading-none" style="width: 50.0%">
+                                                            <i class="kt-rating-on ki-solid ki-star text-base leading-none"
+                                                               style="width: 50.0%">
                                                             </i>
                                                             <i class="kt-rating-off ki-outline ki-star text-base leading-none">
                                                             </i>
@@ -479,10 +512,13 @@
                                                 <td>
                                                     <div class="flex -space-x-2">
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-4.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-4.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <span class="hover:z-5 relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-[30px] uppercase text-white ring-background bg-yellow-500">
+                                                            <span
+                                                                class="hover:z-5 relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-[30px] uppercase text-white ring-background bg-yellow-500">
                                                                 g
                                                             </span>
                                                         </div>
@@ -491,14 +527,18 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input class="kt-checkbox kt-checkbox-sm" data-kt-datatable-row-check="true" type="checkbox" value="3"/>
+                                                    <input class="kt-checkbox kt-checkbox-sm"
+                                                           data-kt-datatable-row-check="true" type="checkbox"
+                                                           value="3"/>
                                                 </td>
                                                 <td>
                                                     <div class="flex flex-col gap-2">
-                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary" href="#">
+                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary"
+                                                           href="#">
                                                             HR Department
                                                         </a>
-                                                        <span class="text-2sm text-secondary-foreground font-normal leading-3">
+                                                        <span
+                                                            class="text-2sm text-secondary-foreground font-normal leading-3">
                                                             Talent acquisition, employee welfare
                                                         </span>
                                                     </div>
@@ -543,16 +583,23 @@
                                                 <td>
                                                     <div class="flex -space-x-2">
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-4.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-4.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-1.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-1.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-2.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-2.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <span class="relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-[30px] text-white ring-background bg-violet-500">
+                                                            <span
+                                                                class="relative inline-flex items-center justify-center shrink-0 rounded-full ring-1 font-semibold leading-none text-2xs size-[30px] text-white ring-background bg-violet-500">
                                                                 +A
                                                             </span>
                                                         </div>
@@ -561,14 +608,18 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input class="kt-checkbox kt-checkbox-sm" data-kt-datatable-row-check="true" type="checkbox" value="4"/>
+                                                    <input class="kt-checkbox kt-checkbox-sm"
+                                                           data-kt-datatable-row-check="true" type="checkbox"
+                                                           value="4"/>
                                                 </td>
                                                 <td>
                                                     <div class="flex flex-col gap-2">
-                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary" href="#">
+                                                        <a class="leading-none font-medium text-sm text-mono hover:text-primary"
+                                                           href="#">
                                                             Sales Division
                                                         </a>
-                                                        <span class="text-2sm text-secondary-foreground font-normal leading-3">
+                                                        <span
+                                                            class="text-2sm text-secondary-foreground font-normal leading-3">
                                                             Customer relations, sales strategy
                                                         </span>
                                                     </div>
@@ -613,10 +664,14 @@
                                                 <td>
                                                     <div class="flex -space-x-2">
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-24.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-24.png"/>
                                                         </div>
                                                         <div class="flex">
-                                                            <img class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]" src="assets/media/avatars/300-7.png"/>
+                                                            <img
+                                                                class="hover:z-5 relative shrink-0 rounded-full ring-1 ring-background size-[30px]"
+                                                                src="assets/media/avatars/300-7.png"/>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -624,10 +679,12 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="kt-card-footer justify-center md:justify-between flex-col md:flex-row gap-5 text-secondary-foreground text-sm font-medium">
+                                    <div
+                                        class="kt-card-footer justify-center md:justify-between flex-col md:flex-row gap-5 text-secondary-foreground text-sm font-medium">
                                         <div class="flex items-center gap-2 order-2 md:order-1">
                                             Show
-                                            <select class="kt-select w-16" data-kt-datatable-size="true" data-kt-select="" name="perpage">
+                                            <select class="kt-select w-16" data-kt-datatable-size="true"
+                                                    data-kt-select="" name="perpage">
                                             </select>
                                             per page
                                         </div>
@@ -652,7 +709,8 @@
                         </div>
                         <div class="kt-card-content flex flex-col gap-5">
                             <div class="text-sm text-foreground">
-                                Users on the block list are unable to send chat requests or messages to you anymore, ever, or again
+                                Users on the block list are unable to send chat requests or messages to you anymore,
+                                ever, or again
                             </div>
                             <div class="kt-input-group">
                                 <input class="kt-input" placeholder="Block new user" type="text" value=""/>
@@ -667,7 +725,8 @@
                                             <img class="h-9 rounded-full" src="assets/media/avatars/gray/1.png"/>
                                         </div>
                                         <div class="flex flex-col gap-0.5">
-                                            <a class="flex items-center gap-1.5 leading-none font-medium text-sm text-mono hover:text-primary" href="html/demo4/public-profile/teams.html">
+                                            <a class="flex items-center gap-1.5 leading-none font-medium text-sm text-mono hover:text-primary"
+                                               href="html/demo4/public-profile/teams.html">
                                                 Esther Howard
                                             </a>
                                             <span class="text-sm text-secondary-foreground">
@@ -688,7 +747,8 @@
                                             <img class="h-9 rounded-full" src="assets/media/avatars/gray/2.png"/>
                                         </div>
                                         <div class="flex flex-col gap-0.5">
-                                            <a class="flex items-center gap-1.5 leading-none font-medium text-sm text-mono hover:text-primary" href="html/demo4/public-profile/teams.html">
+                                            <a class="flex items-center gap-1.5 leading-none font-medium text-sm text-mono hover:text-primary"
+                                               href="html/demo4/public-profile/teams.html">
                                                 Tyler Hero
                                             </a>
                                             <span class="text-sm text-secondary-foreground">
@@ -709,7 +769,8 @@
                                             <img class="h-9 rounded-full" src="assets/media/avatars/gray/3.png"/>
                                         </div>
                                         <div class="flex flex-col gap-0.5">
-                                            <a class="flex items-center gap-1.5 leading-none font-medium text-sm text-mono hover:text-primary" href="html/demo4/public-profile/teams.html">
+                                            <a class="flex items-center gap-1.5 leading-none font-medium text-sm text-mono hover:text-primary"
+                                               href="html/demo4/public-profile/teams.html">
                                                 Arlene McCoy
                                             </a>
                                             <span class="text-sm text-secondary-foreground">

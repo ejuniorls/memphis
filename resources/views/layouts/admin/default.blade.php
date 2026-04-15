@@ -11,11 +11,11 @@
         <!-- Page -->
         <!-- Base -->
         <div class="flex grow">
-            @include('layouts.admin.two-column-sidebar.header')
+            @include('layouts.admin.workspace.header')
 
             <!-- Wrapper -->
             <div class="flex flex-col lg:flex-row grow pt-(--header-height) lg:pt-0">
-                @include('layouts.admin.two-column-sidebar.sidebar')
+                @include('layouts.admin.workspace.sidebar')
 
                 <!-- Main -->
                 <div
@@ -23,7 +23,7 @@
                     <div class="flex flex-col grow kt-scrollable-y-auto lg:[--kt-scrollbar-width:auto] pt-5"
                          id="scrollable_content">
                         <main class="grow" role="content">
-                            @include('layouts.admin.two-column-sidebar.toolbar')
+                            @include('layouts.admin.workspace.toolbar')
 
                             <!-- Content -->
                             <main class="grow" id="content" role="content">
@@ -31,7 +31,7 @@
                             </main>
                             <!-- End of Content -->
 
-                            @include('layouts.admin.two-column-sidebar.footer')
+                            @include('layouts.admin.workspace.footer')
                         </main>
                     </div>
                 </div>

@@ -36,8 +36,8 @@
 				</i>
 			</button>
 			<!-- End of Search -->
-			<livewire:shared.topbar-search-modal />
-			<!-- Notifications -->
+            @include('partials.topbar-search-modal')
+            <!-- Notifications -->
 			<button class="kt-btn kt-btn-ghost kt-btn-icon size-9 hover:bg-primary/10 hover:[&amp;_i]:text-primary" data-kt-drawer-toggle="#notifications_drawer">
 				<i class="ki-filled ki-notification-status text-lg">
 				</i>

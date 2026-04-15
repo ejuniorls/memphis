@@ -85,7 +85,7 @@
                 <!-- Example Pages with wire:navigate -->
                 <div class="kt-menu-item">
                     <a class="kt-menu-link kt-menu-item-active:bg-accent/60 dark:menu-item-active:border-border kt-menu-item-active:rounded-lg hover:bg-accent/60 grow items-center gap-[10px] border border-transparent py-[6px] pe-[10px] ps-[10px] hover:rounded-lg"
-                        href="{{ route('demo1.profile') }}" wire:navigate tabindex="0">
+                        href="" wire:navigate tabindex="0">
                         <span class="kt-menu-icon w-[20px] items-start text-muted-foreground">
                             <i class="ki-filled ki-user text-lg"></i>
                         </span>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="kt-menu-item">
                     <a class="kt-menu-link kt-menu-item-active:bg-accent/60 dark:menu-item-active:border-border kt-menu-item-active:rounded-lg hover:bg-accent/60 grow items-center gap-[10px] border border-transparent py-[6px] pe-[10px] ps-[10px] hover:rounded-lg"
-                        href="{{ route('demo1.settings') }}" wire:navigate tabindex="0">
+                        href="" wire:navigate tabindex="0">
                         <span class="kt-menu-icon w-[20px] items-start text-muted-foreground">
                             <i class="ki-filled ki-setting-2 text-lg"></i>
                         </span>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="kt-menu-item">
                     <a class="kt-menu-link kt-menu-item-active:bg-accent/60 dark:menu-item-active:border-border kt-menu-item-active:rounded-lg hover:bg-accent/60 grow items-center gap-[10px] border border-transparent py-[6px] pe-[10px] ps-[10px] hover:rounded-lg"
-                        href="{{ route('demo1.users') }}" wire:navigate tabindex="0">
+                        href="" wire:navigate tabindex="0">
                         <span class="kt-menu-icon w-[20px] items-start text-muted-foreground">
                             <i class="ki-filled ki-people text-lg"></i>
                         </span>

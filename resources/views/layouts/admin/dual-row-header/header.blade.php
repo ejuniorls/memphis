@@ -168,10 +168,10 @@
                 </span>
             </a>
             <div class="flex items-center gap-1">
-                <livewire:shared.topbar-notification-dropdown />
-                <livewire:shared.topbar-apps />
+                @include('partials.topbar-notification-dropdown')
+                @include('partials.topbar-apps')
             </div>
-            <livewire:shared.topbar-user-dropdown />
+            @include('partials.topbar-user-dropdown')
         </div>
         <!-- End of Topbar -->
     </div>
