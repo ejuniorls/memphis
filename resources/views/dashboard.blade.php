@@ -1,4 +1,163 @@
-<x-layouts::admin.dark-sidebar :title="__('Dashboard')">
+<x-layouts::admin.two-column-sidebar :title="__('Dashboard')">
+
+    <div class="space-y-16 p-10 bg-slate-50 min-h-screen">
+
+        {{-- 1. ALERTS: Lógica de Layouts e Variantes --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Alerts</h2>
+            <div class="grid grid-cols-1 gap-4">
+                {{-- Variações de Estilo --}}
+                <x-ui.alert variant="primary" title="Default (Solid)" description="Estilo sólido padrão."/>
+                <x-ui.alert variant="success" style="light" title="Style: Light"
+                            description="Fundo suave com cores vivas no texto."/>
+                <x-ui.alert variant="destructive" style="outline" title="Style: Outline"
+                            description="Borda colorida e fundo transparente."/>
+                <x-ui.alert variant="warning" style="mono" title="Style: Mono"
+                            description="Visual minimalista em tons de cinza."/>
+
+                {{-- Funcionalidades --}}
+                <x-ui.alert variant="info" title="Dismissible" dismissible
+                            description="Este alerta possui o botão de fechar (X)."/>
+                <x-ui.alert variant="primary" title="Com Ação Simples" actionLabel="Ver Detalhes" actionHref="/docs"
+                            description="Link de ação inline."/>
+
+                {{-- Slot de Ações Complexas --}}
+                <x-ui.alert variant="destructive" title="Erro Crítico">
+                    <p>Falha ao processar o pagamento. Tente novamente.</p>
+                    <x-slot:actions>
+                        <x-ui.button size="sm" variant="destructive">Reenviar</x-ui.button>
+                        <x-ui.button size="sm" ghost="destructive">Suporte</x-ui.button>
+                    </x-slot:actions>
+                </x-ui.alert>
+            </div>
+        </section>
+
+        {{-- 2. BUTTONS: Interatividade e Ícones --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Buttons</h2>
+            <div class="flex flex-wrap gap-4 items-center">
+                {{-- Variantes --}}
+                <x-ui.button variant="primary">Primary</x-ui.button>
+                <x-ui.button variant="success" dim>Dimmed Success</x-ui.button>
+                <x-ui.button ghost="destructive">Ghost Destructive</x-ui.button>
+
+                {{-- Tamanhos --}}
+                <x-ui.button size="xs">XS</x-ui.button>
+                <x-ui.button size="sm">SM</x-ui.button>
+                <x-ui.button size="lg">LG</x-ui.button>
+
+                {{-- Ícones (Lucide vs KeenIcons) --}}
+                <x-ui.button icon="plus">Lucide Start</x-ui.button>
+                <x-ui.button iconEnd="arrow-right" variant="info">Lucide End</x-ui.button>
+                <x-ui.button kiIcon="setting-2" kiStyle="duotone">KeenIcon Duotone</x-ui.button>
+
+                {{-- Formas e Estados --}}
+                <x-ui.button icon="trash" iconOnly variant="destructive" circle/>
+                <x-ui.button disabled tooltip="Não disponível" tooltipPlacement="top">Disabled</x-ui.button>
+            </div>
+        </section>
+
+        {{-- 3. BADGES: Indicadores --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Badges</h2>
+            <div class="flex flex-wrap gap-4">
+                <x-ui.badge variant="success" dot>Ativo</x-ui.badge>
+                <x-ui.badge variant="primary" style="outline" icon="shield">Verificado</x-ui.badge>
+                <x-ui.badge variant="warning" style="light" removable>Tag Removível</x-ui.badge>
+                <x-ui.badge variant="destructive" stroke>Stroke Mode</x-ui.badge>
+                <x-ui.badge size="xs" circle variant="mono">12</x-ui.badge>
+                <x-ui.badge tag="a" href="#" variant="info" iconEnd="external-link">Link Badge</x-ui.badge>
+            </div>
+        </section>
+
+        {{-- 4. INPUTS & GROUPS: Formulários --}}
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold border-b pb-2">Inputs & Groups</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <x-ui.input placeholder="Input Padrão"/>
+                    <x-ui.input icon="search" placeholder="Com ícone inicial"/>
+                    <x-ui.input iconEnd="eye" placeholder="Com ícone final"/>
+                    <x-ui.input invalid placeholder="Estado de erro"/>
+                </div>
+                <div class="space-y-4">
+                    {{-- Input Groups com Addons --}}
+                    <x-ui.input-group addon="https://">
+                        <x-ui.input placeholder="domínio.com"/>
+                    </x-ui.input-group>
+
+                    <x-ui.input-group addonIcon="user" addonIconEnd="check">
+                        <x-ui.input placeholder="Username"/>
+                    </x-ui.input-group>
+                </div>
+            </div>
+        </section>
+
+        {{-- 5. SELECTS: Configurações KTUI --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Selects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <x-ui.select placeholder="Básico">
+                    <option value="1">Opção A</option>
+                    <option value="2">Opção B</option>
+                </x-ui.select>
+
+                <x-ui.select search placeholder="Com busca">
+                    <option value="it">Itália</option>
+                    <option value="fr">França</option>
+                </x-ui.select>
+
+                <x-ui.select multiple tags placeholder="Múltiplo com Tags">
+                    <option value="php" selected>PHP</option>
+                    <option value="js" selected>JS</option>
+                    <option value="html">HTML</option>
+                </x-ui.select>
+            </div>
+        </section>
+
+        {{-- 6. BREADCRUMBS: Navegação --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Breadcrumbs</h2>
+            <div class="space-y-4">
+                <x-ui.breadcrumb>
+                    <x-ui.breadcrumb-item first icon="home" href="/"/>
+                    <x-ui.breadcrumb-item href="/admin">Dashboard</x-ui.breadcrumb-item>
+                    <x-ui.breadcrumb-item active>Usuários</x-ui.breadcrumb-item>
+                </x-ui.breadcrumb>
+
+                <x-ui.breadcrumb separator="dot">
+                    <x-ui.breadcrumb-item first href="#">Pasta Raiz</x-ui.breadcrumb-item>
+                    <x-ui.breadcrumb-item active>Documentos Secretos</x-ui.breadcrumb-item>
+                </x-ui.breadcrumb>
+            </div>
+        </section>
+
+        {{-- 7. ICON BOX: Containers de Ícone --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Icon Boxes</h2>
+            <div class="flex gap-4">
+                <x-ui.icon-box icon="zap" size="sm" radius="sm"/>
+                <x-ui.icon-box icon="heart" bg="bg-destructive/10" color="text-destructive" size="md" radius="md"/>
+                <x-ui.icon-box icon="star" bg="bg-warning/10" color="text-warning" size="lg" radius="lg"/>
+                <x-ui.icon-box icon="smile" bg="bg-success/10" color="text-success" size="xl" radius="full"/>
+            </div>
+        </section>
+
+        {{-- 8. LINKS: Tipografia --}}
+        <section class="space-y-4">
+            <h2 class="text-2xl font-bold border-b pb-2">Links</h2>
+            <div class="flex flex-wrap gap-6 items-center">
+                <x-ui.link href="#">Default</x-ui.link>
+                <x-ui.link href="#" underline>Underline Hover</x-ui.link>
+                <x-ui.link href="#" underlined dashed>Dashed Always</x-ui.link>
+                <x-ui.link href="#" icon="chevron-left">Back</x-ui.link>
+                <x-ui.link href="#" disabled mono>Disabled Mono</x-ui.link>
+            </div>
+        </section>
+
+    </div>
+
+
     <div class="kt-container-fixed">
         <div class="grid gap-5 lg:gap-7.5">
             <!-- begin: grid -->
@@ -793,4 +952,4 @@
             <!-- end: grid -->
         </div>
     </div>
-</x-layouts::admin.dark-sidebar>
+</x-layouts::admin.two-column-sidebar>
