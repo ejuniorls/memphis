@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'component_layout' => 'layouts.admin.dropdown-menu',
+    'component_layout' => 'layouts.admin.two-column-sidebar',
     /*
     |---------------------------------------------------------------------------
     | Lazy Loading Placeholder
