@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\View\Composers\SidebarMenuComposer;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->registerViewComposers();
     }
 
     /**
@@ -37,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             app()->isProduction(),
         );
 
-        Password::defaults(fn (): ?Password => app()->isProduction()
+        Password::defaults(fn(): ?Password => app()->isProduction()
             ? Password::min(12)
                 ->mixedCase()
                 ->letters()
@@ -46,5 +49,26 @@ class AppServiceProvider extends ServiceProvider
                 ->uncompromised()
             : null,
         );
+    }
+
+    /**
+     * Registra os View Composers da aplicação.
+     * O SidebarMenuComposer injeta $menuTree em todos os partials de sidebar de cada layout.
+     */
+    protected function registerViewComposers(): void
+    {
+        View::composer([
+            // dark-sidebar
+            'layouts.admin.dark-sidebar.partials.sidebar-menu',
+
+            // dropdown-menu
+            'layouts.admin.dropdown-menu.partials.sidebar-menu',
+
+            // multiple-menus
+            'layouts.admin.multiple-menus.partials.sidebar-menu',
+
+            // two-column-sidebar (menu inline no próprio sidebar.blade.php)
+            'layouts.admin.two-column-sidebar.sidebar',
+        ], SidebarMenuComposer::class);
     }
 }
