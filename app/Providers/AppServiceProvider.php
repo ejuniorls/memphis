@@ -61,11 +61,18 @@ class AppServiceProvider extends ServiceProvider
             // dark-sidebar
             'layouts.admin.dark-sidebar.partials.sidebar-menu',
 
+            // multiple-menus
+            'layouts.admin.multiple-menus.partials.sidebar-menu',
+
             // dropdown-menu
             'layouts.admin.dropdown-menu.partials.sidebar-menu',
 
-            // multiple-menus
-            'layouts.admin.multiple-menus.partials.sidebar-menu',
+            // compact-sidebar
+            'layouts.admin.compact-sidebar.sidebar',
+            'layouts.admin.compact-sidebar.partials.navbar-menu',
+
+            // horizontal-menu
+            'layouts.admin.horizontal-menu.partials.navbar-menu',
 
             // two-column-sidebar (menu inline no próprio sidebar.blade.php)
             'layouts.admin.two-column-sidebar.sidebar',
