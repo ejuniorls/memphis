@@ -46,9 +46,9 @@ return [
 
     // 'component_layout' => 'layouts.admin.default',              // theme 01
     // 'component_layout' => 'layouts.admin.horizontal-menu',      // theme 02
-    'component_layout' => 'layouts.admin.compact-sidebar',      // theme 03
-    // 'component_layout' => 'layouts.admin.two-column-sidebar',   // theme 04
-    // 'component_layout' => 'layouts.admin.dual-row-header',      // theme 05
+//    'component_layout' => 'layouts.admin.compact-sidebar',      // theme 03
+//     'component_layout' => 'layouts.admin.two-column-sidebar',   // theme 04
+     'component_layout' => 'layouts.admin.dual-row-header',      // theme 05
     // 'component_layout' => 'layouts.admin.multiple-menus',       // theme 06
     // 'component_layout' => 'layouts.admin.advanced-mega-menu',   // theme 07
     // 'component_layout' => 'layouts.admin.dropdown-menu',        // theme 08

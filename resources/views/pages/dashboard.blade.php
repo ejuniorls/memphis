@@ -3,10 +3,13 @@
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
-new #[Title('Profile')] class extends Component {
+new #[Title('Profile')]
+class extends Component {
     //
 }; ?>
 
+
+<div>
 <!-- Container -->
 <div class="kt-container-fluid">
     <div class="grid gap-5 lg:gap-7.5">
@@ -795,3 +798,48 @@ new #[Title('Profile')] class extends Component {
     </div>
 </div>
 <!-- End of Container -->
+
+@if (session('just_verified'))
+    <div class="kt-modal kt-modal-center" data-kt-modal="true" id="modal_welcome_message">
+        <div class="kt-modal-content max-w-[500px] w-full">
+            <div class="kt-modal-header justify-end border-0 pt-5">
+                <button class="kt-btn kt-btn-sm kt-btn-icon kt-btn-outline" data-kt-modal-dismiss="true">
+                    <i class="ki-filled ki-cross"></i>
+                </button>
+            </div>
+            <div class="kt-modal-body flex flex-col items-center pt-0 pb-10">
+                <div class="mb-10">
+                    <img alt="" class="dark:hidden max-h-[140px]"
+                         src="{{ asset('assets/media/illustrations/21.svg') }}"/>
+                    <img alt="" class="light:hidden max-h-[140px]"
+                         src="{{ asset('assets/media/illustrations/21-dark.svg') }}"/>
+                </div>
+                <h3 class="text-lg font-medium text-mono text-center mb-3">
+                    {{ __('Bem-vindo,') }} {{ auth()->user()->name }}!
+                </h3>
+                <div class="text-sm text-center text-secondary-foreground mb-7">
+                    {{ __('Seu e-mail foi verificado com sucesso.') }}<br/>
+                    {{ __('Estamos felizes em ter você aqui.') }}
+                </div>
+                <div class="flex justify-center mb-2">
+                    <button class="kt-btn kt-btn-primary flex justify-center" data-kt-modal-dismiss="true">
+                        {{ __('Começar tour') }}
+                    </button>
+                </div>
+                <button class="text-sm font-medium text-secondary-foreground hover:text-primary py-3"
+                        data-kt-modal-dismiss="true">
+                    {{ __('Fechar') }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = () => {
+            const modalEl = KTDom.getElement('#modal_welcome_message');
+            const modal = KTModal.getInstance(modalEl);
+            modal?.show();
+        };
+    </script>
+@endif
+</div>

@@ -2,34 +2,55 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Docker / Laravel Sail
+
+O projeto usa **Laravel Sail** para o ambiente de desenvolvimento via Docker.
+
+```bash
+# Subir o ambiente (em background)
+./vendor/bin/sail up -d
+
+# Parar o ambiente
+./vendor/bin/sail down
+
+# Alias recomendado (adicionar ao ~/.bashrc ou ~/.zshrc)
+alias sail='./vendor/bin/sail'
+
+# Instalar dependências dentro do container
+sail composer install
+sail npm install
+
+# Acessar o shell do container
+sail shell
+```
+
+> Todos os comandos abaixo (`artisan`, `composer`, `npm`) devem ser executados via `sail` quando o ambiente Docker estiver ativo.
+
 ## Commands
 
 ```bash
 # Install dependencies
-composer install
-npm install
+sail composer install
+sail npm install
 
 # Development (run both together)
-php artisan serve
-npm run dev
-
-# Or run both concurrently
-npm run dev  # uses concurrently in package.json scripts
+sail artisan serve
+sail npm run dev
 
 # Build for production
-npm run build
+sail npm run build
 
 # Database
-php artisan migrate
-php artisan db:seed
-php artisan migrate:fresh --seed
+sail artisan migrate
+sail artisan db:seed
+sail artisan migrate:fresh --seed
 
 # Run a single test
-php artisan test --filter TestClassName
-php artisan test tests/Feature/SomeTest.php
+sail artisan test --filter TestClassName
+sail artisan test tests/Feature/SomeTest.php
 
 # Clear caches
-php artisan optimize:clear
+sail artisan optimize:clear
 ```
 
 ## Stack
