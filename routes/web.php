@@ -5,11 +5,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard');
 
+// Rota check-email — exibida após envio do link de reset de senha
+Route::get('/check-email', fn () => session()->has('email')
+    ? view('pages::auth.check-email')
+    : redirect()->route('password.request')
+)->name('auth.check-email');
+
+// Sobrescreve o POST do Fortify para redirecionar ao check-email
+Route::post('/forgot-password', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.email');
+
+// Rota password-changed — exibida após reset de senha bem-sucedido
+Route::get('/password-changed', fn () => view('pages::auth.password-changed'))->name('auth.password-changed');
+
+// Sobrescreve o POST do Fortify de reset para redirecionar ao password-changed
+Route::post('/reset-password', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'store'])
+    ->middleware('guest')
+    ->name('password.update');
+
 // Sobrescreve o redirect do Fortify após verificação de e-mail
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect()->route('dashboard')->with('just_verified', true);
 })->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::livewire('/ui', 'pages::ui-showcase')->name('ui.showcase');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 

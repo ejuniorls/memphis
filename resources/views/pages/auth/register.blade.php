@@ -1,5 +1,5 @@
 <x-layouts::auth :title="__('Register')">
-    <div class="kt-card max-w-[370px] w-full">
+    <div class="kt-card max-w-[420px] w-full">
         <form action="{{ route('register.store') }}" class="kt-card-content flex flex-col gap-5 p-10" id="sign_up_form" method="POST">
             @csrf
 
@@ -7,119 +7,72 @@
                 <h3 class="text-lg font-medium text-mono leading-none mb-2.5">
                     {{ __('Create an account') }}
                 </h3>
-                <div class="flex items-center justify-center">
+                <div class="flex items-center justify-center font-medium">
                     <span class="text-sm text-secondary-foreground me-1.5">
                         {{ __('Already have an account?') }}
                     </span>
-                    <a class="text-sm link" href="{{ route('login') }}" wire:navigate>
+                    <x-ui.link href="{{ route('login') }}" wire:navigate size="sm">
                         {{ __('Log in') }}
-                    </a>
+                    </x-ui.link>
                 </div>
             </div>
 
-            <div class="flex flex-col gap-1">
-                <label class="kt-form-label text-mono" for="name">
-                    {{ __('Name') }}
-                </label>
-                <input
+            <x-ui.oauth-buttons :providers="['google', 'apple']" />
+
+            <x-ui.divider :label="__('Or')" />
+
+            <x-ui.form-field label="{{ __('Name') }}" name="name">
+                <x-ui.input
                     id="name"
                     name="name"
-                    class="kt-input @error('name') border-red-500 @enderror"
-                    placeholder="{{ __('Full name') }}"
                     type="text"
+                    placeholder="{{ __('Full name') }}"
                     value="{{ old('name') }}"
+                    :invalid="$errors->has('name')"
                     required
                     autofocus
                 />
-                @error('name')
-                <span class="text-xs text-red-500">{{ $message }}</span>
-                @enderror
-            </div>
+            </x-ui.form-field>
 
-            <div class="flex flex-col gap-1">
-                <label class="kt-form-label text-mono" for="email">
-                    {{ __('Email address') }}
-                </label>
-                <input
+            <x-ui.form-field label="{{ __('Email address') }}" name="email">
+                <x-ui.input
                     id="email"
                     name="email"
-                    class="kt-input @error('email') border-red-500 @enderror"
-                    placeholder="email@example.com"
                     type="email"
+                    placeholder="email@example.com"
                     value="{{ old('email') }}"
+                    :invalid="$errors->has('email')"
                     required
                 />
-                @error('email')
-                <span class="text-xs text-red-500">{{ $message }}</span>
-                @enderror
-            </div>
+            </x-ui.form-field>
 
-            <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono" for="password">
-                    {{ __('Password') }}
-                </label>
-                <div class="kt-input flex items-center" data-kt-toggle-password="true">
-                    <input
-                        id="password"
-                        name="password"
-                        placeholder="{{ __('Password') }}"
-                        type="password"
-                        class="w-full bg-transparent border-none focus:ring-0"
-                        required
-                    />
-                    <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5"
-                            data-kt-toggle-password-trigger="true" type="button">
-                        <span class="kt-toggle-password-active:hidden">
-                            <i class="ki-filled ki-eye text-muted-foreground"></i>
-                        </span>
-                        <span class="hidden kt-toggle-password-active:block">
-                            <i class="ki-filled ki-eye-slash text-muted-foreground"></i>
-                        </span>
-                    </button>
-                </div>
-                @error('password')
-                <span class="text-xs text-red-500">{{ $message }}</span>
-                @enderror
-            </div>
+            <x-ui.form-field label="{{ __('Password') }}" name="password">
+                <x-ui.password-input
+                    id="password"
+                    name="password"
+                    placeholder="{{ __('Password') }}"
+                    :invalid="$errors->has('password')"
+                    required
+                />
+            </x-ui.form-field>
 
-            <div class="flex flex-col gap-1">
-                <label class="kt-form-label font-normal text-mono" for="password_confirmation">
-                    {{ __('Confirm Password') }}
-                </label>
-                <div class="kt-input flex items-center" data-kt-toggle-password="true">
-                    <input
-                        id="password_confirmation"
-                        name="password_confirmation"
-                        placeholder="{{ __('Confirm Password') }}"
-                        type="password"
-                        class="w-full bg-transparent border-none focus:ring-0"
-                        required
-                    />
-                    <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5"
-                            data-kt-toggle-password-trigger="true" type="button">
-                        <span class="kt-toggle-password-active:hidden">
-                            <i class="ki-filled ki-eye text-muted-foreground"></i>
-                        </span>
-                        <span class="hidden kt-toggle-password-active:block">
-                            <i class="ki-filled ki-eye-slash text-muted-foreground"></i>
-                        </span>
-                    </button>
-                </div>
-            </div>
+            <x-ui.form-field label="{{ __('Confirm Password') }}" name="password_confirmation">
+                <x-ui.password-input
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    placeholder="{{ __('Confirm Password') }}"
+                    required
+                />
+            </x-ui.form-field>
 
-            <label class="kt-checkbox-group">
-                <input class="kt-checkbox kt-checkbox-sm" name="terms" type="checkbox" required value="1"/>
-                <span class="kt-checkbox-label">
-                    {{ __('I accept the') }}
-                    <a class="text-sm link" href="#">
-                        {{ __('Terms and Conditions') }}
-                    </a>
-                </span>
-            </label>
+            <x-ui.checkbox name="terms" :required="true">
+                {{ __('I accept the') }}
+                <x-ui.link href="#" size="sm">{{ __('Terms and Conditions') }}</x-ui.link>
+            </x-ui.checkbox>
 
-            <button type="submit" class="kt-btn kt-btn-primary flex justify-center grow">
+            <x-ui.button variant="primary" type="submit" class="flex justify-center grow">
                 {{ __('Create account') }}
-            </button>
+            </x-ui.button>
         </form>
     </div>
 </x-layouts::auth>

@@ -1,6 +1,7 @@
 @props([
     'variant'    => null,
     'ghost'      => null,
+    'outline'    => false,
     'size'       => null,
     'iconOnly'   => false,
     'circle'     => false,
@@ -24,6 +25,7 @@
 
     if ($iconOnly)           $classes .= ' kt-btn-icon';
     if ($dim)                $classes .= ' kt-btn-dim';
+    elseif ($outline)        $classes .= ' kt-btn-outline';
     elseif ($ghost !== null) $classes .= ' kt-btn-ghost' . ($ghost ? ' kt-btn-' . $ghost : '');
     elseif ($variant)        $classes .= ' kt-btn-' . $variant;
 

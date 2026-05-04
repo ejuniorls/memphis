@@ -53,6 +53,12 @@ sail artisan test tests/Feature/SomeTest.php
 sail artisan optimize:clear
 ```
 
+## Email (Development)
+
+E-mails enviados pela aplicação são capturados pelo **Mailpit** (incluído no Sail). Para visualizar os e-mails recebidos, acesse:
+
+**http://localhost:8025/**
+
 ## Stack
 
 - **Laravel 13** + **Livewire 4.1** — server-side reactivity; no Vue/React
