@@ -1,0 +1,11 @@
+{
+    "title": "Autenticação de dois fatores",
+    "heading_code": "Código de autenticação",
+    "description_code": "Digite o código de autenticação fornecido pelo seu aplicativo autenticador.",
+    "heading_recovery": "Código de recuperação",
+    "description_recovery": "Confirme o acesso à sua conta inserindo um dos seus códigos de recuperação de emergência.",
+    "submit": "Continuar",
+    "or_you_can": "ou você pode",
+    "use_recovery_code": "entrar usando um código de recuperação",
+    "use_auth_code": "entrar usando um código de autenticação"
+}

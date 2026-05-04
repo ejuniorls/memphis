@@ -1,4 +1,4 @@
-<x-layouts::auth :title="__('Email verification')">
+<x-layouts::auth :title="__('auth.verify-email.title')">
     <div class="kt-card max-w-[440px] w-full">
         <div class="kt-card-content p-10">
 
@@ -8,16 +8,16 @@
             </div>
 
             <h3 class="text-lg font-medium text-mono text-center mb-3">
-                {{ __('Check your email') }}
+                {{ __('auth.verify-email.heading') }}
             </h3>
 
             <p class="text-sm text-center text-secondary-foreground mb-7.5">
-                {{ __('Please click the link sent to your email to verify your account. Thank you.') }}
+                {{ __('auth.verify-email.description') }}
             </p>
 
             @if (session('status') == 'verification-link-sent')
                 <p class="text-sm text-center font-medium text-green-600 dark:text-green-400 mb-5">
-                    {{ __('A new verification link has been sent to your email address.') }}
+                    {{ __('auth.verify-email.link_sent') }}
                 </p>
             @endif
 
@@ -25,19 +25,19 @@
                 <form method="POST" action="{{ route('verification.send') }}">
                     @csrf
                     <button type="submit" class="kt-btn kt-btn-primary flex justify-center">
-                        {{ __('Resend verification email') }}
+                        {{ __('auth.verify-email.resend') }}
                     </button>
                 </form>
             </div>
 
             <div class="flex items-center justify-center gap-1 text-2sm">
                 <span class="text-secondary-foreground">
-                    {{ __('Want to use another account?') }}
+                    {{ __('auth.verify-email.another_account') }}
                 </span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="font-medium kt-link">
-                        {{ __('Log out') }}
+                        {{ __('auth.verify-email.logout') }}
                     </button>
                 </form>
             </div>

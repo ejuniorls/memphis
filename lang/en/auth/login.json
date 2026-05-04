@@ -1,0 +1,13 @@
+{
+    "title": "Log in",
+    "heading": "Sign in",
+    "need_account": "Need an account?",
+    "sign_up": "Sign up",
+    "or": "Or",
+    "email": "Email",
+    "password": "Password",
+    "password_placeholder": "Enter Password",
+    "forgot_password": "Forgot Password?",
+    "remember_me": "Remember me",
+    "submit": "Sign In"
+}

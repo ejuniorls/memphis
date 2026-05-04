@@ -1,4 +1,4 @@
-<x-layouts::auth :title="__('Check your email')">
+<x-layouts::auth :title="__('auth.check-email.title')">
     <div class="kt-card max-w-[420px] w-full">
         <div class="kt-card-content flex flex-col items-center gap-5 p-10 text-center">
 
@@ -9,10 +9,10 @@
 
             <div class="flex flex-col gap-2">
                 <h3 class="text-lg font-medium text-mono leading-none">
-                    {{ __('Check your email') }}
+                    {{ __('auth.check-email.heading') }}
                 </h3>
                 <p class="text-sm text-secondary-foreground">
-                    {{ __('We sent a password reset link to') }}
+                    {{ __('auth.check-email.description') }}
                     @if (session('email'))
                         <span class="font-medium text-mono">{{ session('email') }}</span>
                     @endif
@@ -21,13 +21,13 @@
 
             <div class="flex flex-col items-center gap-3 w-full mt-2">
                 <x-ui.button variant="primary" tag="a" href="{{ route('login') }}" wire:navigate class="w-full justify-center">
-                    {{ __('Back to login') }}
+                    {{ __('auth.check-email.back_to_login') }}
                 </x-ui.button>
 
                 <div class="flex items-center justify-center gap-1 text-sm">
-                    <span class="text-secondary-foreground">{{ __("Didn't receive an email?") }}</span>
+                    <span class="text-secondary-foreground">{{ __('auth.check-email.no_email') }}</span>
                     <x-ui.link href="{{ route('password.request') }}" wire:navigate>
-                        {{ __('Resend') }}
+                        {{ __('auth.check-email.resend') }}
                     </x-ui.link>
                 </div>
             </div>

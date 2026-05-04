@@ -1,4 +1,4 @@
-<x-layouts::auth :title="__('Bem-vindo!')">
+<x-layouts::auth :title="__('auth.welcome.title')">
     <div class="kt-card max-w-[440px] w-full">
         <div class="kt-card-content p-10">
 
@@ -8,25 +8,25 @@
             </div>
 
             <h3 class="text-lg font-medium text-mono text-center mb-3">
-                {{ __('Tudo certo,') }} {{ auth()->user()->name }}!
+                {{ __('auth.welcome.heading') }} {{ auth()->user()->name }}!
             </h3>
 
             <p class="text-sm text-center text-secondary-foreground mb-7.5">
-                {{ __('Seu e-mail foi verificado com sucesso. Sua conta está ativa e pronta para uso.') }}
+                {{ __('auth.welcome.description') }}
             </p>
 
             <div class="flex justify-center mb-5">
                 <a href="{{ route('dashboard') }}" class="kt-btn kt-btn-primary flex justify-center">
-                    {{ __('Ir para o dashboard') }}
+                    {{ __('auth.welcome.go_to_dashboard') }}
                 </a>
             </div>
 
             <div class="flex items-center justify-center gap-1 text-2sm">
                 <span class="text-secondary-foreground">
-                    {{ __('Precisa de ajuda?') }}
+                    {{ __('auth.welcome.need_help') }}
                 </span>
                 <a href="mailto:{{ config('mail.from.address') }}" class="font-medium kt-link">
-                    {{ __('Fale conosco') }}
+                    {{ __('auth.welcome.contact_us') }}
                 </a>
             </div>
 
