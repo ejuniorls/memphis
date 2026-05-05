@@ -33,6 +33,7 @@ class extends Component {
                     <button @click="activeSection = 'link'" :class="activeSection === 'link' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Link</button>
                     <button @click="activeSection = 'icon-box'" :class="activeSection === 'icon-box' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Icon Box</button>
                     <button @click="activeSection = 'breadcrumb'" :class="activeSection === 'breadcrumb' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Breadcrumb</button>
+                    <button @click="activeSection = 'toast'" :class="activeSection === 'toast' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Toast</button>
                 </nav>
             </aside>
 
@@ -502,6 +503,238 @@ class extends Component {
                             <x-ui.breadcrumb-item href="#">Relatórios</x-ui.breadcrumb-item>
                             <x-ui.breadcrumb-item :active="true">Mensal</x-ui.breadcrumb-item>
                         </x-ui.breadcrumb>
+                    </x-ui-doc-section>
+
+                </div>
+
+                {{-- ══════════ TOAST ══════════ --}}
+                <div x-show="activeSection === 'toast'" class="flex flex-col gap-6">
+
+                    @php
+                        $code = <<<'BLADE'
+    <button
+        class="kt-btn kt-btn-outline"
+        onclick="KTToast.show({ message: 'Operação realizada com sucesso!' })"
+    >
+        Show Toast
+    </button>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Uso básico" description="O Toast é acionado via JavaScript com <code>KTToast.show(options)</code>." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Operação realizada com sucesso!' })">Show Toast</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Salvo com sucesso!', variant: 'success' });
+    KTToast.show({ message: 'Atenção: revise antes de continuar.', variant: 'warning' });
+    KTToast.show({ message: 'Erro ao processar solicitação.', variant: 'destructive' });
+    KTToast.show({ message: 'Nova atualização disponível.', variant: 'primary' });
+    KTToast.show({ message: 'Informação importante.', variant: 'info' });
+    KTToast.show({ message: 'Notificação padrão.', variant: 'mono' });
+    KTToast.show({ message: 'Mensagem secundária.', variant: 'secondary' });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Variantes" description="Prop <code>variant</code> define a cor semântica do toast." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" class="text-success" onclick="KTToast.show({ message: 'Salvo com sucesso!', variant: 'success' })">Success</x-ui.button>
+                            <x-ui.button variant="outline" class="text-warning" onclick="KTToast.show({ message: 'Atenção: revise antes de continuar.', variant: 'warning' })">Warning</x-ui.button>
+                            <x-ui.button variant="outline" class="text-destructive" onclick="KTToast.show({ message: 'Erro ao processar solicitação.', variant: 'destructive' })">Destructive</x-ui.button>
+                            <x-ui.button variant="outline" class="text-primary" onclick="KTToast.show({ message: 'Nova atualização disponível.', variant: 'primary' })">Primary</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Informação importante.', variant: 'info' })">Info</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Notificação padrão.', variant: 'mono' })">Mono</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Mensagem secundária.', variant: 'secondary' })">Secondary</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Toast sólido (padrão).', variant: 'primary' });
+    KTToast.show({ message: 'Toast com contorno.', variant: 'primary', appearance: 'outline' });
+    KTToast.show({ message: 'Toast com fundo suave.', variant: 'primary', appearance: 'light' });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Appearance" description="Prop <code>appearance</code>: <code>solid</code> (padrão), <code>outline</code>, <code>light</code>." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast sólido (padrão).', variant: 'primary' })">Solid</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast com contorno.', variant: 'primary', appearance: 'outline' })">Outline</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast com fundo suave.', variant: 'primary', appearance: 'light' })">Light</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Top End', position: 'top-end' });
+    KTToast.show({ message: 'Top Center', position: 'top-center' });
+    KTToast.show({ message: 'Top Start', position: 'top-start' });
+    KTToast.show({ message: 'Bottom End', position: 'bottom-end' });
+    KTToast.show({ message: 'Bottom Center', position: 'bottom-center' });
+    KTToast.show({ message: 'Bottom Start', position: 'bottom-start' });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Posição" description="Prop <code>position</code> define onde o toast aparece na tela." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Top End', position: 'top-end' })">Top End</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Top Center', position: 'top-center' })">Top Center</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Top Start', position: 'top-start' })">Top Start</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Bottom End', position: 'bottom-end' })">Bottom End</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Bottom Center', position: 'bottom-center' })">Bottom Center</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Bottom Start', position: 'bottom-start' })">Bottom Start</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Toast pequeno.', size: 'sm' });
+    KTToast.show({ message: 'Toast médio (padrão).' });
+    KTToast.show({ message: 'Toast grande.', size: 'lg' });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Tamanho" description="Prop <code>size</code>: <code>sm</code>, padrão, <code>lg</code>." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast pequeno.', size: 'sm' })">Small</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast médio (padrão).' })">Medium</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast grande.', size: 'lg' })">Large</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({
+        title: 'Salvo com sucesso',
+        message: 'Suas alterações foram salvas.',
+        variant: 'success',
+    });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Com título" description="Prop <code>title</code> adiciona um título acima da mensagem." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ title: 'Salvo com sucesso', message: 'Suas alterações foram salvas.', variant: 'success' })">Com título (success)</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ title: 'Erro ao salvar', message: 'Não foi possível salvar. Tente novamente.', variant: 'destructive' })">Com título (erro)</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Toast com ícone customizado.', icon: 'rocket' });
+    KTToast.show({ message: 'Toast sem ícone.', icon: false });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Ícone" description="Prop <code>icon</code> aceita nome Lucide. Use <code>false</code> para ocultar." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast com ícone customizado.', icon: 'rocket' })">Ícone customizado</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast sem ícone.', icon: false })">Sem ícone</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({
+        message: 'Este toast fecha automaticamente.',
+        variant: 'primary',
+        duration: 5000,
+        progress: true,
+    });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Progresso" description="Prop <code>progress: true</code> exibe barra de progresso do tempo restante." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Este toast fecha automaticamente.', variant: 'primary', duration: 5000, progress: true })">Com progresso</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({
+        message: 'Registro excluído.',
+        variant: 'destructive',
+        action: {
+            label: 'Desfazer',
+            onClick: (id) => console.log('Undo', id),
+        },
+        cancel: {
+            label: 'Ignorar',
+            onClick: (id) => KTToast.hide(id),
+        },
+    });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Ação & Cancelar" description="Props <code>action</code> e <code>cancel</code> adicionam botões de ação ao toast." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Registro excluído.', variant: 'destructive', action: { label: 'Desfazer', onClick: function(id){ console.log('Undo', id) } }, cancel: { label: 'Ignorar', onClick: function(id){ KTToast.hide(id) } } })">Ação & Cancelar</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Este toast dura 10 segundos.', duration: 10000 });
+    KTToast.show({ message: 'Este toast não fecha sozinho.', duration: 0 });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Duração" description="Prop <code>duration</code> em ms. Use <code>0</code> para toast permanente." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Este toast dura 10 segundos.', duration: 10000 })">10 segundos</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Este toast não fecha sozinho.', duration: 0, dismissible: true })">Permanente</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({
+        message: 'Toast importante — não é removido ao navegar.',
+        variant: 'warning',
+        important: true,
+    });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Importante" description="Prop <code>important: true</code> persiste o toast mesmo durante navegação." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Toast importante — não é removido ao navegar.', variant: 'warning', important: true })">Importante</x-ui.button>
+                            <x-ui.button variant="destructive" onclick="KTToast.clearAll()">Limpar todos</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    KTToast.show({ message: 'Passe o mouse para pausar.', pauseOnHover: true, duration: 6000, progress: true });
+    KTToast.show({ message: 'Hover não pausa este toast.', pauseOnHover: false, duration: 6000, progress: true });
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Pause on Hover" description="Prop <code>pauseOnHover</code> pausa o temporizador quando o mouse está sobre o toast." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Passe o mouse para pausar.', pauseOnHover: true, duration: 6000, progress: true })">Pausa no hover</x-ui.button>
+                            <x-ui.button variant="outline" onclick="KTToast.show({ message: 'Hover não pausa este toast.', pauseOnHover: false, duration: 6000, progress: true })">Sem pausa</x-ui.button>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+    {{-- Toast estático renderizado diretamente no HTML --}}
+    <x-ui.toast
+        variant="success"
+        message="Operação realizada com sucesso!"
+        position="top-end"
+        :progress="true"
+        :duration="5000"
+    />
+
+    {{-- Com título e botões de ação --}}
+    <x-ui.toast
+        variant="warning"
+        title="Atenção"
+        message="Revise os dados antes de continuar."
+        :action="['label' => 'Revisar', 'href' => '/revisao']"
+        :cancel="['label' => 'Ignorar', 'href' => '#']"
+    />
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Toast — Componente Blade estático" description="O componente <code>&lt;x-ui.toast&gt;</code> gera a estrutura HTML sem JS. Use a API <code>KTToast.show()</code> para comportamento dinâmico." :code="$code">
+                        <div class="text-sm text-secondary-foreground bg-muted/40 rounded-lg p-4 border border-input">
+                            <p class="font-medium text-mono mb-1">Nota sobre uso estático</p>
+                            <p>O componente Blade é ideal para toasts gerados server-side (ex: flash messages do Laravel). Para toasts disparados por interação do usuário, use <code class="text-xs bg-muted px-1 py-0.5 rounded">KTToast.show()</code>.</p>
+                        </div>
                     </x-ui-doc-section>
 
                 </div>

@@ -37,9 +37,8 @@
                 </a>
             </li>
             <li>
-                <a class="kt-dropdown-menu-link" href="html/demo1/account/home/user-profile.html">
-                    <i class="ki-filled ki-profile-circle">
-                    </i>
+                <a class="kt-dropdown-menu-link" href="{{ route('account.profile') }}">
+                    <i class="ki-filled ki-profile-circle"></i>
                     My Profile
                 </a>
             </li>
