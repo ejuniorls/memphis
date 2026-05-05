@@ -20,7 +20,6 @@ trait ProfileValidationRules
             'bio'            => ['nullable', 'string', 'max:500'],
             'job_title'      => ['nullable', 'string', 'max:100'],
             'company'        => ['nullable', 'string', 'max:100'],
-            'phone'          => ['nullable', 'string', 'max:30'],
             'location'       => ['nullable', 'string', 'max:100'],
             'website'        => ['nullable', 'url', 'max:255'],
             'linkedin'       => ['nullable', 'string', 'max:255'],
@@ -29,7 +28,6 @@ trait ProfileValidationRules
             'instagram'      => ['nullable', 'string', 'max:255'],
             'profile_public' => ['boolean'],
             'show_email'     => ['boolean'],
-            'show_phone'     => ['boolean'],
         ];
     }
 

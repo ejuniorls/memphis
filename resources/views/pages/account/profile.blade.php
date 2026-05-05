@@ -3,8 +3,6 @@
 use App\Concerns\ProfileValidationRules;
 use App\Enums\ContactType;
 use App\Enums\IntegrationSystem;
-use App\Models\UserContact;
-use App\Models\UserIntegration;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +15,6 @@ new #[Title('Meu Perfil')] class extends Component
 {
     use ProfileValidationRules, WithFileUploads;
 
-    // Dados básicos
     public string $name           = '';
     public string $email          = '';
     public string $bio            = '';
@@ -33,17 +30,11 @@ new #[Title('Meu Perfil')] class extends Component
     public bool   $show_email     = false;
     public        $avatar_upload  = null;
 
-    // Contatos
-    public array $contacts = [];
-
-    // Novo contato (form inline)
-    public string $new_contact_type   = '';
-    public string $new_contact_number = '';
-
-    // Integrações
+    public array $contacts     = [];
     public array $integrations = [];
 
-    // Nova integração (form inline)
+    public string $new_contact_type            = '';
+    public string $new_contact_number          = '';
     public string $new_integration_system      = '';
     public string $new_integration_external_id = '';
 
@@ -79,6 +70,7 @@ new #[Title('Meu Perfil')] class extends Component
         $this->contacts = Auth::user()
             ->contacts()
             ->orderByDesc('is_primary')
+            ->orderBy('id')
             ->get()
             ->map(fn($c) => [
                 'id'         => $c->id,
@@ -97,19 +89,17 @@ new #[Title('Meu Perfil')] class extends Component
             ->integrations()
             ->get()
             ->map(fn($i) => [
-                'id'          => $i->id,
-                'system'      => $i->system->value,
-                'system_label'=> $i->system->label(),
-                'system_icon' => $i->system->icon(),
-                'external_id' => $i->external_id,
-                'active'      => $i->active,
+                'id'           => $i->id,
+                'system'       => $i->system->value,
+                'system_label' => $i->system->label(),
+                'system_icon'  => $i->system->icon(),
+                'external_id'  => $i->external_id,
+                'active'       => $i->active,
             ])
             ->toArray();
     }
 
-    // ----------------------------------------------------------------
-    // Perfil principal
-    // ----------------------------------------------------------------
+    // ---------------------------------------------------------------- Perfil
 
     public function updateProfileInformation(): void
     {
@@ -142,6 +132,7 @@ new #[Title('Meu Perfil')] class extends Component
             Storage::disk('public')->delete($user->avatar);
             $user->avatar = null;
             $user->save();
+            $this->dispatch('toast', variant: 'success', message: 'Foto removida.');
         }
     }
 
@@ -156,19 +147,14 @@ new #[Title('Meu Perfil')] class extends Component
         $this->dispatch('toast', variant: 'info', message: 'Um novo link de verificação foi enviado para o seu e-mail.');
     }
 
-    // ----------------------------------------------------------------
-    // Contatos
-    // ----------------------------------------------------------------
+    // ---------------------------------------------------------------- Contatos
 
     public function addContact(): void
     {
         $this->validate([
             'new_contact_type'   => ['required', 'string'],
             'new_contact_number' => ['required', 'string', 'max:30'],
-        ], [], [
-            'new_contact_type'   => 'tipo',
-            'new_contact_number' => 'número',
-        ]);
+        ], [], ['new_contact_type' => 'tipo', 'new_contact_number' => 'número']);
 
         $isPrimary = Auth::user()->contacts()->count() === 0;
 
@@ -181,6 +167,7 @@ new #[Title('Meu Perfil')] class extends Component
         $this->new_contact_type   = '';
         $this->new_contact_number = '';
         $this->loadContacts();
+        $this->dispatch('toast', variant: 'success', message: 'Telefone adicionado.');
     }
 
     public function setPrimaryContact(int $id): void
@@ -195,21 +182,17 @@ new #[Title('Meu Perfil')] class extends Component
     {
         Auth::user()->contacts()->where('id', $id)->delete();
         $this->loadContacts();
+        $this->dispatch('toast', variant: 'success', message: 'Telefone removido.');
     }
 
-    // ----------------------------------------------------------------
-    // Integrações
-    // ----------------------------------------------------------------
+    // ---------------------------------------------------------------- Integrações
 
     public function addIntegration(): void
     {
         $this->validate([
             'new_integration_system'      => ['required', 'string'],
             'new_integration_external_id' => ['required', 'string', 'max:100'],
-        ], [], [
-            'new_integration_system'      => 'sistema',
-            'new_integration_external_id' => 'ID externo',
-        ]);
+        ], [], ['new_integration_system' => 'sistema', 'new_integration_external_id' => 'ID externo']);
 
         Auth::user()->integrations()->updateOrCreate(
             ['system' => $this->new_integration_system],
@@ -219,17 +202,17 @@ new #[Title('Meu Perfil')] class extends Component
         $this->new_integration_system      = '';
         $this->new_integration_external_id = '';
         $this->loadIntegrations();
+        $this->dispatch('toast', variant: 'success', message: 'Integração adicionada.');
     }
 
     public function removeIntegration(int $id): void
     {
         Auth::user()->integrations()->where('id', $id)->delete();
         $this->loadIntegrations();
+        $this->dispatch('toast', variant: 'success', message: 'Integração removida.');
     }
 
-    // ----------------------------------------------------------------
-    // Computed
-    // ----------------------------------------------------------------
+    // ---------------------------------------------------------------- Computed
 
     #[Computed]
     public function hasUnverifiedEmail(): bool
@@ -268,7 +251,7 @@ new #[Title('Meu Perfil')] class extends Component
 
 <div class="kt-container-fluid py-6">
 
-    {{-- Page Header --}}
+    {{-- Header --}}
     <div class="flex items-center justify-between mb-8">
         <div>
             <h1 class="text-2xl font-bold text-mono">Meu Perfil</h1>
@@ -278,43 +261,61 @@ new #[Title('Meu Perfil')] class extends Component
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-        {{-- ============================================================ --}}
-        {{-- Sidebar: Avatar + Visibilidade --}}
-        {{-- ============================================================ --}}
+        {{-- ================================================================ --}}
+        {{-- Sidebar --}}
+        {{-- ================================================================ --}}
         <div class="lg:col-span-1 flex flex-col gap-6">
 
-            {{-- Avatar --}}
+            {{-- Avatar com drag & drop --}}
             <div class="kt-card">
                 <div class="kt-card-header">
                     <h3 class="kt-card-title">Foto do Perfil</h3>
                 </div>
-                <div class="kt-card-content flex flex-col items-center gap-5 py-6">
+                <div class="kt-card-content flex flex-col items-center gap-4 py-6">
+
+                    {{-- Avatar atual --}}
                     <div class="relative">
-                        <img src="{{ $this->currentAvatarUrl }}" alt="{{ $name }}"
-                             class="size-28 rounded-full object-cover ring-4 ring-border" />
+                        <img
+                            src="{{ $this->currentAvatarUrl }}"
+                            alt="{{ $name }}"
+                            class="size-24 rounded-full object-cover ring-4 ring-border"
+                        />
                         @if ($avatar_upload)
-                            <span class="absolute -bottom-1 -right-1 kt-badge kt-badge-sm kt-badge-primary rounded-full px-2">Prévia</span>
+                            <x-ui.badge variant="primary" size="sm" class="absolute -bottom-1 -right-1 rounded-full">
+                                Prévia
+                            </x-ui.badge>
                         @endif
                     </div>
 
-                    <div class="flex flex-col gap-2 w-full">
-                        <label class="kt-btn kt-btn-outline w-full justify-center cursor-pointer" for="avatar_input">
-                            <i class="ki-filled ki-picture"></i>
-                            {{ $avatar_upload ? 'Trocar foto' : 'Enviar foto' }}
-                        </label>
-                        <input id="avatar_input" type="file" accept="image/*" wire:model="avatar_upload" class="hidden" />
+                    {{-- Dropzone --}}
+                    <x-ui.file-dropzone
+                        id="avatar_input"
+                        model="avatar_upload"
+                        accept="image/*"
+                        label="Arraste uma foto aqui ou"
+                        button-label="Selecionar foto"
+                        file-label="Trocar foto"
+                        hint="JPG, PNG ou GIF · Máximo 2MB."
+                        :has-file="(bool) $avatar_upload || (bool) Auth::user()->avatar"
+                        class="w-full"
+                    />
 
-                        @if (Auth::user()->avatar)
-                            <button type="button" wire:click="removeAvatar"
-                                    wire:confirm="Deseja remover sua foto de perfil?"
-                                    class="kt-btn kt-btn-ghost kt-btn-sm text-destructive hover:text-destructive w-full justify-center">
-                                <i class="ki-filled ki-trash"></i> Remover foto
-                            </button>
-                        @endif
-                    </div>
+                    @error('avatar_upload')
+                    <p class="text-xs text-destructive text-center">{{ $message }}</p>
+                    @enderror
 
-                    <p class="text-xs text-secondary-foreground text-center">JPG, PNG ou GIF. Máximo 2MB.</p>
-                    @error('avatar_upload') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
+                    @if (Auth::user()->avatar)
+                        <x-ui.button
+                            ghost="destructive"
+                            size="sm"
+                            icon="trash-2"
+                            wire:click="removeAvatar"
+                            wire:confirm="Deseja remover sua foto de perfil?"
+                            class="w-full justify-center"
+                        >
+                            Remover foto
+                        </x-ui.button>
+                    @endif
                 </div>
             </div>
 
@@ -324,7 +325,9 @@ new #[Title('Meu Perfil')] class extends Component
                     <h3 class="kt-card-title">Visibilidade</h3>
                 </div>
                 <div class="kt-card-content flex flex-col gap-5 py-4">
-                    <p class="text-xs text-secondary-foreground">Controle quais informações outros usuários podem visualizar.</p>
+                    <p class="text-xs text-secondary-foreground">
+                        Controle quais informações outros usuários podem visualizar no seu perfil.
+                    </p>
 
                     <label class="flex items-center justify-between gap-3 cursor-pointer">
                         <div class="flex flex-col gap-0.5">
@@ -334,7 +337,7 @@ new #[Title('Meu Perfil')] class extends Component
                         <input type="checkbox" class="kt-switch" wire:model="profile_public" />
                     </label>
 
-                    <div class="border-b border-input"></div>
+                    <x-ui.divider />
 
                     <label class="flex items-center justify-between gap-3 cursor-pointer">
                         <div class="flex flex-col gap-0.5">
@@ -348,13 +351,14 @@ new #[Title('Meu Perfil')] class extends Component
 
         </div>
 
-        {{-- ============================================================ --}}
+        {{-- ================================================================ --}}
         {{-- Main --}}
-        {{-- ============================================================ --}}
+        {{-- ================================================================ --}}
         <div class="lg:col-span-2 flex flex-col gap-6">
 
-            {{-- Informações Básicas --}}
-            <form wire:submit="updateProfileInformation">
+            <form wire:submit="updateProfileInformation" class="flex flex-col gap-6">
+
+                {{-- Informações Básicas --}}
                 <div class="kt-card">
                     <div class="kt-card-header">
                         <h3 class="kt-card-title">Informações Básicas</h3>
@@ -362,174 +366,146 @@ new #[Title('Meu Perfil')] class extends Component
                     <div class="kt-card-content flex flex-col gap-5 py-5">
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="name">
-                                    Nome completo <span class="text-destructive">*</span>
-                                </label>
-                                <div class="kt-input">
-                                    <i class="ki-filled ki-user"></i>
-                                    <input id="name" type="text" wire:model="name" placeholder="Seu nome completo" required autocomplete="name" />
-                                </div>
-                                @error('name') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                            <x-ui.form-field label="Nome completo" name="name" :required="true">
+                                <x-ui.input id="name" icon="user" wire:model="name"
+                                            placeholder="Seu nome completo" autocomplete="name" required />
+                            </x-ui.form-field>
 
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="email">
-                                    E-mail <span class="text-destructive">*</span>
-                                </label>
-                                <div class="kt-input">
-                                    <i class="ki-filled ki-sms"></i>
-                                    <input id="email" type="email" wire:model="email" placeholder="seu@email.com" required autocomplete="email" />
-                                </div>
+                            <x-ui.form-field label="E-mail" name="email" :required="true">
+                                <x-ui.input id="email" type="email" icon="mail" wire:model="email"
+                                            placeholder="seu@email.com" autocomplete="email" required />
                                 @if ($this->hasUnverifiedEmail)
-                                    <p class="text-xs text-warning flex items-center gap-1">
-                                        <i class="ki-filled ki-information-2"></i>
+                                    <p class="text-xs text-warning flex items-center gap-1 mt-1">
+                                        @svg('lucide-triangle-alert', ['class' => 'size-3 shrink-0'])
                                         E-mail não verificado.
-                                        <button type="button" wire:click.prevent="resendVerificationNotification" class="underline font-medium hover:text-primary">Reenviar.</button>
+                                        <button type="button" wire:click.prevent="resendVerificationNotification"
+                                                class="underline font-medium hover:text-primary">Reenviar.</button>
                                     </p>
                                 @endif
-                                @error('email') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                            </x-ui.form-field>
                         </div>
 
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-sm font-medium text-foreground" for="bio">Bio / Descrição</label>
-                            <textarea id="bio" wire:model="bio" rows="3" maxlength="500"
-                                      placeholder="Conte um pouco sobre você..."
-                                      class="kt-textarea"
-                                      x-data x-ref="bio"
-                                      @input="$refs.bioCount.textContent = $el.value.length"
+                        <x-ui.form-field label="Bio / Descrição" name="bio">
+                            <textarea
+                                id="bio"
+                                wire:model="bio"
+                                rows="3"
+                                maxlength="500"
+                                placeholder="Conte um pouco sobre você..."
+                                class="kt-textarea"
+                                x-data
+                                @input="$el.nextElementSibling.querySelector('[x-ref=bioCount]') || null"
+                                x-ref="bioArea"
+                                @input.debounce.0="$refs.bioCount.textContent = $el.value.length"
                             ></textarea>
-                            <div class="flex items-center justify-between">
-                                @error('bio') <p class="text-xs text-destructive">{{ $message }}</p> @else <span></span> @enderror
-                                <span class="text-xs text-secondary-foreground"><span x-ref="bioCount">{{ strlen($bio) }}</span>/500</span>
+                            <div class="flex items-center justify-between mt-1">
+                                @error('bio')
+                                <p class="text-xs text-destructive">{{ $message }}</p>
+                                @else
+                                    <span></span>
+                                    @enderror
+                                    <span class="text-xs text-secondary-foreground">
+                                        <span x-ref="bioCount">{{ strlen($bio) }}</span>/500
+                                    </span>
                             </div>
+                        </x-ui.form-field>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <x-ui.form-field label="Cargo / Função" name="job_title">
+                                <x-ui.input id="job_title" icon="briefcase" wire:model="job_title"
+                                            placeholder="Ex: Desenvolvedor Full Stack" />
+                            </x-ui.form-field>
+
+                            <x-ui.form-field label="Empresa" name="company">
+                                <x-ui.input id="company" icon="building-2" wire:model="company"
+                                            placeholder="Nome da empresa" />
+                            </x-ui.form-field>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="job_title">Cargo / Função</label>
-                                <div class="kt-input">
-                                    <i class="ki-filled ki-briefcase"></i>
-                                    <input id="job_title" type="text" wire:model="job_title" placeholder="Ex: Desenvolvedor Full Stack" />
-                                </div>
-                                @error('job_title') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                            <x-ui.form-field label="Localização" name="location">
+                                <x-ui.input id="location" icon="map-pin" wire:model="location"
+                                            placeholder="Ex: São Paulo, SP" />
+                            </x-ui.form-field>
 
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="company">Empresa</label>
-                                <div class="kt-input">
-                                    <i class="ki-filled ki-office-bag"></i>
-                                    <input id="company" type="text" wire:model="company" placeholder="Nome da empresa" />
-                                </div>
-                                @error('company') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="location">Localização</label>
-                                <div class="kt-input">
-                                    <i class="ki-filled ki-geolocation"></i>
-                                    <input id="location" type="text" wire:model="location" placeholder="Ex: São Paulo, SP" />
-                                </div>
-                                @error('location') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
-
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="website">Website / Portfólio</label>
-                                <div class="kt-input">
-                                    <i class="ki-filled ki-global"></i>
-                                    <input id="website" type="url" wire:model="website" placeholder="https://seusite.com" />
-                                </div>
-                                @error('website') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                            <x-ui.form-field label="Website / Portfólio" name="website">
+                                <x-ui.input id="website" type="url" icon="globe" wire:model="website"
+                                            placeholder="https://seusite.com" />
+                            </x-ui.form-field>
                         </div>
 
                     </div>
                 </div>
 
                 {{-- Redes Sociais --}}
-                <div class="kt-card mt-6">
+                <div class="kt-card">
                     <div class="kt-card-header">
                         <h3 class="kt-card-title">Redes Sociais</h3>
                     </div>
-                    <div class="kt-card-content flex flex-col gap-4 py-5">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="kt-card-content grid grid-cols-1 sm:grid-cols-2 gap-4 py-5">
 
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="linkedin">LinkedIn</label>
-                                <div class="kt-input-group">
-                                    <span class="kt-input-group-text min-w-[44px] justify-center">
-                                        <i class="ki-filled ki-linkedin text-[#0A66C2]"></i>
-                                    </span>
-                                    <input id="linkedin" type="text" wire:model="linkedin" class="kt-input rounded-s-none" placeholder="linkedin.com/in/usuario" />
-                                </div>
-                                @error('linkedin') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                        <x-ui.form-field label="LinkedIn" name="linkedin">
+                            <x-ui.input-group addonIcon="linkedin">
+                                <x-ui.input id="linkedin" wire:model="linkedin"
+                                            placeholder="linkedin.com/in/usuario" class="rounded-s-none" />
+                            </x-ui.input-group>
+                        </x-ui.form-field>
 
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="github">GitHub</label>
-                                <div class="kt-input-group">
-                                    <span class="kt-input-group-text min-w-[44px] justify-center">
-                                        <i class="ki-filled ki-github"></i>
-                                    </span>
-                                    <input id="github" type="text" wire:model="github" class="kt-input rounded-s-none" placeholder="github.com/usuario" />
-                                </div>
-                                @error('github') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                        <x-ui.form-field label="GitHub" name="github">
+                            <x-ui.input-group addonIcon="github">
+                                <x-ui.input id="github" wire:model="github"
+                                            placeholder="github.com/usuario" class="rounded-s-none" />
+                            </x-ui.input-group>
+                        </x-ui.form-field>
 
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="twitter">Twitter / X</label>
-                                <div class="kt-input-group">
-                                    <span class="kt-input-group-text min-w-[44px] justify-center">
-                                        <i class="ki-filled ki-twitter"></i>
-                                    </span>
-                                    <input id="twitter" type="text" wire:model="twitter" class="kt-input rounded-s-none" placeholder="@usuario" />
-                                </div>
-                                @error('twitter') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                        <x-ui.form-field label="Twitter / X" name="twitter">
+                            <x-ui.input-group addonIcon="twitter">
+                                <x-ui.input id="twitter" wire:model="twitter"
+                                            placeholder="@usuario" class="rounded-s-none" />
+                            </x-ui.input-group>
+                        </x-ui.form-field>
 
-                            <div class="flex flex-col gap-1.5">
-                                <label class="text-sm font-medium text-foreground" for="instagram">Instagram</label>
-                                <div class="kt-input-group">
-                                    <span class="kt-input-group-text min-w-[44px] justify-center">
-                                        <i class="ki-filled ki-instagram text-[#E1306C]"></i>
-                                    </span>
-                                    <input id="instagram" type="text" wire:model="instagram" class="kt-input rounded-s-none" placeholder="@usuario" />
-                                </div>
-                                @error('instagram') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            </div>
+                        <x-ui.form-field label="Instagram" name="instagram">
+                            <x-ui.input-group addonIcon="instagram">
+                                <x-ui.input id="instagram" wire:model="instagram"
+                                            placeholder="@usuario" class="rounded-s-none" />
+                            </x-ui.input-group>
+                        </x-ui.form-field>
 
-                        </div>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-3 mt-4">
-                    <button type="button" wire:click="resetForm" class="kt-btn kt-btn-outline">Cancelar</button>
-                    <button type="submit" class="kt-btn kt-btn-primary" wire:loading.attr="disabled">
-                        <span wire:loading.remove><i class="ki-filled ki-check"></i> Salvar alterações</span>
-                        <span wire:loading class="flex items-center gap-2">
+                {{-- Actions --}}
+                <div class="flex items-center justify-end gap-3">
+                    <x-ui.button type="button" :outline="true" wire:click="resetForm">
+                        Cancelar
+                    </x-ui.button>
+                    <x-ui.button type="submit" variant="primary" wire:loading.attr="disabled">
+                        <span wire:loading.remove wire:target="updateProfileInformation" class="flex items-center gap-2">
+                            @svg('lucide-check', ['class' => 'size-4'])
+                            Salvar alterações
+                        </span>
+                        <span wire:loading wire:target="updateProfileInformation" class="flex items-center gap-2">
                             <svg class="animate-spin size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
                             </svg>
                             Salvando...
                         </span>
-                    </button>
+                    </x-ui.button>
                 </div>
+
             </form>
 
             {{-- ============================================================ --}}
-            {{-- Contatos / Telefones --}}
+            {{-- Telefones --}}
             {{-- ============================================================ --}}
             <div class="kt-card">
                 <div class="kt-card-header">
                     <h3 class="kt-card-title">Telefones</h3>
                 </div>
-                <div class="kt-card-content flex flex-col gap-4 py-5">
+                <div class="kt-card-content flex flex-col gap-3 py-5">
 
-                    {{-- Lista de contatos --}}
                     @forelse ($contacts as $contact)
                         <div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-input bg-muted/30">
                             <div class="flex items-center gap-3">
@@ -540,7 +516,7 @@ new #[Title('Meu Perfil')] class extends Component
                                     <div class="flex items-center gap-2">
                                         <span class="text-sm font-medium text-foreground">{{ $contact['number'] }}</span>
                                         @if ($contact['is_primary'])
-                                            <span class="kt-badge kt-badge-sm kt-badge-success kt-badge-outline">Principal</span>
+                                            <x-ui.badge variant="success" style="outline" size="sm">Principal</x-ui.badge>
                                         @endif
                                     </div>
                                     <span class="text-xs text-secondary-foreground">{{ $contact['type_label'] }}</span>
@@ -548,44 +524,36 @@ new #[Title('Meu Perfil')] class extends Component
                             </div>
                             <div class="flex items-center gap-1">
                                 @if (!$contact['is_primary'])
-                                    <button type="button"
-                                            wire:click="setPrimaryContact({{ $contact['id'] }})"
-                                            class="kt-btn kt-btn-ghost kt-btn-sm"
-                                            title="Definir como principal">
-                                        <i class="ki-filled ki-star text-muted-foreground"></i>
-                                    </button>
+                                    <x-ui.button ghost="" size="sm" :iconOnly="true" icon="star"
+                                                 wire:click="setPrimaryContact({{ $contact['id'] }})"
+                                                 tooltip="Definir como principal" tooltipPlacement="left" />
                                 @endif
-                                <button type="button"
-                                        wire:click="removeContact({{ $contact['id'] }})"
-                                        wire:confirm="Remover este telefone?"
-                                        class="kt-btn kt-btn-ghost kt-btn-sm text-destructive hover:text-destructive">
-                                    <i class="ki-filled ki-trash"></i>
-                                </button>
+                                <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="trash-2"
+                                             wire:click="removeContact({{ $contact['id'] }})"
+                                             wire:confirm="Remover este telefone?" />
                             </div>
                         </div>
                     @empty
                         <p class="text-sm text-secondary-foreground text-center py-4">Nenhum telefone cadastrado.</p>
                     @endforelse
 
-                    {{-- Adicionar novo contato --}}
                     <div class="border-t border-input pt-4 flex flex-col gap-3">
                         <p class="text-sm font-medium text-foreground">Adicionar telefone</p>
                         <div class="flex gap-2">
-                            <select wire:model="new_contact_type" class="kt-select w-40 shrink-0">
-                                <option value="">Tipo</option>
+                            <x-ui.select wire:model="new_contact_type" placeholder="Tipo" class="w-40 shrink-0">
                                 @foreach ($this->contactTypes as $type)
                                     <option value="{{ $type['value'] }}">{{ $type['label'] }}</option>
                                 @endforeach
-                            </select>
-                            <div class="kt-input flex-1">
-                                <i class="ki-filled ki-phone"></i>
-                                <input type="tel" wire:model="new_contact_number" placeholder="(11) 99999-9999"
-                                       wire:keydown.enter.prevent="addContact" />
-                            </div>
-                            <button type="button" wire:click="addContact" class="kt-btn kt-btn-primary shrink-0">
-                                <i class="ki-filled ki-plus"></i>
+                            </x-ui.select>
+
+                            <x-ui.input type="tel" icon="phone" wire:model="new_contact_number"
+                                        placeholder="(11) 99999-9999"
+                                        wire:keydown.enter.prevent="addContact"
+                                        class="flex-1" />
+
+                            <x-ui.button variant="primary" icon="plus" wire:click="addContact" class="shrink-0">
                                 Adicionar
-                            </button>
+                            </x-ui.button>
                         </div>
                         @error('new_contact_type')   <p class="text-xs text-destructive">{{ $message }}</p> @enderror
                         @error('new_contact_number') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
@@ -602,9 +570,8 @@ new #[Title('Meu Perfil')] class extends Component
                     <h3 class="kt-card-title">Integrações</h3>
                     <span class="text-xs text-secondary-foreground">IDs em sistemas externos</span>
                 </div>
-                <div class="kt-card-content flex flex-col gap-4 py-5">
+                <div class="kt-card-content flex flex-col gap-3 py-5">
 
-                    {{-- Lista de integrações --}}
                     @forelse ($integrations as $integration)
                         <div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-input bg-muted/30">
                             <div class="flex items-center gap-3">
@@ -616,44 +583,40 @@ new #[Title('Meu Perfil')] class extends Component
                                     <span class="text-xs text-secondary-foreground font-mono">ID: {{ $integration['external_id'] }}</span>
                                 </div>
                             </div>
-                            <button type="button"
-                                    wire:click="removeIntegration({{ $integration['id'] }})"
-                                    wire:confirm="Remover esta integração?"
-                                    class="kt-btn kt-btn-ghost kt-btn-sm text-destructive hover:text-destructive">
-                                <i class="ki-filled ki-trash"></i>
-                            </button>
+                            <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="trash-2"
+                                         wire:click="removeIntegration({{ $integration['id'] }})"
+                                         wire:confirm="Remover esta integração?" />
                         </div>
                     @empty
                         <p class="text-sm text-secondary-foreground text-center py-4">Nenhuma integração configurada.</p>
                     @endforelse
 
-                    {{-- Adicionar integração --}}
                     @if (count($this->integrationSystems) > 0)
                         <div class="border-t border-input pt-4 flex flex-col gap-3">
                             <p class="text-sm font-medium text-foreground">Adicionar integração</p>
                             <div class="flex gap-2">
-                                <select wire:model="new_integration_system" class="kt-select w-48 shrink-0">
-                                    <option value="">Sistema</option>
+                                <x-ui.select wire:model="new_integration_system" placeholder="Sistema" class="w-48 shrink-0">
                                     @foreach ($this->integrationSystems as $system)
                                         <option value="{{ $system['value'] }}">{{ $system['label'] }}</option>
                                     @endforeach
-                                </select>
-                                <div class="kt-input flex-1">
-                                    <i class="ki-filled ki-code"></i>
-                                    <input type="text" wire:model="new_integration_external_id"
-                                           placeholder="ID do usuário no sistema"
-                                           wire:keydown.enter.prevent="addIntegration" />
-                                </div>
-                                <button type="button" wire:click="addIntegration" class="kt-btn kt-btn-primary shrink-0">
-                                    <i class="ki-filled ki-plus"></i>
+                                </x-ui.select>
+
+                                <x-ui.input icon="hash" wire:model="new_integration_external_id"
+                                            placeholder="ID do usuário no sistema"
+                                            wire:keydown.enter.prevent="addIntegration"
+                                            class="flex-1" />
+
+                                <x-ui.button variant="primary" icon="plus" wire:click="addIntegration" class="shrink-0">
                                     Adicionar
-                                </button>
+                                </x-ui.button>
                             </div>
                             @error('new_integration_system')      <p class="text-xs text-destructive">{{ $message }}</p> @enderror
                             @error('new_integration_external_id') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
                         </div>
                     @else
-                        <p class="text-xs text-secondary-foreground text-center">Todos os sistemas disponíveis já foram configurados.</p>
+                        <p class="text-xs text-secondary-foreground text-center">
+                            Todos os sistemas disponíveis já foram configurados.
+                        </p>
                     @endif
 
                 </div>
@@ -665,9 +628,7 @@ new #[Title('Meu Perfil')] class extends Component
 </div>
 
 <script>
-    document.addEventListener('livewire:init', () => {
-        Livewire.on('toast', ({ variant, message }) => {
-            KTToast.show({ message, variant });
-        });
+    Livewire.on('toast', ({ variant, message }) => {
+        KTToast.show({ message, variant });
     });
 </script>
