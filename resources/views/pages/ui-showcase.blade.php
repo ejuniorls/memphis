@@ -34,6 +34,7 @@ class extends Component {
                     <button @click="activeSection = 'icon-box'" :class="activeSection === 'icon-box' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Icon Box</button>
                     <button @click="activeSection = 'breadcrumb'" :class="activeSection === 'breadcrumb' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Breadcrumb</button>
                     <button @click="activeSection = 'toast'" :class="activeSection === 'toast' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Toast</button>
+                    <button @click="activeSection = 'modal'" :class="activeSection === 'modal' ? 'bg-primary/10 text-primary font-semibold' : 'text-secondary-foreground hover:text-mono hover:bg-muted'" class="text-left text-sm px-3 py-2 rounded-lg transition-colors">Modal</button>
                 </nav>
             </aside>
 
@@ -739,8 +740,360 @@ class extends Component {
 
                 </div>
 
+
+                {{-- ══════════ MODAL ══════════ --}}
+                <div x-show="activeSection === 'modal'" class="flex flex-col gap-6">
+
+                    {{-- Básico --}}
+                    @php
+                        $code = <<<'BLADE'
+    <button class="kt-btn kt-btn-outline" data-kt-modal-toggle="#modal_basic">
+        Abrir Modal
+    </button>
+
+    <x-ui.modal id="modal_basic" title="Título do Modal" top="10%">
+        <div class="rounded-lg bg-muted w-full h-48"></div>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Uso básico" description="Conecte o botão via <code>data-kt-modal-toggle</code> e o componente via <code>id</code>." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_basic">Abrir Modal</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_basic" title="Título do Modal" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-48"></div>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Com footer --}}
+                    @php
+                        $code = <<<'BLADE'
+    <x-ui.modal id="modal_footer" title="Confirmar ação" top="5%">
+        <p class="text-sm text-secondary-foreground">
+            Tem certeza que deseja continuar? Esta ação não pode ser desfeita.
+        </p>
+
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_footer">Cancelar</x-ui.button>
+            <x-ui.button variant="primary">Confirmar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Com footer" description="Use o slot <code>footer</code> para adicionar botões de ação." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_footer">Com footer</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_footer" title="Confirmar ação" top="5%">
+                            <p class="text-sm text-secondary-foreground">
+                                Tem certeza que deseja continuar? Esta ação não pode ser desfeita.
+                            </p>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_footer">Cancelar</x-ui.button>
+                                <x-ui.button variant="primary">Confirmar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Centralizado --}}
+                    @php
+                        $code = <<<'BLADE'
+    <x-ui.modal id="modal_center" title="Modal centralizado" :center="true">
+        <p class="text-sm text-secondary-foreground">
+            Este modal aparece centralizado vertical e horizontalmente na tela.
+        </p>
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_center">Fechar</x-ui.button>
+            <x-ui.button variant="primary">Salvar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Centralizado" description="Prop <code>center</code> posiciona o modal centralizado vertical e horizontalmente." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_center">Centralizado</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_center" title="Modal centralizado" :center="true">
+                            <p class="text-sm text-secondary-foreground">
+                                Este modal aparece centralizado vertical e horizontalmente na tela.
+                            </p>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_center">Fechar</x-ui.button>
+                                <x-ui.button variant="primary">Salvar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Tamanhos --}}
+                    @php
+                        $code = <<<'BLADE'
+    <x-ui.modal id="modal_sm"   title="Modal Pequeno"  size="sm"   top="10%" />
+    <x-ui.modal id="modal_md"   title="Modal Padrão"               top="10%" />
+    <x-ui.modal id="modal_lg"   title="Modal Grande"   size="lg"   top="10%" />
+    <x-ui.modal id="modal_xl"   title="Modal Extra"    size="xl"   top="10%" />
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Tamanhos" description="Prop <code>size</code>: <code>sm</code>, padrão (400px), <code>lg</code>, <code>xl</code>." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_sm">Small</x-ui.button>
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_md">Medium</x-ui.button>
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_lg">Large</x-ui.button>
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_xl">Extra Large</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_sm" title="Modal Pequeno" size="sm" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-36"></div>
+                        </x-ui.modal>
+                        <x-ui.modal id="modal_md" title="Modal Padrão" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-36"></div>
+                        </x-ui.modal>
+                        <x-ui.modal id="modal_lg" title="Modal Grande" size="lg" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-36"></div>
+                        </x-ui.modal>
+                        <x-ui.modal id="modal_xl" title="Modal Extra Large" size="xl" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-36"></div>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Scrollable --}}
+                    @php
+                        $code = <<<'BLADE'
+    <x-ui.modal id="modal_scroll" title="Conteúdo longo" :scrollable="true" maxBodyHeight="260px" top="10%">
+        <div class="rounded-lg bg-muted w-full h-[600px]"></div>
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_scroll">Cancelar</x-ui.button>
+            <x-ui.button variant="primary">Salvar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Scrollable" description="Prop <code>scrollable</code> ativa scroll interno no body. Use <code>maxBodyHeight</code> para controlar a altura." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_scroll">Scrollable</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_scroll" title="Conteúdo longo" :scrollable="true" maxBodyHeight="260px" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-[600px]"></div>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_scroll">Cancelar</x-ui.button>
+                                <x-ui.button variant="primary">Salvar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Backdrop estático / sem backdrop --}}
+                    @php
+                        $code = <<<'BLADE'
+    {{-- Backdrop estático: clicar fora não fecha --}}
+    <x-ui.modal id="modal_static" title="Backdrop estático" :backdropStatic="true" top="10%">
+        <p class="text-sm text-secondary-foreground">Clicar fora deste modal não o fecha.</p>
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_static">Fechar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+
+    {{-- Sem backdrop --}}
+    <x-ui.modal id="modal_no_backdrop" title="Sem backdrop" :backdrop="false" :center="true">
+        <p class="text-sm text-secondary-foreground">Modal sem camada de fundo escura.</p>
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_no_backdrop">Fechar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Backdrop" description="<code>backdropStatic</code> impede fechar ao clicar fora. <code>:backdrop=&quot;false&quot;</code> remove o fundo escuro." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_static">Backdrop estático</x-ui.button>
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_no_backdrop">Sem backdrop</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_static" title="Backdrop estático" :backdropStatic="true" top="10%">
+                            <p class="text-sm text-secondary-foreground">Clicar fora deste modal não o fecha. Use o botão para fechar.</p>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_static">Fechar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+
+                        <x-ui.modal id="modal_no_backdrop" title="Sem backdrop" :backdrop="false" :center="true">
+                            <p class="text-sm text-secondary-foreground">Modal exibido sem camada de fundo escura.</p>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_no_backdrop">Fechar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Header customizado --}}
+                    @php
+                        $code = <<<'BLADE'
+    <x-ui.modal id="modal_custom_header" top="10%">
+        <x-slot:header>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center justify-center size-9 rounded-lg bg-destructive/10 text-destructive shrink-0">
+                    @svg('lucide-trash-2', ['class' => 'size-4'])
+                </div>
+                <div>
+                    <h3 class="kt-modal-title">Excluir registro</h3>
+                    <p class="text-xs text-secondary-foreground">Esta ação é permanente</p>
+                </div>
+            </div>
+        </x-slot:header>
+
+        <p class="text-sm text-secondary-foreground">
+            Tem certeza que deseja excluir este registro? Todos os dados relacionados serão removidos permanentemente.
+        </p>
+
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_custom_header">Cancelar</x-ui.button>
+            <x-ui.button variant="destructive" icon="trash-2">Excluir</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Header customizado" description="Use o slot <code>header</code> para substituir completamente o cabeçalho padrão." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_custom_header">Header customizado</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_custom_header" top="10%">
+                            <x-slot:header>
+                                <div class="flex items-center gap-3">
+                                    <div class="flex items-center justify-center size-9 rounded-lg bg-destructive/10 text-destructive shrink-0">
+                                        @svg('lucide-trash-2', ['class' => 'size-4'])
+                                    </div>
+                                    <div>
+                                        <h3 class="kt-modal-title">Excluir registro</h3>
+                                        <p class="text-xs text-secondary-foreground">Esta ação é permanente</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="kt-modal-close" aria-label="Fechar" data-kt-modal-dismiss="#modal_custom_header">
+                                    @svg('lucide-x')
+                                </button>
+                            </x-slot:header>
+                            <p class="text-sm text-secondary-foreground">
+                                Tem certeza que deseja excluir este registro? Todos os dados relacionados serão removidos permanentemente.
+                            </p>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_custom_header">Cancelar</x-ui.button>
+                                <x-ui.button variant="destructive" icon="trash-2">Excluir</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Footer alinhamentos --}}
+                    @php
+                        $code = <<<'BLADE'
+    {{-- Alinhado à direita (padrão) --}}
+    <x-ui.modal id="modal_footer_end" title="Footer — End" footerAlign="end" top="10%">
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_footer_end">Cancelar</x-ui.button>
+            <x-ui.button variant="primary">Salvar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+
+    {{-- Espaço entre (between) --}}
+    <x-ui.modal id="modal_footer_between" title="Footer — Between" footerAlign="between" top="10%">
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_footer_between">Cancelar</x-ui.button>
+            <x-ui.button variant="primary">Salvar</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Alinhamento do footer" description="Prop <code>footerAlign</code>: <code>end</code> (padrão), <code>start</code>, <code>between</code>." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_footer_end">Footer End</x-ui.button>
+                            <x-ui.button variant="outline" data-kt-modal-toggle="#modal_footer_between">Footer Between</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_footer_end" title="Footer — End" footerAlign="end" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-32"></div>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_footer_end">Cancelar</x-ui.button>
+                                <x-ui.button variant="primary">Salvar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+
+                        <x-ui.modal id="modal_footer_between" title="Footer — Between" footerAlign="between" top="10%">
+                            <div class="rounded-lg bg-muted w-full h-32"></div>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_footer_between">Cancelar</x-ui.button>
+                                <x-ui.button variant="primary">Salvar</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                    {{-- Com formulário --}}
+                    @php
+                        $code = <<<'BLADE'
+    <x-ui.modal id="modal_form" title="Novo usuário" top="8%" size="lg">
+        <div class="flex flex-col gap-4">
+            <div class="grid grid-cols-2 gap-4">
+                <x-ui.form-field label="Nome" required>
+                    <x-ui.input placeholder="João" />
+                </x-ui.form-field>
+                <x-ui.form-field label="Sobrenome" required>
+                    <x-ui.input placeholder="Silva" />
+                </x-ui.form-field>
+            </div>
+            <x-ui.form-field label="E-mail" required>
+                <x-ui.input type="email" placeholder="joao@exemplo.com" />
+            </x-ui.form-field>
+            <x-ui.form-field label="Função">
+                <x-ui.select>
+                    <option value="">Selecionar...</option>
+                    <option>Administrador</option>
+                    <option>Editor</option>
+                    <option>Visualizador</option>
+                </x-ui.select>
+            </x-ui.form-field>
+        </div>
+        <x-slot:footer>
+            <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_form">Cancelar</x-ui.button>
+            <x-ui.button variant="primary" icon="user-plus">Criar usuário</x-ui.button>
+        </x-slot:footer>
+    </x-ui.modal>
+    BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Modal — Com formulário" description="Exemplo prático com campos de formulário dentro do modal." :code="$code">
+                        <div class="flex flex-wrap gap-3">
+                            <x-ui.button variant="primary" icon="user-plus" data-kt-modal-toggle="#modal_form">Novo usuário</x-ui.button>
+                        </div>
+
+                        <x-ui.modal id="modal_form" title="Novo usuário" top="8%" size="lg">
+                            <div class="flex flex-col gap-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <x-ui.form-field label="Nome" :required="true">
+                                        <x-ui.input placeholder="João" />
+                                    </x-ui.form-field>
+                                    <x-ui.form-field label="Sobrenome" :required="true">
+                                        <x-ui.input placeholder="Silva" />
+                                    </x-ui.form-field>
+                                </div>
+                                <x-ui.form-field label="E-mail" :required="true">
+                                    <x-ui.input type="email" placeholder="joao@exemplo.com" />
+                                </x-ui.form-field>
+                                <x-ui.form-field label="Função">
+                                    <x-ui.select>
+                                        <option value="">Selecionar...</option>
+                                        <option>Administrador</option>
+                                        <option>Editor</option>
+                                        <option>Visualizador</option>
+                                    </x-ui.select>
+                                </x-ui.form-field>
+                            </div>
+                            <x-slot:footer>
+                                <x-ui.button variant="secondary" data-kt-modal-dismiss="#modal_form">Cancelar</x-ui.button>
+                                <x-ui.button variant="primary" icon="user-plus">Criar usuário</x-ui.button>
+                            </x-slot:footer>
+                        </x-ui.modal>
+                    </x-ui-doc-section>
+
+                </div>
+
             </main>
         </div>
     </div>
-
 </div>
