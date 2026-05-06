@@ -1,0 +1,11 @@
+{
+    "title": "Two-factor authentication",
+    "heading_code": "Authentication code",
+    "description_code": "Enter the authentication code provided by your authenticator application.",
+    "heading_recovery": "Recovery code",
+    "description_recovery": "Please confirm access to your account by entering one of your emergency recovery codes.",
+    "submit": "Continue",
+    "or_you_can": "or you can",
+    "use_recovery_code": "login using a recovery code",
+    "use_auth_code": "login using an authentication code"
+}

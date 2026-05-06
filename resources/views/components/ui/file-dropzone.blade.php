@@ -34,20 +34,20 @@
                 input.files = dt.files;
                 input.dispatchEvent(new Event('change'));
             "
-            class="border-2 border-dashed rounded-lg px-4 py-6 text-center transition-colors"
+            class="border-2 border-dashed rounded-xl px-8 py-10 text-center transition-colors"
             :class="dragging ? 'border-primary bg-primary/5' : 'border-border'"
         >
-            @svg('lucide-' . $icon, ['class' => 'mx-auto mb-2 size-7 text-muted-foreground'])
+            @svg('lucide-' . $icon, ['class' => 'mx-auto mb-3 size-8 text-muted-foreground'])
 
-            <p class="text-xs text-secondary-foreground mb-2">{{ $label }}</p>
+            <p class="text-xs text-secondary-foreground mb-3">{{ $label }}</p>
 
             <label for="{{ $id }}" class="kt-btn kt-btn-outline kt-btn-sm cursor-pointer">
-                @svg('lucide-image', ['class' => 'size-3.5 shrink-0'])
+                @svg('lucide-' . $icon, ['class' => 'size-3.5 shrink-0'])
                 {{ $buttonLabel }}
             </label>
 
             @if ($hint)
-                <p class="text-xs text-muted-foreground mt-3">{{ $hint }}</p>
+                <p class="text-xs text-muted-foreground mt-4">{{ $hint }}</p>
             @endif
         </div>
     @endif

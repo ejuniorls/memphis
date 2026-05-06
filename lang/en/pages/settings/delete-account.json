@@ -1,0 +1,10 @@
+{
+    "heading": "Delete account",
+    "subheading": "Delete your account and all of its resources",
+    "button": "Delete account",
+    "modal_heading": "Are you sure you want to delete your account?",
+    "modal_subheading": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+    "password": "Password",
+    "cancel": "Cancel",
+    "confirm": "Delete account"
+}

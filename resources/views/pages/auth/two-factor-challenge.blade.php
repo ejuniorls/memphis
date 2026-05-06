@@ -1,4 +1,4 @@
-<x-layouts::auth :title="__('auth.two-factor-challenge.title')">
+<x-layouts::auth :title="__('pages.auth.two-factor-challenge.title')">
     <div class="flex flex-col gap-6">
         <div
             class="relative w-full h-auto"
@@ -9,12 +9,9 @@
                 recovery_code: '',
                 toggleInput() {
                     this.showRecoveryInput = !this.showRecoveryInput;
-
                     this.code = '';
                     this.recovery_code = '';
-
                     $dispatch('clear-2fa-auth-code');
-
                     $nextTick(() => {
                         this.showRecoveryInput
                             ? this.$refs.recovery_code?.focus()
@@ -25,15 +22,15 @@
         >
             <div x-show="!showRecoveryInput">
                 <x-auth-header
-                    :title="__('auth.two-factor-challenge.heading_code')"
-                    :description="__('auth.two-factor-challenge.description_code')"
+                    :title="__('pages.auth.two-factor-challenge.heading_code')"
+                    :description="__('pages.auth.two-factor-challenge.description_code')"
                 />
             </div>
 
             <div x-show="showRecoveryInput">
                 <x-auth-header
-                    :title="__('auth.two-factor-challenge.heading_recovery')"
-                    :description="__('auth.two-factor-challenge.description_recovery')"
+                    :title="__('pages.auth.two-factor-challenge.heading_recovery')"
+                    :description="__('pages.auth.two-factor-challenge.description_recovery')"
                 />
             </div>
 
@@ -50,7 +47,7 @@
                                 label="OTP Code"
                                 label:sr-only
                                 class="mx-auto"
-                            />
+                             />
                         </div>
                     </div>
 
@@ -67,26 +64,20 @@
                         </div>
 
                         @error('recovery_code')
-                        <flux:text color="red">
-                            {{ $message }}
-                        </flux:text>
+                            <flux:text color="red">{{ $message }}</flux:text>
                         @enderror
                     </div>
 
-                    <flux:button
-                        variant="primary"
-                        type="submit"
-                        class="w-full"
-                    >
-                        {{ __('auth.two-factor-challenge.submit') }}
+                    <flux:button variant="primary" type="submit" class="w-full">
+                        {{ __('pages.auth.two-factor-challenge.submit') }}
                     </flux:button>
                 </div>
 
                 <div class="mt-5 space-x-0.5 text-sm leading-5 text-center">
-                    <span class="opacity-50">{{ __('auth.two-factor-challenge.or_you_can') }}</span>
+                    <span class="opacity-50">{{ __('pages.auth.two-factor-challenge.or_you_can') }}</span>
                     <div class="inline font-medium underline cursor-pointer opacity-80">
-                        <span x-show="!showRecoveryInput" @click="toggleInput()">{{ __('auth.two-factor-challenge.use_recovery_code') }}</span>
-                        <span x-show="showRecoveryInput" @click="toggleInput()">{{ __('auth.two-factor-challenge.use_auth_code') }}</span>
+                        <span x-show="!showRecoveryInput" @click="toggleInput()">{{ __('pages.auth.two-factor-challenge.use_recovery_code') }}</span>
+                        <span x-show="showRecoveryInput" @click="toggleInput()">{{ __('pages.auth.two-factor-challenge.use_auth_code') }}</span>
                     </div>
                 </div>
             </form>

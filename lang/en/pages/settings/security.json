@@ -1,0 +1,16 @@
+{
+    "title": "Security settings",
+    "section_title": "Update password",
+    "section_subtitle": "Ensure your account is using a long, random password to stay secure",
+    "current_password": "Current password",
+    "new_password": "New password",
+    "confirm_password": "Confirm password",
+    "save": "Save",
+    "password_updated": "Password updated.",
+    "two_factor_heading": "Two-factor authentication",
+    "two_factor_subheading": "Manage your two-factor authentication settings",
+    "two_factor_enabled_description": "You will be prompted for a secure, random pin during login, which you can retrieve from the TOTP-supported application on your phone.",
+    "two_factor_disabled_description": "When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.",
+    "disable_2fa": "Disable 2FA",
+    "enable_2fa": "Enable 2FA"
+}

@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\ServiceProvider;
 
 class TranslationServiceProvider extends ServiceProvider
@@ -11,14 +10,17 @@ class TranslationServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * Percorre a estrutura lang/{locale}/{modulo}/{pagina}.json
-     * e registra cada arquivo como um namespace de tradução no formato:
+     * Percorre recursivamente a estrutura lang/{locale}/**‌/pagina.json
+     * e registra cada arquivo como grupo de tradução no formato:
      *
-     *   {modulo}.{pagina}::chave
+     *   {pasta1}.{pasta2}.{arquivo}::chave
      *
-     * Exemplo:
-     *   trans('auth.login.title')
-     *   trans('auth.register.heading')
+     * Exemplos de uso nas views:
+     *   __('pages.auth.login.heading')
+     *   __('pages.settings.profile.save')
+     *   __('layouts.auth.branded.portal_title')
+     *   __('partials.settings-heading.title')
+     *   __('components.password-input.toggle_visibility')
      */
     public function boot(): void
     {
@@ -29,27 +31,33 @@ class TranslationServiceProvider extends ServiceProvider
             return;
         }
 
-        foreach (File::directories($localePath) as $moduleDir) {
-            $module = basename($moduleDir);
+        $this->loadJsonFiles($localePath, $locale, '');
+    }
 
-            foreach (File::files($moduleDir) as $file) {
-                if ($file->getExtension() !== 'json') {
-                    continue;
-                }
-
-                $page = $file->getFilenameWithoutExtension();
-                $key  = "{$module}.{$page}";
-
-                $translations = json_decode(File::get($file->getPathname()), true) ?? [];
-
-                // Mescla no grupo de traduções do Laravel para acesso via trans() / __()
-                app('translator')->addLines(
-                    collect($translations)
-                        ->mapWithKeys(fn ($value, $k) => ["{$key}.{$k}" => $value])
-                        ->all(),
-                    $locale,
-                );
+    /**
+     * Recursivamente percorre os diretórios e carrega os arquivos JSON.
+     */
+    private function loadJsonFiles(string $directory, string $locale, string $prefix): void
+    {
+        foreach (File::files($directory) as $file) {
+            if ($file->getExtension() !== 'json') {
+                continue;
             }
+
+            $groupKey = ltrim($prefix . '.' . $file->getFilenameWithoutExtension(), '.');
+            $translations = json_decode(File::get($file->getPathname()), true) ?? [];
+
+            app('translator')->addLines(
+                collect($translations)
+                    ->mapWithKeys(fn($value, $key) => ["{$groupKey}.{$key}" => $value])
+                    ->all(),
+                $locale,
+            );
+        }
+
+        foreach (File::directories($directory) as $subDir) {
+            $segment = ltrim($prefix . '.' . basename($subDir), '.');
+            $this->loadJsonFiles($subDir, $locale, $segment);
         }
     }
 }

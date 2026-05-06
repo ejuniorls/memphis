@@ -1,4 +1,4 @@
-<x-layouts::auth :title="__('auth.welcome.title')">
+<x-layouts::auth :title="__('pages.auth.welcome.title')">
     <div class="kt-card max-w-[440px] w-full">
         <div class="kt-card-content p-10">
 
@@ -8,25 +8,25 @@
             </div>
 
             <h3 class="text-lg font-medium text-mono text-center mb-3">
-                {{ __('auth.welcome.heading') }} {{ auth()->user()->name }}!
+                {{ __('pages.auth.welcome.heading') }} {{ auth()->user()->name }}!
             </h3>
 
             <p class="text-sm text-center text-secondary-foreground mb-7.5">
-                {{ __('auth.welcome.description') }}
+                {{ __('pages.auth.welcome.description') }}
             </p>
 
             <div class="flex justify-center mb-5">
                 <a href="{{ route('dashboard') }}" class="kt-btn kt-btn-primary flex justify-center">
-                    {{ __('auth.welcome.go_to_dashboard') }}
+                    {{ __('pages.auth.welcome.go_to_dashboard') }}
                 </a>
             </div>
 
             <div class="flex items-center justify-center gap-1 text-2sm">
                 <span class="text-secondary-foreground">
-                    {{ __('auth.welcome.need_help') }}
+                    {{ __('pages.auth.welcome.need_help') }}
                 </span>
                 <a href="mailto:{{ config('mail.from.address') }}" class="font-medium kt-link">
-                    {{ __('auth.welcome.contact_us') }}
+                    {{ __('pages.auth.welcome.contact_us') }}
                 </a>
             </div>
 

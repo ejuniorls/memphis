@@ -1,0 +1,10 @@
+{
+    "heading": "Excluir conta",
+    "subheading": "Excluir sua conta e todos os seus dados",
+    "button": "Excluir conta",
+    "modal_heading": "Tem certeza que deseja excluir sua conta?",
+    "modal_subheading": "Após a exclusão da conta, todos os recursos e dados serão permanentemente removidos. Digite sua senha para confirmar que deseja excluir permanentemente sua conta.",
+    "password": "Senha",
+    "cancel": "Cancelar",
+    "confirm": "Excluir conta"
+}

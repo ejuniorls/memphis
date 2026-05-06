@@ -1,0 +1,9 @@
+{
+    "title": "Email verification",
+    "heading": "Check your email",
+    "description": "Please click the link sent to your email to verify your account. Thank you.",
+    "link_sent": "A new verification link has been sent to your email address.",
+    "resend": "Resend verification email",
+    "another_account": "Want to use another account?",
+    "logout": "Log out"
+}

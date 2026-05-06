@@ -1,0 +1,16 @@
+{
+    "title": "Configurações de segurança",
+    "section_title": "Atualizar senha",
+    "section_subtitle": "Certifique-se de que sua conta usa uma senha longa e aleatória para se manter segura",
+    "current_password": "Senha atual",
+    "new_password": "Nova senha",
+    "confirm_password": "Confirmar senha",
+    "save": "Salvar",
+    "password_updated": "Senha atualizada.",
+    "two_factor_heading": "Autenticação de dois fatores",
+    "two_factor_subheading": "Gerencie suas configurações de autenticação de dois fatores",
+    "two_factor_enabled_description": "Durante o login, será solicitado um PIN seguro e aleatório, que pode ser obtido pelo aplicativo TOTP no seu celular.",
+    "two_factor_disabled_description": "Ao ativar a autenticação de dois fatores, será solicitado um PIN seguro durante o login. Esse PIN pode ser obtido em um aplicativo compatível com TOTP no seu celular.",
+    "disable_2fa": "Desativar 2FA",
+    "enable_2fa": "Ativar 2FA"
+}

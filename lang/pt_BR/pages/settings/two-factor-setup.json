@@ -1,0 +1,14 @@
+{
+    "step_setup_title": "Ativar autenticação de dois fatores",
+    "step_setup_description": "Para concluir a ativação da autenticação de dois fatores, escaneie o QR code ou insira a chave de configuração no seu aplicativo autenticador.",
+    "step_setup_button": "Continuar",
+    "step_verify_title": "Verificar código de autenticação",
+    "step_verify_description": "Digite o código de 6 dígitos do seu aplicativo autenticador.",
+    "step_verify_button": "Continuar",
+    "step_done_title": "Autenticação de dois fatores ativada",
+    "step_done_description": "A autenticação de dois fatores está ativada. Escaneie o QR code ou insira a chave no seu aplicativo autenticador.",
+    "step_done_button": "Fechar",
+    "back": "Voltar",
+    "confirm": "Confirmar",
+    "enter_code_manually": "ou, insira o código manualmente"
+}

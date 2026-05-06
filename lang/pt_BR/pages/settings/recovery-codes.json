@@ -1,0 +1,8 @@
+{
+    "heading": "Códigos de recuperação 2FA",
+    "description": "Os códigos de recuperação permitem que você recupere o acesso caso perca seu dispositivo 2FA. Armazene-os em um gerenciador de senhas seguro.",
+    "view": "Ver códigos de recuperação",
+    "hide": "Ocultar códigos de recuperação",
+    "regenerate": "Regenerar códigos",
+    "each_code_note": "Cada código de recuperação pode ser usado uma vez para acessar sua conta e será removido após o uso. Se precisar de mais, clique em Regenerar códigos acima."
+}

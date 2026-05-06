@@ -1,0 +1,14 @@
+{
+    "step_setup_title": "Enable two-factor authentication",
+    "step_setup_description": "To finish enabling two-factor authentication, scan the QR code or enter the setup key in your authenticator app.",
+    "step_setup_button": "Continue",
+    "step_verify_title": "Verify authentication code",
+    "step_verify_description": "Enter the 6-digit code from your authenticator app.",
+    "step_verify_button": "Continue",
+    "step_done_title": "Two-factor authentication enabled",
+    "step_done_description": "Two-factor authentication is now enabled. Scan the QR code or enter the setup key in your authenticator app.",
+    "step_done_button": "Close",
+    "back": "Back",
+    "confirm": "Confirm",
+    "enter_code_manually": "or, enter the code manually"
+}

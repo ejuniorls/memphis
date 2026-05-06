@@ -1,0 +1,12 @@
+{
+    "title": "Configurações de perfil",
+    "section_title": "Perfil",
+    "section_subtitle": "Atualize seu nome e endereço de e-mail",
+    "name": "Nome",
+    "email": "E-mail",
+    "unverified_email": "Seu endereço de e-mail não foi verificado.",
+    "resend_verification": "Clique aqui para reenviar o e-mail de verificação.",
+    "save": "Salvar",
+    "profile_updated": "Perfil atualizado.",
+    "verification_sent": "Um novo link de verificação foi enviado para o seu endereço de e-mail."
+}

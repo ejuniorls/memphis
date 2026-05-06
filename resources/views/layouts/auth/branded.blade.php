@@ -6,11 +6,8 @@
         @livewireStyles
     </head>
     <body class="antialiased flex h-full text-base text-foreground bg-background">
-        <!-- Theme Mode -->
         @include('partials.theme-toggle')
-        <!-- End of Theme Mode -->
 
-        <!-- Page -->
         <style>
             .branded-bg {
                 background-image: url('{{ asset('assets/media/images/2600x1600/1.png') }}');
@@ -25,29 +22,27 @@
                 {{ $slot }}
             </div>
 
-            <div
-                class="lg:rounded-xl lg:border lg:border-border lg:m-5 order-1 lg:order-2 bg-top xxl:bg-center xl:bg-cover bg-no-repeat branded-bg">
+            <div class="lg:rounded-xl lg:border lg:border-border lg:m-5 order-1 lg:order-2 bg-top xxl:bg-center xl:bg-cover bg-no-repeat branded-bg">
                 <div class="flex flex-col p-8 lg:p-16 gap-4">
                     <a href="">
                         <img class="h-[28px] max-w-none" src="{{ asset('assets/media/app/mini-logo.svg') }}"/>
                     </a>
                     <div class="flex flex-col gap-3">
                         <h3 class="text-2xl font-semibold text-mono">
-                            {{ __('auth.layout.portal_title') }}
+                            {{ __('layouts.auth.branded.portal_title') }}
                         </h3>
                         <div class="text-base font-medium text-secondary-foreground">
-                            {{ __('auth.layout.portal_description') }}
+                            {{ __('layouts.auth.branded.portal_description') }}
                             <br/>
                             <span class="text-mono font-semibold">
-                                {{ __('auth.layout.portal_highlight') }}
+                                {{ __('layouts.auth.branded.portal_highlight') }}
                             </span>
-                            {{ __('auth.layout.portal_suffix') }}
+                            {{ __('layouts.auth.branded.portal_suffix') }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End of Page -->
 
         @include('partials.scripts')
         @livewireScripts
