@@ -2,19 +2,19 @@ name: tests
 
 on:
   push:
-    branches: [ develop, main, master, workos ]
+    branches: [develop, main, master, workos]
   pull_request:
-    branches: [ develop, main, master, workos ]
+    branches: [develop, main, master, workos]
 
 jobs:
   ci:
     runs-on: ubuntu-latest
     environment: Testing
     strategy:
+      fail-fast: false  # ✅ impede que falha no 8.3 cancele o 8.4
       matrix:
-        php-version: [ '8.3', '8.4' ]  # 8.5 ainda é dev/nightly, remova até estabilizar
+        php-version: ['8.3', '8.4']
 
-    # ✅ Sobe o MySQL como serviço
     services:
       mysql:
         image: mysql:8.0
@@ -26,8 +26,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4  # ✅ versão correta
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -37,14 +36,14 @@ jobs:
           coverage: xdebug
 
       - name: Setup Node
-        uses: actions/setup-node@v4  # ✅ versão correta
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: Install Node Dependencies
         run: npm i
 
-      - name: Add Flux Credentials Loaded From ENV
+      - name: Add Flux Credentials
         run: composer config http-basic.composer.fluxui.dev "${{ secrets.FLUX_USERNAME }}" "${{ secrets.FLUX_LICENSE_KEY }}"
 
       - name: Install Dependencies
@@ -53,7 +52,6 @@ jobs:
       - name: Copy Environment File
         run: cp .env.example .env
 
-      # ✅ Sobrescreve as configs de DB/cache para o CI
       - name: Configure Environment for CI
         run: |
           sed -i 's/DB_PASSWORD=/DB_PASSWORD=password/' .env
