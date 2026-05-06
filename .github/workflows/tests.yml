@@ -2,17 +2,9 @@ name: tests
 
 on:
   push:
-    branches:
-      - develop
-      - main
-      - master
-      - workos
+    branches: [ develop, main, master, workos ]
   pull_request:
-    branches:
-      - develop
-      - main
-      - master
-      - workos
+    branches: [ develop, main, master, workos ]
 
 jobs:
   ci:
@@ -20,11 +12,22 @@ jobs:
     environment: Testing
     strategy:
       matrix:
-        php-version: ['8.3', '8.4', '8.5']
+        php-version: [ '8.3', '8.4' ]  # 8.5 ainda é dev/nightly, remova até estabilizar
+
+    # ✅ Sobe o MySQL como serviço
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: memphis
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4  # ✅ versão correta
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -34,7 +37,7 @@ jobs:
           coverage: xdebug
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4  # ✅ versão correta
         with:
           node-version: '22'
 
@@ -50,8 +53,19 @@ jobs:
       - name: Copy Environment File
         run: cp .env.example .env
 
+      # ✅ Sobrescreve as configs de DB/cache para o CI
+      - name: Configure Environment for CI
+        run: |
+          sed -i 's/DB_PASSWORD=/DB_PASSWORD=password/' .env
+          sed -i 's/SESSION_DRIVER=database/SESSION_DRIVER=array/' .env
+          sed -i 's/CACHE_STORE=database/CACHE_STORE=array/' .env
+          sed -i 's/QUEUE_CONNECTION=database/QUEUE_CONNECTION=sync/' .env
+
       - name: Generate Application Key
         run: php artisan key:generate
+
+      - name: Run Migrations
+        run: php artisan migrate --force
 
       - name: Build Assets
         run: npm run build
