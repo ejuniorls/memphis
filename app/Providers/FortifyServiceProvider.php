@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\UserAccessLog;
+use Illuminate\Auth\Events\Failed;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
@@ -43,6 +46,28 @@ class FortifyServiceProvider extends ServiceProvider
 
         Event::listen(Verified::class, function ($event) {
             session()->put('just_verified', true);
+        });
+
+        Event::listen(Login::class, function (Login $event) {
+            $request = request();
+            UserAccessLog::logLogin(
+                user:      $event->user,
+                ipAddress: $request->ip(),
+                userAgent: $request->userAgent() ?? '',
+                event:     'login',
+            );
+        });
+
+        Event::listen(Failed::class, function (Failed $event) {
+            if (! $event->user) return; // usuário nem existe — não há registro para associar
+
+            $request = request();
+            UserAccessLog::logLogin(
+                user:      $event->user,
+                ipAddress: $request->ip(),
+                userAgent: $request->userAgent() ?? '',
+                event:     'failed',
+            );
         });
     }
 

@@ -18,9 +18,9 @@
 <div class="{{ $wrapperClass }}" data-kt-toggle-password="true">
     <input
         type="password"
-        class="w-full bg-transparent border-none focus:ring-0"
-        @if ($id)           id="{{ $id }}"                   @endif
-        @if ($name)         name="{{ $name }}"               @endif
+        {{ $attributes->merge(['class' => 'w-full bg-transparent border-none focus:ring-0']) }}
+        @if ($id)           id="{{ $id }}"                    @endif
+        @if ($name)         name="{{ $name }}"                @endif
         @if ($placeholder)  placeholder="{{ $placeholder }}"  @endif
         @if ($autocomplete) autocomplete="{{ $autocomplete }}" @endif
         @if ($required)     required                          @endif

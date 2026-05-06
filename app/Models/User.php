@@ -9,6 +9,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -39,7 +40,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes;
 
     /**
      * Get the attributes that should be cast.
@@ -54,6 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'profile_public' => 'boolean',
             'show_email' => 'boolean',
             'show_phone' => 'boolean',
+            'deleted_at' => 'datetime',
         ];
     }
 
@@ -99,5 +101,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function integrations(): HasMany
     {
         return $this->hasMany(UserIntegration::class);
+    }
+
+    public function accessLogs(): HasMany
+    {
+        return $this->hasMany(UserAccessLog::class);
     }
 }
