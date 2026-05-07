@@ -386,7 +386,7 @@ new #[Title('Segurança')] class extends Component
                             <div class="flex flex-col gap-0.5">
                                 <div class="flex items-center gap-2">
                                     <span class="text-sm font-medium text-foreground">
-                                        {{ $session->browser }} — {{ $session->platform }}
+                                        {{ $session->browser }} - {{ $session->platform }}
                                     </span>
                                     @if ($session->is_current)
                                         <x-ui.badge variant="success" size="sm">
@@ -440,7 +440,7 @@ new #[Title('Segurança')] class extends Component
                             </div>
                             <div class="flex flex-col gap-0.5">
                                 <span class="text-sm font-medium text-foreground">
-                                    {{ $log->browser }} — {{ $log->platform }}
+                                    {{ $log->browser }} - {{ $log->platform }}
                                 </span>
                                 <span class="text-xs text-secondary-foreground">
                                     {{ $log->ip_address }} · {{ $log->created_at->format('d/m/Y H:i') }}
