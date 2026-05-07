@@ -53,6 +53,7 @@
     "event_failed": "Falha",
 
     "section_danger": "Zona de Perigo",
+    "section_delete_account": "Excluir Conta",
     "delete_account_label": "Excluir minha conta",
     "delete_account_description": "Ao excluir sua conta, você perderá acesso imediatamente. Seus dados serão preservados por 30 dias antes da exclusão permanente.",
     "btn_delete_account": "Excluir Conta",

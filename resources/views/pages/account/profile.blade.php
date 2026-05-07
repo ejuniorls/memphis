@@ -267,85 +267,78 @@ new #[Title('Meu Perfil')] class extends Component
         <div class="lg:col-span-1 flex flex-col gap-6">
 
             {{-- Avatar --}}
-            <div class="kt-card">
-                <div class="kt-card-header">
-                    <h3 class="kt-card-title">{{ __('pages.account.profile.section_avatar') }}</h3>
-                </div>
-                <div class="kt-card-content flex flex-col items-center gap-4 py-6">
+            <x-ui.card-section icon="lucide-image" :title="__('pages.account.profile.section_avatar')" contentClass="flex flex-col items-center gap-4 py-6">
 
-                    <div class="relative">
-                        <img
-                            src="{{ $this->currentAvatarUrl }}"
-                            alt="{{ $name }}"
-                            class="size-24 rounded-full object-cover ring-4 ring-border"
-                        />
-                        @if ($avatar_upload)
-                            <x-ui.badge variant="primary" size="sm" class="absolute -bottom-1 -right-1 rounded-full">
-                                {{ __('pages.account.profile.avatar_preview_badge') }}
-                            </x-ui.badge>
-                        @endif
-                    </div>
-
-                    <x-ui.file-dropzone
-                        id="avatar_input"
-                        model="avatar_upload"
-                        accept="image/*"
-                        :label="__('pages.account.profile.avatar_dropzone_label')"
-                        :button-label="__('pages.account.profile.avatar_dropzone_button')"
-                        :file-label="__('pages.account.profile.avatar_dropzone_file_label')"
-                        :hint="__('pages.account.profile.avatar_dropzone_hint')"
-                        :has-file="(bool) $avatar_upload || (bool) Auth::user()->avatar"
-                        class="w-full"
+                <div class="relative">
+                    <img
+                        src="{{ $this->currentAvatarUrl }}"
+                        alt="{{ $name }}"
+                        class="size-24 rounded-full object-cover ring-4 ring-border"
                     />
-
-                    @error('avatar_upload')
-                        <p class="text-xs text-destructive text-center">{{ $message }}</p>
-                    @enderror
-
-                    @if (Auth::user()->avatar)
-                        <x-ui.button
-                            ghost="destructive"
-                            size="sm"
-                            icon="trash-2"
-                            wire:click="removeAvatar"
-                            wire:confirm="{{ __('pages.account.profile.avatar_remove_confirm') }}"
-                            class="w-full justify-center"
-                        >
-                            {{ __('pages.account.profile.avatar_remove') }}
-                        </x-ui.button>
+                    @if ($avatar_upload)
+                        <x-ui.badge variant="primary" size="sm" class="absolute -bottom-1 -right-1 rounded-full">
+                            {{ __('pages.account.profile.avatar_preview_badge') }}
+                        </x-ui.badge>
                     @endif
                 </div>
-            </div>
+
+                <x-ui.file-dropzone
+                    id="avatar_input"
+                    model="avatar_upload"
+                    accept="image/*"
+                    :label="__('pages.account.profile.avatar_dropzone_label')"
+                    :button-label="__('pages.account.profile.avatar_dropzone_button')"
+                    :file-label="__('pages.account.profile.avatar_dropzone_file_label')"
+                    :hint="__('pages.account.profile.avatar_dropzone_hint')"
+                    :has-file="(bool) $avatar_upload || (bool) Auth::user()->avatar"
+                    class="w-full"
+                />
+
+                @error('avatar_upload')
+                <p class="text-xs text-destructive text-center">{{ $message }}</p>
+                @enderror
+
+                @if (Auth::user()->avatar)
+                    <x-ui.button
+                        ghost="destructive"
+                        size="sm"
+                        icon="trash-2"
+                        wire:click="removeAvatar"
+                        wire:confirm="{{ __('pages.account.profile.avatar_remove_confirm') }}"
+                        class="w-full justify-center"
+                    >
+                        {{ __('pages.account.profile.avatar_remove') }}
+                    </x-ui.button>
+                @endif
+
+            </x-ui.card-section>
 
             {{-- Visibilidade --}}
-            <div class="kt-card">
-                <div class="kt-card-header">
-                    <h3 class="kt-card-title">{{ __('pages.account.profile.section_visibility') }}</h3>
-                </div>
-                <div class="kt-card-content flex flex-col gap-5 py-4">
-                    <p class="text-xs text-secondary-foreground">
-                        {{ __('pages.account.profile.visibility_description') }}
-                    </p>
+            <x-ui.card-section icon="lucide-eye" :title="__('pages.account.profile.section_visibility')" contentClass="flex flex-col gap-5 py-4">
 
-                    <label class="flex items-center justify-between gap-3 cursor-pointer">
-                        <div class="flex flex-col gap-0.5">
-                            <span class="text-sm font-medium text-foreground">{{ __('pages.account.profile.visibility_public_label') }}</span>
-                            <span class="text-xs text-secondary-foreground">{{ __('pages.account.profile.visibility_public_hint') }}</span>
-                        </div>
-                        <input type="checkbox" class="kt-switch" wire:model="profile_public" />
-                    </label>
+                <p class="text-xs text-secondary-foreground">
+                    {{ __('pages.account.profile.visibility_description') }}
+                </p>
 
-                    <x-ui.divider />
+                <label class="flex items-center justify-between gap-3 cursor-pointer">
+                    <div class="flex flex-col gap-0.5">
+                        <span class="text-sm font-medium text-foreground">{{ __('pages.account.profile.visibility_public_label') }}</span>
+                        <span class="text-xs text-secondary-foreground">{{ __('pages.account.profile.visibility_public_hint') }}</span>
+                    </div>
+                    <input type="checkbox" class="kt-switch" wire:model="profile_public" />
+                </label>
 
-                    <label class="flex items-center justify-between gap-3 cursor-pointer">
-                        <div class="flex flex-col gap-0.5">
-                            <span class="text-sm font-medium text-foreground">{{ __('pages.account.profile.visibility_email_label') }}</span>
-                            <span class="text-xs text-secondary-foreground">{{ __('pages.account.profile.visibility_email_hint') }}</span>
-                        </div>
-                        <input type="checkbox" class="kt-switch" wire:model="show_email" />
-                    </label>
-                </div>
-            </div>
+                <x-ui.divider />
+
+                <label class="flex items-center justify-between gap-3 cursor-pointer">
+                    <div class="flex flex-col gap-0.5">
+                        <span class="text-sm font-medium text-foreground">{{ __('pages.account.profile.visibility_email_label') }}</span>
+                        <span class="text-xs text-secondary-foreground">{{ __('pages.account.profile.visibility_email_hint') }}</span>
+                    </div>
+                    <input type="checkbox" class="kt-switch" wire:model="show_email" />
+                </label>
+
+            </x-ui.card-section>
 
         </div>
 
@@ -357,126 +350,116 @@ new #[Title('Meu Perfil')] class extends Component
             <form wire:submit="updateProfileInformation" class="flex flex-col gap-6">
 
                 {{-- Informações Básicas --}}
-                <div class="kt-card">
-                    <div class="kt-card-header">
-                        <h3 class="kt-card-title">{{ __('pages.account.profile.section_basic') }}</h3>
+                <x-ui.card-section icon="lucide-user" :title="__('pages.account.profile.section_basic')">
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <x-ui.form-field :label="__('pages.account.profile.field_name')" name="name" :required="true">
+                            <x-ui.input id="name" icon="user" wire:model="name"
+                                        :placeholder="__('pages.account.profile.field_name_placeholder')"
+                                        autocomplete="name" required />
+                        </x-ui.form-field>
+
+                        <x-ui.form-field :label="__('pages.account.profile.field_email')" name="email" :required="true">
+                            <x-ui.input id="email" type="email" icon="mail" wire:model="email"
+                                        :placeholder="__('pages.account.profile.field_email_placeholder')"
+                                        autocomplete="email" required />
+                            @if ($this->hasUnverifiedEmail)
+                                <p class="text-xs text-warning flex items-center gap-1 mt-1">
+                                    @svg('lucide-triangle-alert', ['class' => 'size-3 shrink-0'])
+                                    {{ __('pages.account.profile.unverified_email') }}
+                                    <button type="button" wire:click.prevent="resendVerificationNotification"
+                                            class="underline font-medium hover:text-primary">{{ __('pages.account.profile.resend_verification') }}</button>
+                                </p>
+                            @endif
+                        </x-ui.form-field>
                     </div>
-                    <div class="kt-card-content flex flex-col gap-5 py-5">
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <x-ui.form-field :label="__('pages.account.profile.field_name')" name="name" :required="true">
-                                <x-ui.input id="name" icon="user" wire:model="name"
-                                            :placeholder="__('pages.account.profile.field_name_placeholder')"
-                                            autocomplete="name" required />
-                            </x-ui.form-field>
-
-                            <x-ui.form-field :label="__('pages.account.profile.field_email')" name="email" :required="true">
-                                <x-ui.input id="email" type="email" icon="mail" wire:model="email"
-                                            :placeholder="__('pages.account.profile.field_email_placeholder')"
-                                            autocomplete="email" required />
-                                @if ($this->hasUnverifiedEmail)
-                                    <p class="text-xs text-warning flex items-center gap-1 mt-1">
-                                        @svg('lucide-triangle-alert', ['class' => 'size-3 shrink-0'])
-                                        {{ __('pages.account.profile.unverified_email') }}
-                                        <button type="button" wire:click.prevent="resendVerificationNotification"
-                                                class="underline font-medium hover:text-primary">{{ __('pages.account.profile.resend_verification') }}</button>
-                                    </p>
-                                @endif
-                            </x-ui.form-field>
-                        </div>
-
-                        <x-ui.form-field :label="__('pages.account.profile.field_bio')" name="bio">
-                            <textarea
-                                id="bio"
-                                wire:model="bio"
-                                rows="3"
-                                maxlength="500"
-                                :placeholder="__('pages.account.profile.field_bio_placeholder')"
-                                class="kt-textarea"
-                                x-data
-                                x-ref="bioArea"
-                                @input.debounce.0="$refs.bioCount.textContent = $el.value.length"
-                            ></textarea>
-                            <div class="flex items-center justify-between mt-1">
-                                @error('bio')
-                                    <p class="text-xs text-destructive">{{ $message }}</p>
-                                @else
-                                    <span></span>
+                    <x-ui.form-field :label="__('pages.account.profile.field_bio')" name="bio">
+                        <textarea
+                            id="bio"
+                            wire:model="bio"
+                            rows="3"
+                            maxlength="500"
+                            :placeholder="__('pages.account.profile.field_bio_placeholder')"
+                            class="kt-textarea"
+                            x-data
+                            x-ref="bioArea"
+                            @input.debounce.0="$refs.bioCount.textContent = $el.value.length"
+                        ></textarea>
+                        <div class="flex items-center justify-between mt-1">
+                            @error('bio')
+                            <p class="text-xs text-destructive">{{ $message }}</p>
+                            @else
+                                <span></span>
                                 @enderror
                                 <span class="text-xs text-secondary-foreground">
                                     <span x-ref="bioCount">{{ strlen($bio) }}</span>/500
                                 </span>
-                            </div>
+                        </div>
+                    </x-ui.form-field>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <x-ui.form-field :label="__('pages.account.profile.field_job_title')" name="job_title">
+                            <x-ui.input id="job_title" icon="briefcase" wire:model="job_title"
+                                        :placeholder="__('pages.account.profile.field_job_title_placeholder')" />
                         </x-ui.form-field>
 
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <x-ui.form-field :label="__('pages.account.profile.field_job_title')" name="job_title">
-                                <x-ui.input id="job_title" icon="briefcase" wire:model="job_title"
-                                            :placeholder="__('pages.account.profile.field_job_title_placeholder')" />
-                            </x-ui.form-field>
-
-                            <x-ui.form-field :label="__('pages.account.profile.field_company')" name="company">
-                                <x-ui.input id="company" icon="building-2" wire:model="company"
-                                            :placeholder="__('pages.account.profile.field_company_placeholder')" />
-                            </x-ui.form-field>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <x-ui.form-field :label="__('pages.account.profile.field_location')" name="location">
-                                <x-ui.input id="location" icon="map-pin" wire:model="location"
-                                            :placeholder="__('pages.account.profile.field_location_placeholder')" />
-                            </x-ui.form-field>
-
-                            <x-ui.form-field :label="__('pages.account.profile.field_website')" name="website">
-                                <x-ui.input id="website" type="url" icon="globe" wire:model="website"
-                                            :placeholder="__('pages.account.profile.field_website_placeholder')" />
-                            </x-ui.form-field>
-                        </div>
-
+                        <x-ui.form-field :label="__('pages.account.profile.field_company')" name="company">
+                            <x-ui.input id="company" icon="building-2" wire:model="company"
+                                        :placeholder="__('pages.account.profile.field_company_placeholder')" />
+                        </x-ui.form-field>
                     </div>
-                </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <x-ui.form-field :label="__('pages.account.profile.field_location')" name="location">
+                            <x-ui.input id="location" icon="map-pin" wire:model="location"
+                                        :placeholder="__('pages.account.profile.field_location_placeholder')" />
+                        </x-ui.form-field>
+
+                        <x-ui.form-field :label="__('pages.account.profile.field_website')" name="website">
+                            <x-ui.input id="website" type="url" icon="globe" wire:model="website"
+                                        :placeholder="__('pages.account.profile.field_website_placeholder')" />
+                        </x-ui.form-field>
+                    </div>
+
+                </x-ui.card-section>
 
                 {{-- Redes Sociais --}}
-                <div class="kt-card">
-                    <div class="kt-card-header">
-                        <h3 class="kt-card-title">{{ __('pages.account.profile.section_social') }}</h3>
-                    </div>
-                    <div class="kt-card-content grid grid-cols-1 sm:grid-cols-2 gap-4 py-5">
+                <x-ui.card-section icon="lucide-share-2" :title="__('pages.account.profile.section_social')" contentClass="grid grid-cols-1 sm:grid-cols-2 gap-4 py-5">
 
-                        <x-ui.form-field label="LinkedIn" name="linkedin">
-                            <x-ui.input-group addonIcon="linkedin">
-                                <x-ui.input id="linkedin" wire:model="linkedin"
-                                            :placeholder="__('pages.account.profile.field_linkedin_placeholder')"
-                                            class="rounded-s-none" />
-                            </x-ui.input-group>
-                        </x-ui.form-field>
+                    <x-ui.form-field label="LinkedIn" name="linkedin">
+                        <x-ui.input-group addonIcon="linkedin">
+                            <x-ui.input id="linkedin" wire:model="linkedin"
+                                        :placeholder="__('pages.account.profile.field_linkedin_placeholder')"
+                                        class="rounded-s-none" />
+                        </x-ui.input-group>
+                    </x-ui.form-field>
 
-                        <x-ui.form-field label="GitHub" name="github">
-                            <x-ui.input-group addonIcon="github">
-                                <x-ui.input id="github" wire:model="github"
-                                            :placeholder="__('pages.account.profile.field_github_placeholder')"
-                                            class="rounded-s-none" />
-                            </x-ui.input-group>
-                        </x-ui.form-field>
+                    <x-ui.form-field label="GitHub" name="github">
+                        <x-ui.input-group addonIcon="github">
+                            <x-ui.input id="github" wire:model="github"
+                                        :placeholder="__('pages.account.profile.field_github_placeholder')"
+                                        class="rounded-s-none" />
+                        </x-ui.input-group>
+                    </x-ui.form-field>
 
-                        <x-ui.form-field label="Twitter / X" name="twitter">
-                            <x-ui.input-group addonIcon="twitter">
-                                <x-ui.input id="twitter" wire:model="twitter"
-                                            :placeholder="__('pages.account.profile.field_twitter_placeholder')"
-                                            class="rounded-s-none" />
-                            </x-ui.input-group>
-                        </x-ui.form-field>
+                    <x-ui.form-field label="Twitter / X" name="twitter">
+                        <x-ui.input-group addonIcon="twitter">
+                            <x-ui.input id="twitter" wire:model="twitter"
+                                        :placeholder="__('pages.account.profile.field_twitter_placeholder')"
+                                        class="rounded-s-none" />
+                        </x-ui.input-group>
+                    </x-ui.form-field>
 
-                        <x-ui.form-field label="Instagram" name="instagram">
-                            <x-ui.input-group addonIcon="instagram">
-                                <x-ui.input id="instagram" wire:model="instagram"
-                                            :placeholder="__('pages.account.profile.field_instagram_placeholder')"
-                                            class="rounded-s-none" />
-                            </x-ui.input-group>
-                        </x-ui.form-field>
+                    <x-ui.form-field label="Instagram" name="instagram">
+                        <x-ui.input-group addonIcon="instagram">
+                            <x-ui.input id="instagram" wire:model="instagram"
+                                        :placeholder="__('pages.account.profile.field_instagram_placeholder')"
+                                        class="rounded-s-none" />
+                        </x-ui.input-group>
+                    </x-ui.form-field>
 
-                    </div>
-                </div>
+                </x-ui.card-section>
 
                 {{-- Actions --}}
                 <div class="flex items-center justify-end gap-3">
@@ -503,138 +486,128 @@ new #[Title('Meu Perfil')] class extends Component
             {{-- ============================================================ --}}
             {{-- Telefones --}}
             {{-- ============================================================ --}}
-            <div class="kt-card">
-                <div class="kt-card-header">
-                    <h3 class="kt-card-title">{{ __('pages.account.profile.section_phones') }}</h3>
-                </div>
-                <div class="kt-card-content flex flex-col gap-3 py-5">
+            <x-ui.card-section icon="lucide-phone" :title="__('pages.account.profile.section_phones')" contentClass="flex flex-col gap-3 py-5">
 
-                    @forelse ($contacts as $contact)
-                        <div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-input bg-muted/30">
-                            <div class="flex items-center gap-3">
-                                <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                    <i class="{{ $contact['type_icon'] }} text-primary text-sm"></i>
-                                </div>
-                                <div class="flex flex-col gap-0.5">
-                                    <div class="flex items-center gap-2">
-                                        <span class="text-sm font-medium text-foreground">{{ $contact['number'] }}</span>
-                                        @if ($contact['is_primary'])
-                                            <x-ui.badge variant="success" style="outline" size="sm">
-                                                {{ __('pages.account.profile.phone_primary_badge') }}
-                                            </x-ui.badge>
-                                        @endif
-                                    </div>
-                                    <span class="text-xs text-secondary-foreground">{{ $contact['type_label'] }}</span>
-                                </div>
+                @forelse ($contacts as $contact)
+                    <div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-input bg-muted/30">
+                        <div class="flex items-center gap-3">
+                            <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <i class="{{ $contact['type_icon'] }} text-primary text-sm"></i>
                             </div>
-                            <div class="flex items-center gap-1">
-                                @if (!$contact['is_primary'])
-                                    <x-ui.button ghost="" size="sm" :iconOnly="true" icon="star"
-                                                 wire:click="setPrimaryContact({{ $contact['id'] }})"
-                                                 :tooltip="__('pages.account.profile.phone_set_primary_tooltip')"
-                                                 tooltipPlacement="left" />
-                                @endif
-                                <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="trash-2"
-                                             wire:click="removeContact({{ $contact['id'] }})"
-                                             wire:confirm="{{ __('pages.account.profile.phone_remove_confirm') }}" />
+                            <div class="flex flex-col gap-0.5">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-medium text-foreground">{{ $contact['number'] }}</span>
+                                    @if ($contact['is_primary'])
+                                        <x-ui.badge variant="success" style="outline" size="sm">
+                                            {{ __('pages.account.profile.phone_primary_badge') }}
+                                        </x-ui.badge>
+                                    @endif
+                                </div>
+                                <span class="text-xs text-secondary-foreground">{{ $contact['type_label'] }}</span>
                             </div>
                         </div>
-                    @empty
-                        <p class="text-sm text-secondary-foreground text-center py-4">
-                            {{ __('pages.account.profile.phones_empty') }}
-                        </p>
-                    @endforelse
-
-                    <div class="border-t border-input pt-4 flex flex-col gap-3">
-                        <p class="text-sm font-medium text-foreground">{{ __('pages.account.profile.phone_add_heading') }}</p>
-                        <div class="flex gap-2">
-                            <x-ui.select wire:model="new_contact_type"
-                                         :placeholder="__('pages.account.profile.phone_type_placeholder')"
-                                         class="w-40 shrink-0">
-                                @foreach ($this->contactTypes as $type)
-                                    <option value="{{ $type['value'] }}">{{ $type['label'] }}</option>
-                                @endforeach
-                            </x-ui.select>
-
-                            <x-ui.input type="tel" icon="phone" wire:model="new_contact_number"
-                                        :placeholder="__('pages.account.profile.phone_number_placeholder')"
-                                        wire:keydown.enter.prevent="addContact"
-                                        class="flex-1" />
-
-                            <x-ui.button variant="primary" icon="plus" wire:click="addContact" class="shrink-0">
-                                {{ __('pages.account.profile.btn_add') }}
-                            </x-ui.button>
+                        <div class="flex items-center gap-1">
+                            @if (!$contact['is_primary'])
+                                <x-ui.button ghost="" size="sm" :iconOnly="true" icon="star"
+                                             wire:click="setPrimaryContact({{ $contact['id'] }})"
+                                             :tooltip="__('pages.account.profile.phone_set_primary_tooltip')"
+                                             tooltipPlacement="left" />
+                            @endif
+                            <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="trash-2"
+                                         wire:click="removeContact({{ $contact['id'] }})"
+                                         wire:confirm="{{ __('pages.account.profile.phone_remove_confirm') }}" />
                         </div>
-                        @error('new_contact_type')   <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                        @error('new_contact_number') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
                     </div>
+                @empty
+                    <p class="text-sm text-secondary-foreground text-center py-4">
+                        {{ __('pages.account.profile.phones_empty') }}
+                    </p>
+                @endforelse
 
+                <div class="border-t border-input pt-4 flex flex-col gap-3">
+                    <p class="text-sm font-medium text-foreground">{{ __('pages.account.profile.phone_add_heading') }}</p>
+                    <div class="flex gap-2">
+                        <x-ui.select wire:model="new_contact_type"
+                                     :placeholder="__('pages.account.profile.phone_type_placeholder')"
+                                     class="w-40 shrink-0">
+                            @foreach ($this->contactTypes as $type)
+                                <option value="{{ $type['value'] }}">{{ $type['label'] }}</option>
+                            @endforeach
+                        </x-ui.select>
+
+                        <x-ui.input type="tel" icon="phone" wire:model="new_contact_number"
+                                    :placeholder="__('pages.account.profile.phone_number_placeholder')"
+                                    wire:keydown.enter.prevent="addContact"
+                                    class="flex-1" />
+
+                        <x-ui.button variant="primary" icon="plus" wire:click="addContact" class="shrink-0">
+                            {{ __('pages.account.profile.btn_add') }}
+                        </x-ui.button>
+                    </div>
+                    @error('new_contact_type')   <p class="text-xs text-destructive">{{ $message }}</p> @enderror
+                    @error('new_contact_number') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
                 </div>
-            </div>
+
+            </x-ui.card-section>
 
             {{-- ============================================================ --}}
             {{-- Integrações --}}
             {{-- ============================================================ --}}
-            <div class="kt-card">
-                <div class="kt-card-header">
-                    <h3 class="kt-card-title">{{ __('pages.account.profile.section_integrations') }}</h3>
-                    <span class="text-xs text-secondary-foreground">{{ __('pages.account.profile.integrations_subtitle') }}</span>
-                </div>
-                <div class="kt-card-content flex flex-col gap-3 py-5">
+            <x-ui.card-section icon="lucide-plug" :title="__('pages.account.profile.section_integrations')" contentClass="flex flex-col gap-3 py-5">
+                <x-slot name="subtitle">{{ __('pages.account.profile.integrations_subtitle') }}</x-slot>
 
-                    @forelse ($integrations as $integration)
-                        <div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-input bg-muted/30">
-                            <div class="flex items-center gap-3">
-                                <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                    <i class="{{ $integration['system_icon'] }} text-primary text-sm"></i>
-                                </div>
-                                <div class="flex flex-col gap-0.5">
-                                    <span class="text-sm font-medium text-foreground">{{ $integration['system_label'] }}</span>
-                                    <span class="text-xs text-secondary-foreground font-mono">ID: {{ $integration['external_id'] }}</span>
-                                </div>
+                @forelse ($integrations as $integration)
+                    <div class="flex items-center justify-between gap-3 p-3 rounded-lg border border-input bg-muted/30">
+                        <div class="flex items-center gap-3">
+                            <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <i class="{{ $integration['system_icon'] }} text-primary text-sm"></i>
                             </div>
-                            <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="trash-2"
-                                         wire:click="removeIntegration({{ $integration['id'] }})"
-                                         wire:confirm="{{ __('pages.account.profile.integration_remove_confirm') }}" />
-                        </div>
-                    @empty
-                        <p class="text-sm text-secondary-foreground text-center py-4">
-                            {{ __('pages.account.profile.integrations_empty') }}
-                        </p>
-                    @endforelse
-
-                    @if (count($this->integrationSystems) > 0)
-                        <div class="border-t border-input pt-4 flex flex-col gap-3">
-                            <p class="text-sm font-medium text-foreground">{{ __('pages.account.profile.integration_add_heading') }}</p>
-                            <div class="flex gap-2">
-                                <x-ui.select wire:model="new_integration_system"
-                                             :placeholder="__('pages.account.profile.integration_system_placeholder')"
-                                             class="w-48 shrink-0">
-                                    @foreach ($this->integrationSystems as $system)
-                                        <option value="{{ $system['value'] }}">{{ $system['label'] }}</option>
-                                    @endforeach
-                                </x-ui.select>
-
-                                <x-ui.input icon="hash" wire:model="new_integration_external_id"
-                                            :placeholder="__('pages.account.profile.integration_id_placeholder')"
-                                            wire:keydown.enter.prevent="addIntegration"
-                                            class="flex-1" />
-
-                                <x-ui.button variant="primary" icon="plus" wire:click="addIntegration" class="shrink-0">
-                                    {{ __('pages.account.profile.btn_add') }}
-                                </x-ui.button>
+                            <div class="flex flex-col gap-0.5">
+                                <span class="text-sm font-medium text-foreground">{{ $integration['system_label'] }}</span>
+                                <span class="text-xs text-secondary-foreground font-mono">ID: {{ $integration['external_id'] }}</span>
                             </div>
-                            @error('new_integration_system')      <p class="text-xs text-destructive">{{ $message }}</p> @enderror
-                            @error('new_integration_external_id') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
                         </div>
-                    @else
-                        <p class="text-xs text-secondary-foreground text-center">
-                            {{ __('pages.account.profile.integrations_all_configured') }}
-                        </p>
-                    @endif
+                        <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="trash-2"
+                                     wire:click="removeIntegration({{ $integration['id'] }})"
+                                     wire:confirm="{{ __('pages.account.profile.integration_remove_confirm') }}" />
+                    </div>
+                @empty
+                    <p class="text-sm text-secondary-foreground text-center py-4">
+                        {{ __('pages.account.profile.integrations_empty') }}
+                    </p>
+                @endforelse
 
-                </div>
-            </div>
+                @if (count($this->integrationSystems) > 0)
+                    <div class="border-t border-input pt-4 flex flex-col gap-3">
+                        <p class="text-sm font-medium text-foreground">{{ __('pages.account.profile.integration_add_heading') }}</p>
+                        <div class="flex gap-2">
+                            <x-ui.select wire:model="new_integration_system"
+                                         :placeholder="__('pages.account.profile.integration_system_placeholder')"
+                                         class="w-48 shrink-0">
+                                @foreach ($this->integrationSystems as $system)
+                                    <option value="{{ $system['value'] }}">{{ $system['label'] }}</option>
+                                @endforeach
+                            </x-ui.select>
+
+                            <x-ui.input icon="hash" wire:model="new_integration_external_id"
+                                        :placeholder="__('pages.account.profile.integration_id_placeholder')"
+                                        wire:keydown.enter.prevent="addIntegration"
+                                        class="flex-1" />
+
+                            <x-ui.button variant="primary" icon="plus" wire:click="addIntegration" class="shrink-0">
+                                {{ __('pages.account.profile.btn_add') }}
+                            </x-ui.button>
+                        </div>
+                        @error('new_integration_system')      <p class="text-xs text-destructive">{{ $message }}</p> @enderror
+                        @error('new_integration_external_id') <p class="text-xs text-destructive">{{ $message }}</p> @enderror
+                    </div>
+                @else
+                    <p class="text-xs text-secondary-foreground text-center">
+                        {{ __('pages.account.profile.integrations_all_configured') }}
+                    </p>
+                @endif
+
+            </x-ui.card-section>
 
         </div>
     </div>

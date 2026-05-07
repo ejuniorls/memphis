@@ -230,19 +230,19 @@ new #[Title('Segurança')] class extends Component
         </div>
     </div>
 
-    <div class="flex flex-col gap-6 max-w-2xl">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
         {{-- ================================================================ --}}
-        {{-- 1. Alterar Senha --}}
+        {{-- Coluna Esquerda: Senha + 2FA --}}
         {{-- ================================================================ --}}
-        <div class="kt-card">
-            <div class="kt-card-header">
-                <h3 class="kt-card-title flex items-center gap-2">
-                    @svg('lucide-lock', ['class' => 'size-4 text-primary'])
-                    {{ __('pages.account.security.section_password') }}
-                </h3>
-            </div>
-            <div class="kt-card-content flex flex-col gap-4 py-5">
+        <div class="flex flex-col gap-6">
+
+            {{-- 1. Alterar Senha --}}
+            <x-ui.card-section
+                :title="__('pages.account.security.section_password')"
+                icon="lucide-lock"
+                contentClass="flex flex-col gap-4 py-5"
+            >
                 <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.password_description') }}</p>
 
                 <x-ui.form-field :label="__('pages.account.security.field_current_password')" name="current_password" :required="true">
@@ -251,19 +251,17 @@ new #[Title('Segurança')] class extends Component
                                          autocomplete="current-password" />
                 </x-ui.form-field>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <x-ui.form-field :label="__('pages.account.security.field_new_password')" name="password" :required="true">
-                        <x-ui.password-input id="password" wire:model="password"
-                                             :placeholder="__('pages.account.security.field_new_password_placeholder')"
-                                             autocomplete="new-password" />
-                    </x-ui.form-field>
+                <x-ui.form-field :label="__('pages.account.security.field_new_password')" name="password" :required="true">
+                    <x-ui.password-input id="password" wire:model="password"
+                                         :placeholder="__('pages.account.security.field_new_password_placeholder')"
+                                         autocomplete="new-password" />
+                </x-ui.form-field>
 
-                    <x-ui.form-field :label="__('pages.account.security.field_confirm_password')" name="password_confirmation" :required="true">
-                        <x-ui.password-input id="password_confirmation" wire:model="password_confirmation"
-                                             :placeholder="__('pages.account.security.field_confirm_password_placeholder')"
-                                             autocomplete="new-password" />
-                    </x-ui.form-field>
-                </div>
+                <x-ui.form-field :label="__('pages.account.security.field_confirm_password')" name="password_confirmation" :required="true">
+                    <x-ui.password-input id="password_confirmation" wire:model="password_confirmation"
+                                         :placeholder="__('pages.account.security.field_confirm_password_placeholder')"
+                                         autocomplete="new-password" />
+                </x-ui.form-field>
 
                 <div class="flex justify-end">
                     <x-ui.button variant="primary" wire:click="updatePassword" wire:loading.attr="disabled">
@@ -280,29 +278,16 @@ new #[Title('Segurança')] class extends Component
                         </span>
                     </x-ui.button>
                 </div>
-            </div>
-        </div>
+            </x-ui.card-section>
 
-        {{-- ================================================================ --}}
-        {{-- 2. Autenticação em Dois Fatores --}}
-        {{-- ================================================================ --}}
-        <div class="kt-card">
-            <div class="kt-card-header">
-                <h3 class="kt-card-title flex items-center gap-2">
-                    @svg('lucide-shield-check', ['class' => 'size-4 text-primary'])
-                    {{ __('pages.account.security.section_2fa') }}
-                </h3>
-                @if ($this->twoFactorEnabled)
-                    <x-ui.badge variant="success" style="outline" size="sm">
-                        {{ __('pages.account.security.two_factor_active') }}
-                    </x-ui.badge>
-                @else
-                    <x-ui.badge variant="warning" style="outline" size="sm">
-                        {{ __('pages.account.security.two_factor_inactive') }}
-                    </x-ui.badge>
-                @endif
-            </div>
-            <div class="kt-card-content flex flex-col gap-4 py-5">
+            {{-- 2. Autenticação em Dois Fatores --}}
+            <x-ui.card-section
+                :title="__('pages.account.security.section_2fa')"
+                icon="lucide-shield-check"
+                :badge="$this->twoFactorEnabled ? __('pages.account.security.two_factor_active') : __('pages.account.security.two_factor_inactive')"
+                :badgeVariant="$this->twoFactorEnabled ? 'success' : 'warning'"
+                contentClass="flex flex-col gap-4 py-5"
+            >
                 <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.two_factor_description') }}</p>
 
                 @if (! $this->twoFactorEnabled && ! $showingQrCode)
@@ -362,26 +347,30 @@ new #[Title('Segurança')] class extends Component
                         </x-ui.button>
                     </div>
                 @endif
-            </div>
+            </x-ui.card-section>
+
         </div>
 
         {{-- ================================================================ --}}
-        {{-- 3. Sessões Ativas --}}
+        {{-- Coluna Direita: Sessões + Histórico + Excluir Conta --}}
         {{-- ================================================================ --}}
-        <div class="kt-card">
-            <div class="kt-card-header flex items-center justify-between">
-                <h3 class="kt-card-title flex items-center gap-2">
-                    @svg('lucide-monitor', ['class' => 'size-4 text-primary'])
-                    {{ __('pages.account.security.section_sessions') }}
-                </h3>
-                @if ($this->activeSessions->count() > 1)
-                    <x-ui.button ghost="destructive" size="sm" wire:click="revokeOtherSessions"
-                                 wire:confirm="{{ __('pages.account.security.sessions_revoke_all_confirm') }}">
-                        {{ __('pages.account.security.btn_revoke_all') }}
-                    </x-ui.button>
-                @endif
-            </div>
-            <div class="kt-card-content flex flex-col divide-y divide-input py-0">
+        <div class="flex flex-col gap-6">
+
+            {{-- 3. Sessões Ativas --}}
+            <x-ui.card-section
+                :title="__('pages.account.security.section_sessions')"
+                icon="lucide-monitor"
+                contentClass="flex flex-col divide-y divide-input py-0"
+            >
+                <x-slot name="actions">
+                    @if ($this->activeSessions->count() > 1)
+                        <x-ui.button ghost="destructive" size="sm" wire:click="revokeOtherSessions"
+                                     wire:confirm="{{ __('pages.account.security.sessions_revoke_all_confirm') }}">
+                            {{ __('pages.account.security.btn_revoke_all') }}
+                        </x-ui.button>
+                    @endif
+                </x-slot>
+
                 @forelse ($this->activeSessions as $session)
                     <div class="flex items-center justify-between gap-3 py-4 px-1">
                         <div class="flex items-center gap-3">
@@ -422,21 +411,16 @@ new #[Title('Segurança')] class extends Component
                         {{ __('pages.account.security.sessions_empty') }}
                     </p>
                 @endforelse
-            </div>
-        </div>
+            </x-ui.card-section>
 
-        {{-- ================================================================ --}}
-        {{-- 4. Histórico de Acesso --}}
-        {{-- ================================================================ --}}
-        <div class="kt-card">
-            <div class="kt-card-header">
-                <h3 class="kt-card-title flex items-center gap-2">
-                    @svg('lucide-history', ['class' => 'size-4 text-primary'])
-                    {{ __('pages.account.security.section_access_history') }}
-                </h3>
-                <span class="text-xs text-secondary-foreground">{{ __('pages.account.security.access_history_subtitle') }}</span>
-            </div>
-            <div class="kt-card-content flex flex-col divide-y divide-input py-0">
+            {{-- 4. Histórico de Acesso --}}
+            <x-ui.card-section
+                :title="__('pages.account.security.section_access_history')"
+                icon="lucide-history"
+                contentClass="flex flex-col divide-y divide-input py-0"
+            >
+                <x-slot name="subtitle">{{ __('pages.account.security.access_history_subtitle') }}</x-slot>
+
                 @forelse ($this->accessHistory as $log)
                     <div class="flex items-center justify-between gap-3 py-3 px-1">
                         <div class="flex items-center gap-3">
@@ -475,20 +459,15 @@ new #[Title('Segurança')] class extends Component
                         {{ __('pages.account.security.access_history_empty') }}
                     </p>
                 @endforelse
-            </div>
-        </div>
+            </x-ui.card-section>
 
-        {{-- ================================================================ --}}
-        {{-- 5. Zona de Perigo — Excluir Conta --}}
-        {{-- ================================================================ --}}
-        <div class="kt-card border-destructive/30">
-            <div class="kt-card-header border-destructive/20 bg-destructive/5">
-                <h3 class="kt-card-title flex items-center gap-2 text-destructive">
-                    @svg('lucide-triangle-alert', ['class' => 'size-4'])
-                    {{ __('pages.account.security.section_danger') }}
-                </h3>
-            </div>
-            <div class="kt-card-content flex flex-col gap-4 py-5">
+            {{-- 5. Excluir Conta --}}
+            <x-ui.card-section
+                :title="__('pages.account.security.section_delete_account')"
+                icon="lucide-trash-2"
+                :danger="true"
+                contentClass="flex flex-col gap-4 py-5"
+            >
                 <div class="flex items-start justify-between gap-4">
                     <div class="flex flex-col gap-1">
                         <p class="text-sm font-medium text-foreground">{{ __('pages.account.security.delete_account_label') }}</p>
@@ -500,52 +479,53 @@ new #[Title('Segurança')] class extends Component
                         {{ __('pages.account.security.btn_delete_account') }}
                     </button>
                 </div>
-            </div>
+            </x-ui.card-section>
+
         </div>
 
-        {{-- Modal: Excluir Conta --}}
-        <div id="delete-account-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <div class="kt-card w-full max-w-md mx-4 shadow-2xl">
-                <div class="kt-card-header border-destructive/20 bg-destructive/5">
-                    <h3 class="kt-card-title text-destructive flex items-center gap-2">
-                        @svg('lucide-trash-2', ['class' => 'size-4'])
-                        {{ __('pages.account.security.delete_modal_title') }}
-                    </h3>
-                    <button type="button" onclick="document.getElementById('delete-account-modal').classList.add('hidden')"
-                            class="text-secondary-foreground hover:text-foreground transition-colors">
-                        @svg('lucide-x', ['class' => 'size-4'])
-                    </button>
-                </div>
-                <div class="kt-card-content flex flex-col gap-4 py-5">
-                    <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.delete_modal_description') }}</p>
+    </div>
 
-                    <x-ui.alert variant="warning">
-                        <p class="text-xs">{{ __('pages.account.security.delete_soft_delete_notice') }}</p>
-                    </x-ui.alert>
+    {{-- Modal: Excluir Conta --}}
+    <div id="delete-account-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div class="kt-card w-full max-w-md mx-4 shadow-2xl">
+            <div class="kt-card-header border-destructive/20 bg-destructive/5">
+                <h3 class="kt-card-title text-destructive flex items-center gap-2">
+                    @svg('lucide-trash-2', ['class' => 'size-4'])
+                    {{ __('pages.account.security.delete_modal_title') }}
+                </h3>
+                <button type="button" onclick="document.getElementById('delete-account-modal').classList.add('hidden')"
+                        class="text-secondary-foreground hover:text-foreground transition-colors">
+                    @svg('lucide-x', ['class' => 'size-4'])
+                </button>
+            </div>
+            <div class="kt-card-content flex flex-col gap-4 py-5">
+                <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.delete_modal_description') }}</p>
 
-                    <x-ui.form-field :label="__('pages.account.security.field_confirm_password_label')" name="delete_password" :required="true">
-                        <x-ui.password-input id="delete_password" wire:model="delete_password"
-                                             :placeholder="__('pages.account.security.field_confirm_password_placeholder')"
-                                             autocomplete="current-password" />
-                    </x-ui.form-field>
+                <x-ui.alert variant="warning">
+                    <p class="text-xs">{{ __('pages.account.security.delete_soft_delete_notice') }}</p>
+                </x-ui.alert>
 
-                    @error('delete_password')
-                    <p class="text-xs text-destructive">{{ $message }}</p>
-                    @enderror
-                </div>
-                <div class="kt-card-footer flex items-center justify-end gap-3 py-4">
-                    <button type="button" onclick="document.getElementById('delete-account-modal').classList.add('hidden')"
-                            class="kt-btn kt-btn-outline">
-                        {{ __('pages.account.security.btn_cancel') }}
-                    </button>
-                    <button type="button" wire:click="deleteAccount" class="kt-btn kt-btn-ghost kt-btn-destructive">
-                        @svg('lucide-trash-2', ['class' => 'size-4'])
-                        {{ __('pages.account.security.btn_confirm_delete') }}
-                    </button>
-                </div>
+                <x-ui.form-field :label="__('pages.account.security.field_confirm_password_label')" name="delete_password" :required="true">
+                    <x-ui.password-input id="delete_password" wire:model="delete_password"
+                                         :placeholder="__('pages.account.security.field_confirm_password_placeholder')"
+                                         autocomplete="current-password" />
+                </x-ui.form-field>
+
+                @error('delete_password')
+                <p class="text-xs text-destructive">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="kt-card-footer flex items-center justify-end gap-3 py-4">
+                <button type="button" onclick="document.getElementById('delete-account-modal').classList.add('hidden')"
+                        class="kt-btn kt-btn-outline">
+                    {{ __('pages.account.security.btn_cancel') }}
+                </button>
+                <button type="button" wire:click="deleteAccount" class="kt-btn kt-btn-ghost kt-btn-destructive">
+                    @svg('lucide-trash-2', ['class' => 'size-4'])
+                    {{ __('pages.account.security.btn_confirm_delete') }}
+                </button>
             </div>
         </div>
-
     </div>
 
 </div>

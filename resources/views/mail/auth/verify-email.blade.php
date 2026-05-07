@@ -50,7 +50,7 @@
                         {{-- Message --}}
                         <p style="margin:0 0 28px;font-size:15px;color:#6b7280;line-height:1.65;">
                             Olá, <strong style="color:#111827;">{{ $notifiable->name }}</strong>!
-                            Estamos quase lá — clique no botão abaixo para ativar sua conta e começar a usar a plataforma.
+                            Estamos quase lá. Clique no botão abaixo para ativar sua conta e começar a usar a plataforma.
                         </p>
 
                         {{-- Button --}}

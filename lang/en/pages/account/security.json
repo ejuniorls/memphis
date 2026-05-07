@@ -53,6 +53,7 @@
     "event_failed": "Failed",
 
     "section_danger": "Danger Zone",
+    "section_delete_account": "Delete Account",
     "delete_account_label": "Delete my account",
     "delete_account_description": "Once you delete your account, you will lose access immediately. Your data will be preserved for 30 days before permanent deletion.",
     "btn_delete_account": "Delete Account",
