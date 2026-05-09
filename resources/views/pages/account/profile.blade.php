@@ -269,49 +269,174 @@ new #[Title('Meu Perfil')] class extends Component
             {{-- Avatar --}}
             <x-ui.card-section icon="lucide-image" :title="__('pages.account.profile.section_avatar')" contentClass="flex flex-col items-center gap-4 py-6">
 
-                <div class="relative">
+                {{-- Cropper modal --}}
+                <x-ui.image-cropper
+                    id="profile_cropper"
+                    target-input="profile_avatar_lw"
+                    :aspect-ratio="1"
+                    :output-width="512"
+                    :output-height="512"
+                    modal-title="Ajustar foto de perfil"
+                />
+
+                {{-- Input Livewire --}}
+                <input id="profile_avatar_lw" type="file" accept="image/*"
+                       wire:model="avatar_upload" class="hidden" />
+
+                {{-- Input raw --}}
+                <input
+                    id="profile_avatar_raw"
+                    type="file"
+                    accept="image/*"
+                    class="hidden"
+                    x-ref="rawInput"
+                />
+
+                {{-- Store para controlar o preview modal --}}
+                <div x-data style="display:none"
+                     x-init="Alpine.store('avatarPreview', { show: false })">
+                </div>
+
+                <div
+                    x-data="{
+                        dragging: false,
+                        processFile(file) {
+                            if (!file || !file.type.startsWith('image/')) return;
+                            if (file.size > 10 * 1024 * 1024) {
+                                KTToast.show({ message: 'Arquivo muito grande. Máximo: 10 MB.', variant: 'destructive' });
+                                return;
+                            }
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                Alpine.store('profile_cropper').open(e.target.result, (dataUrl) => {
+                                    document.getElementById('profile_avatar_preview').src = dataUrl;
+                                });
+                            };
+                            reader.readAsDataURL(file);
+                        },
+                        init() {
+                            const raw = document.getElementById('profile_avatar_raw');
+                            if (raw) raw.addEventListener('change', (e) => {
+                                this.processFile(e.target.files[0]);
+                                e.target.value = '';
+                            });
+                        }
+                    }"
+                    class="w-full flex flex-col items-center gap-4"
+                    @dragover.prevent="dragging = true"
+                    @dragleave.prevent="dragging = false"
+                    @drop.prevent="dragging = false; processFile($event.dataTransfer.files[0])"
+                >
+                    {{-- Avatar clicável --}}
+                    <div class="relative shrink-0 group cursor-pointer"
+                         @click="Alpine.store('avatarPreview').show = true">
+                        <img
+                            id="profile_avatar_preview"
+                            src="{{ $this->currentAvatarUrl }}"
+                            alt="{{ $name }}"
+                            style="width:112px;height:112px;min-width:112px;min-height:112px;border-radius:9999px;object-fit:cover;"
+                            class="ring-4 ring-border transition-opacity duration-150 group-hover:opacity-75"
+                        />
+                        <div class="absolute inset-0 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/30">
+                            @svg('lucide-expand', ['class' => 'size-5 text-white'])
+                        </div>
+                        @if ($avatar_upload)
+                            <x-ui.badge variant="primary" size="sm" class="absolute -bottom-1 -right-1 rounded-full">
+                                {{ __('pages.account.profile.avatar_preview_badge') }}
+                            </x-ui.badge>
+                        @endif
+                    </div>
+
+                    {{-- Dropzone ou botão --}}
+                    @if ((bool) Auth::user()->avatar || (bool) $avatar_upload)
+                        <label for="profile_avatar_raw"
+                               class="kt-btn kt-btn-outline kt-btn-sm w-full justify-center cursor-pointer"
+                               :class="dragging ? 'ring-2 ring-primary' : ''">
+                            @svg('lucide-image', ['class' => 'size-3.5 shrink-0'])
+                            {{ __('pages.account.profile.avatar_dropzone_file_label') }}
+                        </label>
+                    @else
+                        <div class="w-full border-2 border-dashed rounded-xl px-6 py-8 text-center transition-colors cursor-pointer"
+                             :class="dragging ? 'border-primary bg-primary/5' : 'border-border'"
+                             @click="document.getElementById('profile_avatar_raw').click()">
+                            @svg('lucide-upload-cloud', ['class' => 'mx-auto mb-2 size-8 text-muted-foreground'])
+                            <p class="text-xs text-secondary-foreground mb-3">{{ __('pages.account.profile.avatar_dropzone_label') }}</p>
+                            <span class="kt-btn kt-btn-outline kt-btn-sm pointer-events-none">
+                                @svg('lucide-image', ['class' => 'size-3.5 shrink-0'])
+                                {{ __('pages.account.profile.avatar_dropzone_button') }}
+                            </span>
+                            <p class="text-xs text-muted-foreground mt-3">JPG, PNG ou WebP · Máx 10MB</p>
+                        </div>
+                    @endif
+
+                    @error('avatar_upload')
+                    <p class="text-xs text-destructive text-center">{{ $message }}</p>
+                    @enderror
+
+                    @if (Auth::user()->avatar)
+                        <x-ui.button ghost="destructive" size="sm" icon="trash-2"
+                                     wire:click="removeAvatar"
+                                     wire:confirm="{{ __('pages.account.profile.avatar_remove_confirm') }}"
+                                     class="w-full justify-center">
+                            {{ __('pages.account.profile.avatar_remove') }}
+                        </x-ui.button>
+                    @endif
+
+                </div>
+
+            </x-ui.card-section>
+
+            {{-- Modal preview do avatar --}}
+            <div
+                x-data
+                x-show="$store.avatarPreview && $store.avatarPreview.show"
+                x-cloak
+                x-on:keydown.escape.window="if($store.avatarPreview) $store.avatarPreview.show = false"
+                style="position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.88);backdrop-filter:blur(10px);"
+            >
+                <div style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;padding:2rem;">
+                    <div style="position:absolute;inset:0;"
+                         x-on:click="$store.avatarPreview.show = false"></div>
+
                     <img
                         src="{{ $this->currentAvatarUrl }}"
                         alt="{{ $name }}"
-                        class="size-24 rounded-full object-cover ring-4 ring-border"
+                        style="position:relative;width:220px;height:220px;border-radius:9999px;object-fit:cover;box-shadow:0 25px 60px rgba(0,0,0,0.6);"
+                        class="ring-4 ring-white/20"
                     />
-                    @if ($avatar_upload)
-                        <x-ui.badge variant="primary" size="sm" class="absolute -bottom-1 -right-1 rounded-full">
-                            {{ __('pages.account.profile.avatar_preview_badge') }}
-                        </x-ui.badge>
-                    @endif
+
+                    <p style="position:relative;" class="text-white font-semibold text-xl">{{ $name }}</p>
+
+                    <div style="position:relative;" class="flex items-center gap-3" x-on:click.stop>
+                        <label for="profile_avatar_raw"
+                               class="kt-btn kt-btn-primary kt-btn-sm cursor-pointer"
+                               x-on:click="$store.avatarPreview.show = false">
+                            @svg('lucide-pencil', ['class' => 'size-3.5'])
+                            Editar foto
+                        </label>
+
+                        @php $hasAvatar = (bool) Auth::user()?->avatar; @endphp
+                        @if ($hasAvatar)
+                            <button type="button"
+                                    class="kt-btn kt-btn-ghost kt-btn-destructive kt-btn-sm"
+                                    wire:click="removeAvatar"
+                                    wire:confirm="{{ __('pages.account.profile.avatar_remove_confirm') }}"
+                                    x-on:click="$store.avatarPreview.show = false">
+                                @svg('lucide-trash-2', ['class' => 'size-3.5'])
+                                Remover
+                            </button>
+                        @endif
+
+                        <button type="button"
+                                class="kt-btn kt-btn-ghost kt-btn-sm"
+                                style="color:rgba(255,255,255,0.6);"
+                                x-on:click="$store.avatarPreview.show = false">
+                            @svg('lucide-x', ['class' => 'size-4'])
+                            Fechar
+                        </button>
+                    </div>
                 </div>
-
-                <x-ui.file-dropzone
-                    id="avatar_input"
-                    model="avatar_upload"
-                    accept="image/*"
-                    :label="__('pages.account.profile.avatar_dropzone_label')"
-                    :button-label="__('pages.account.profile.avatar_dropzone_button')"
-                    :file-label="__('pages.account.profile.avatar_dropzone_file_label')"
-                    :hint="__('pages.account.profile.avatar_dropzone_hint')"
-                    :has-file="(bool) $avatar_upload || (bool) Auth::user()->avatar"
-                    class="w-full"
-                />
-
-                @error('avatar_upload')
-                <p class="text-xs text-destructive text-center">{{ $message }}</p>
-                @enderror
-
-                @if (Auth::user()->avatar)
-                    <x-ui.button
-                        ghost="destructive"
-                        size="sm"
-                        icon="trash-2"
-                        wire:click="removeAvatar"
-                        wire:confirm="{{ __('pages.account.profile.avatar_remove_confirm') }}"
-                        class="w-full justify-center"
-                    >
-                        {{ __('pages.account.profile.avatar_remove') }}
-                    </x-ui.button>
-                @endif
-
-            </x-ui.card-section>
+            </div>
 
             {{-- Visibilidade --}}
             <x-ui.card-section icon="lucide-eye" :title="__('pages.account.profile.section_visibility')" contentClass="flex flex-col gap-5 py-4">
@@ -612,10 +737,12 @@ new #[Title('Meu Perfil')] class extends Component
         </div>
     </div>
 
-</div>
 
-<script>
-    Livewire.on('toast', ({ variant, message }) => {
-        KTToast.show({ message, variant });
-    });
-</script>
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('toast', ({ variant, message }) => {
+                KTToast.show({ message, variant });
+            });
+        });
+    </script>
+</div>
