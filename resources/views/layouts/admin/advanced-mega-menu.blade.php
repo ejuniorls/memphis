@@ -30,7 +30,7 @@
             <!-- Content -->
             <main class="grow" id="content" role="content">
                 <!-- Container -->
-                <div class="kt-container-fixed" id="contentContainer">
+                <div class="{{ config('layout.container') }}" id="contentContainer">
                     {{ $slot }}
                 </div>
                 <!-- End of Container -->

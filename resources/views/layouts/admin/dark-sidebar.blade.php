@@ -31,7 +31,7 @@
                             @include('layouts.admin.dark-sidebar.toolbar')
                             <!-- End of Toolbar -->
                             <!-- Container -->
-                            <div class="kt-container-fixed">
+                            <div class="{{ config('layout.container') }}">
                                 {{ $slot }}
                             </div>
                             <!-- End of Container -->

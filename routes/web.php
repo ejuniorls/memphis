@@ -57,6 +57,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::prefix('settings')->name('settings.')->group(function () {
         Route::redirect('/', 'settings/company');
 
+        Route::livewire('/layout', 'pages::settings.layout')->name('layout');
+
         // Empresa
         Route::prefix('company')->name('company.')->group(function () {
             Route::livewire('/', 'pages::settings.company.index')->name('index');

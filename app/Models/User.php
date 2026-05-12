@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -42,26 +43,18 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes;
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-            'profile_public' => 'boolean',
-            'show_email' => 'boolean',
-            'show_phone' => 'boolean',
-            'deleted_at' => 'datetime',
+            'password'          => 'hashed',
+            'profile_public'    => 'boolean',
+            'show_email'        => 'boolean',
+            'show_phone'        => 'boolean',
+            'deleted_at'        => 'datetime',
         ];
     }
 
-    /**
-     * Get the user's initials
-     */
     public function initials(): string
     {
         return Str::of($this->name)
@@ -71,9 +64,6 @@ class User extends Authenticatable implements MustVerifyEmail
             ->implode('');
     }
 
-    /**
-     * Get the user's avatar URL or a generated one based on initials.
-     */
     public function avatarUrl(): string
     {
         if ($this->avatar) {
@@ -106,5 +96,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function accessLogs(): HasMany
     {
         return $this->hasMany(UserAccessLog::class);
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    public function hasRole(string $name): bool
+    {
+        return $this->roles->contains('name', $name);
     }
 }

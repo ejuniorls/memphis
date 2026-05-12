@@ -27,7 +27,9 @@
 
                             <!-- Content -->
                             <main class="grow" id="content" role="content">
-                                {{ $slot }}
+                                <div class="{{ config('layout.container') }}">
+                                    {{ $slot }}
+                                </div>
                             </main>
                             <!-- End of Content -->
 

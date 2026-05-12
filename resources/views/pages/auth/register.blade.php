@@ -17,6 +17,14 @@
                 </div>
             </div>
 
+            {{-- Banner de convite --}}
+            @if (request('email'))
+                <div class="flex items-center gap-2 text-xs text-success bg-success/10 border border-success/20 rounded-lg px-3 py-2">
+                    @svg('lucide-mail-check', ['class' => 'size-3.5 shrink-0'])
+                    Você foi convidado - seus dados foram pré-preenchidos.
+                </div>
+            @endif
+
             <x-ui.oauth-buttons :providers="['google', 'apple']" />
 
             <x-ui.divider :label="__('pages.auth.register.or')" />
@@ -27,7 +35,7 @@
                     name="name"
                     type="text"
                     placeholder="{{ __('pages.auth.register.name_placeholder') }}"
-                    value="{{ old('name') }}"
+                    value="{{ old('name', request('name')) }}"
                     :invalid="$errors->has('name')"
                     required
                     autofocus
@@ -40,9 +48,10 @@
                     name="email"
                     type="email"
                     placeholder="email@example.com"
-                    value="{{ old('email') }}"
+                    value="{{ old('email', request('email')) }}"
                     :invalid="$errors->has('email')"
                     required
+                    @if (request('email')) readonly @endif
                 />
             </x-ui.form-field>
 
