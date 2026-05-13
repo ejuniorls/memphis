@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/dashboard');
 
 // Rota check-email — exibida após envio do link de reset de senha
-Route::get('/check-email', fn () => session()->has('email')
+Route::get('/check-email', fn() => session()->has('email')
     ? view('pages::auth.check-email')
     : redirect()->route('password.request')
 )->name('auth.check-email');
@@ -17,7 +17,7 @@ Route::post('/forgot-password', [\App\Http\Controllers\Auth\ForgotPasswordContro
     ->name('password.email');
 
 // Rota password-changed — exibida após reset de senha bem-sucedido
-Route::get('/password-changed', fn () => view('pages::auth.password-changed'))->name('auth.password-changed');
+Route::get('/password-changed', fn() => view('pages::auth.password-changed'))->name('auth.password-changed');
 
 // Sobrescreve o POST do Fortify de reset para redirecionar ao password-changed
 Route::post('/reset-password', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'store'])

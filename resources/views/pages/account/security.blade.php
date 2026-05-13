@@ -153,7 +153,6 @@ new #[Title('Segurança')] class extends Component
             return;
         }
 
-        // Soft delete primeiro, logout depois para não perder a sessão no meio da requisição
         $user->delete();
 
         Auth::logout();
@@ -220,266 +219,281 @@ new #[Title('Segurança')] class extends Component
     }
 }; ?>
 
-<div class="kt-container-fluid py-6">
+{{-- Div raiz obrigatória do Livewire --}}
+<div>
 
-    {{-- Header --}}
-    <div class="flex items-center justify-between mb-8">
-        <div>
+    {{-- Toolbar --}}
+    <x-slot name="toolbar">
+        <x-ui.breadcrumb>
+            <x-ui.breadcrumb-item :first="true" href="{{ route('dashboard') }}">
+                {{ __('Home') }}
+            </x-ui.breadcrumb-item>
+            <x-ui.breadcrumb-item :active="true">
+                {{ __('pages.account.security.page_heading') }}
+            </x-ui.breadcrumb-item>
+        </x-ui.breadcrumb>
+    </x-slot>
+
+    {{-- Conteúdo --}}
+    <div class="py-6">
+
+        <div class="mb-8">
             <h1 class="text-2xl font-bold text-mono">{{ __('pages.account.security.page_heading') }}</h1>
             <p class="text-sm text-secondary-foreground mt-1">{{ __('pages.account.security.page_subheading') }}</p>
         </div>
-    </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-        {{-- ================================================================ --}}
-        {{-- Coluna Esquerda: Senha + 2FA --}}
-        {{-- ================================================================ --}}
-        <div class="flex flex-col gap-6">
+            {{-- ============================================================ --}}
+            {{-- Coluna Esquerda: Senha + 2FA                                 --}}
+            {{-- ============================================================ --}}
+            <div class="flex flex-col gap-6">
 
-            {{-- 1. Alterar Senha --}}
-            <x-ui.card-section
-                :title="__('pages.account.security.section_password')"
-                icon="lucide-lock"
-                contentClass="flex flex-col gap-4 py-5"
-            >
-                <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.password_description') }}</p>
+                {{-- 1. Alterar Senha --}}
+                <x-ui.card-section
+                    :title="__('pages.account.security.section_password')"
+                    icon="lucide-lock"
+                    contentClass="flex flex-col gap-4 py-5"
+                >
+                    <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.password_description') }}</p>
 
-                <x-ui.form-field :label="__('pages.account.security.field_current_password')" name="current_password" :required="true">
-                    <x-ui.password-input id="current_password" wire:model="current_password"
-                                         :placeholder="__('pages.account.security.field_current_password_placeholder')"
-                                         autocomplete="current-password" />
-                </x-ui.form-field>
+                    <x-ui.form-field :label="__('pages.account.security.field_current_password')" name="current_password" :required="true">
+                        <x-ui.password-input id="current_password" wire:model="current_password"
+                                             :placeholder="__('pages.account.security.field_current_password_placeholder')"
+                                             autocomplete="current-password" />
+                    </x-ui.form-field>
 
-                <x-ui.form-field :label="__('pages.account.security.field_new_password')" name="password" :required="true">
-                    <x-ui.password-input id="password" wire:model="password"
-                                         :placeholder="__('pages.account.security.field_new_password_placeholder')"
-                                         autocomplete="new-password" />
-                </x-ui.form-field>
+                    <x-ui.form-field :label="__('pages.account.security.field_new_password')" name="password" :required="true">
+                        <x-ui.password-input id="password" wire:model="password"
+                                             :placeholder="__('pages.account.security.field_new_password_placeholder')"
+                                             autocomplete="new-password" />
+                    </x-ui.form-field>
 
-                <x-ui.form-field :label="__('pages.account.security.field_confirm_password')" name="password_confirmation" :required="true">
-                    <x-ui.password-input id="password_confirmation" wire:model="password_confirmation"
-                                         :placeholder="__('pages.account.security.field_confirm_password_placeholder')"
-                                         autocomplete="new-password" />
-                </x-ui.form-field>
+                    <x-ui.form-field :label="__('pages.account.security.field_confirm_password')" name="password_confirmation" :required="true">
+                        <x-ui.password-input id="password_confirmation" wire:model="password_confirmation"
+                                             :placeholder="__('pages.account.security.field_confirm_password_placeholder')"
+                                             autocomplete="new-password" />
+                    </x-ui.form-field>
 
-                <div class="flex justify-end">
-                    <x-ui.button variant="primary" wire:click="updatePassword" wire:loading.attr="disabled">
-                        <span wire:loading.remove wire:target="updatePassword" class="flex items-center gap-2">
-                            @svg('lucide-check', ['class' => 'size-4'])
-                            {{ __('pages.account.security.btn_update_password') }}
-                        </span>
-                        <span wire:loading wire:target="updatePassword" class="flex items-center gap-2">
-                            <svg class="animate-spin size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                            </svg>
-                            {{ __('pages.account.security.btn_saving') }}
-                        </span>
-                    </x-ui.button>
-                </div>
-            </x-ui.card-section>
-
-            {{-- 2. Autenticação em Dois Fatores --}}
-            <x-ui.card-section
-                :title="__('pages.account.security.section_2fa')"
-                icon="lucide-shield-check"
-                :badge="$this->twoFactorEnabled ? __('pages.account.security.two_factor_active') : __('pages.account.security.two_factor_inactive')"
-                :badgeVariant="$this->twoFactorEnabled ? 'success' : 'warning'"
-                contentClass="flex flex-col gap-4 py-5"
-            >
-                <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.two_factor_description') }}</p>
-
-                @if (! $this->twoFactorEnabled && ! $showingQrCode)
-                    <x-ui.button variant="primary" wire:click="enableTwoFactorAuthentication" wire:loading.attr="disabled">
-                        @svg('lucide-shield-plus', ['class' => 'size-4'])
-                        {{ __('pages.account.security.btn_enable_2fa') }}
-                    </x-ui.button>
-                @endif
-
-                @if ($showingQrCode || $showingConfirmation)
-                    <div class="p-4 bg-muted rounded-lg border border-input flex flex-col gap-4">
-                        <p class="text-sm font-medium text-foreground">{{ __('pages.account.security.two_factor_scan_instruction') }}</p>
-                        <div class="flex justify-center">
-                            {!! $this->twoFactorQrCodeSvg !!}
-                        </div>
-                        @if ($showingConfirmation)
-                            <x-ui.form-field :label="__('pages.account.security.field_2fa_code')" name="two_factor_code">
-                                <x-ui.input id="two_factor_code" wire:model="two_factor_code"
-                                            :placeholder="__('pages.account.security.field_2fa_code_placeholder')"
-                                            autocomplete="one-time-code"
-                                            wire:keydown.enter.prevent="confirmTwoFactorAuthentication" />
-                            </x-ui.form-field>
-                            <x-ui.button variant="primary" wire:click="confirmTwoFactorAuthentication">
-                                {{ __('pages.account.security.btn_confirm_2fa') }}
-                            </x-ui.button>
-                        @endif
+                    <div class="flex justify-end">
+                        <x-ui.button variant="primary" wire:click="updatePassword" wire:loading.attr="disabled">
+                            <span wire:loading.remove wire:target="updatePassword" class="flex items-center gap-2">
+                                @svg('lucide-check', ['class' => 'size-4'])
+                                {{ __('pages.account.security.btn_update_password') }}
+                            </span>
+                            <span wire:loading wire:target="updatePassword" class="flex items-center gap-2">
+                                <svg class="animate-spin size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                                {{ __('pages.account.security.btn_saving') }}
+                            </span>
+                        </x-ui.button>
                     </div>
-                @endif
+                </x-ui.card-section>
 
-                @if ($this->twoFactorEnabled)
-                    @if ($showingRecoveryCodes)
-                        <div class="p-4 bg-warning/10 border border-warning/30 rounded-lg flex flex-col gap-3">
-                            <p class="text-sm font-medium text-warning flex items-center gap-2">
-                                @svg('lucide-triangle-alert', ['class' => 'size-4 shrink-0'])
-                                {{ __('pages.account.security.recovery_codes_warning') }}
-                            </p>
-                            <div class="grid grid-cols-2 gap-1.5">
-                                @foreach ($this->recoveryCodes as $code)
-                                    <code class="text-xs font-mono bg-muted px-2 py-1 rounded text-foreground tracking-wider">{{ $code }}</code>
-                                @endforeach
+                {{-- 2. Autenticação em Dois Fatores --}}
+                <x-ui.card-section
+                    :title="__('pages.account.security.section_2fa')"
+                    icon="lucide-shield-check"
+                    :badge="$this->twoFactorEnabled ? __('pages.account.security.two_factor_active') : __('pages.account.security.two_factor_inactive')"
+                    :badgeVariant="$this->twoFactorEnabled ? 'success' : 'warning'"
+                    contentClass="flex flex-col gap-4 py-5"
+                >
+                    <p class="text-sm text-secondary-foreground">{{ __('pages.account.security.two_factor_description') }}</p>
+
+                    @if (! $this->twoFactorEnabled && ! $showingQrCode)
+                        <x-ui.button variant="primary" wire:click="enableTwoFactorAuthentication" wire:loading.attr="disabled">
+                            @svg('lucide-shield-plus', ['class' => 'size-4'])
+                            {{ __('pages.account.security.btn_enable_2fa') }}
+                        </x-ui.button>
+                    @endif
+
+                    @if ($showingQrCode || $showingConfirmation)
+                        <div class="p-4 bg-muted rounded-lg border border-input flex flex-col gap-4">
+                            <p class="text-sm font-medium text-foreground">{{ __('pages.account.security.two_factor_scan_instruction') }}</p>
+                            <div class="flex justify-center">
+                                {!! $this->twoFactorQrCodeSvg !!}
                             </div>
+                            @if ($showingConfirmation)
+                                <x-ui.form-field :label="__('pages.account.security.field_2fa_code')" name="two_factor_code">
+                                    <x-ui.input id="two_factor_code" wire:model="two_factor_code"
+                                                :placeholder="__('pages.account.security.field_2fa_code_placeholder')"
+                                                autocomplete="one-time-code"
+                                                wire:keydown.enter.prevent="confirmTwoFactorAuthentication" />
+                                </x-ui.form-field>
+                                <x-ui.button variant="primary" wire:click="confirmTwoFactorAuthentication">
+                                    {{ __('pages.account.security.btn_confirm_2fa') }}
+                                </x-ui.button>
+                            @endif
                         </div>
                     @endif
 
-                    <div class="flex flex-wrap gap-2">
-                        @if (! $showingRecoveryCodes)
-                            <x-ui.button :outline="true" size="sm" icon="key-round" wire:click="showRecoveryCodes">
-                                {{ __('pages.account.security.btn_show_recovery_codes') }}
+                    @if ($this->twoFactorEnabled)
+                        @if ($showingRecoveryCodes)
+                            <div class="p-4 bg-warning/10 border border-warning/30 rounded-lg flex flex-col gap-3">
+                                <p class="text-sm font-medium text-warning flex items-center gap-2">
+                                    @svg('lucide-triangle-alert', ['class' => 'size-4 shrink-0'])
+                                    {{ __('pages.account.security.recovery_codes_warning') }}
+                                </p>
+                                <div class="grid grid-cols-2 gap-1.5">
+                                    @foreach ($this->recoveryCodes as $code)
+                                        <code class="text-xs font-mono bg-muted px-2 py-1 rounded text-foreground tracking-wider">{{ $code }}</code>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="flex flex-wrap gap-2">
+                            @if (! $showingRecoveryCodes)
+                                <x-ui.button :outline="true" size="sm" icon="key-round" wire:click="showRecoveryCodes">
+                                    {{ __('pages.account.security.btn_show_recovery_codes') }}
+                                </x-ui.button>
+                            @endif
+                            <x-ui.button :outline="true" size="sm" icon="refresh-cw" wire:click="regenerateRecoveryCodes">
+                                {{ __('pages.account.security.btn_regenerate_recovery') }}
+                            </x-ui.button>
+                            <x-ui.button ghost="destructive" size="sm" icon="shield-off" wire:click="disableTwoFactorAuthentication"
+                                         wire:confirm="{{ __('pages.account.security.two_factor_disable_confirm') }}">
+                                {{ __('pages.account.security.btn_disable_2fa') }}
+                            </x-ui.button>
+                        </div>
+                    @endif
+                </x-ui.card-section>
+
+            </div>
+
+            {{-- ============================================================ --}}
+            {{-- Coluna Direita: Sessões + Histórico + Excluir Conta           --}}
+            {{-- ============================================================ --}}
+            <div class="flex flex-col gap-6">
+
+                {{-- 3. Sessões Ativas --}}
+                <x-ui.card-section
+                    :title="__('pages.account.security.section_sessions')"
+                    icon="lucide-monitor"
+                    contentClass="flex flex-col divide-y divide-input py-0"
+                >
+                    <x-slot name="actions">
+                        @if ($this->activeSessions->count() > 1)
+                            <x-ui.button ghost="destructive" size="sm" wire:click="revokeOtherSessions"
+                                         wire:confirm="{{ __('pages.account.security.sessions_revoke_all_confirm') }}">
+                                {{ __('pages.account.security.btn_revoke_all') }}
                             </x-ui.button>
                         @endif
-                        <x-ui.button :outline="true" size="sm" icon="refresh-cw" wire:click="regenerateRecoveryCodes">
-                            {{ __('pages.account.security.btn_regenerate_recovery') }}
-                        </x-ui.button>
-                        <x-ui.button ghost="destructive" size="sm" icon="shield-off" wire:click="disableTwoFactorAuthentication"
-                                     wire:confirm="{{ __('pages.account.security.two_factor_disable_confirm') }}">
-                            {{ __('pages.account.security.btn_disable_2fa') }}
-                        </x-ui.button>
-                    </div>
-                @endif
-            </x-ui.card-section>
+                    </x-slot>
 
-        </div>
-
-        {{-- ================================================================ --}}
-        {{-- Coluna Direita: Sessões + Histórico + Excluir Conta --}}
-        {{-- ================================================================ --}}
-        <div class="flex flex-col gap-6">
-
-            {{-- 3. Sessões Ativas --}}
-            <x-ui.card-section
-                :title="__('pages.account.security.section_sessions')"
-                icon="lucide-monitor"
-                contentClass="flex flex-col divide-y divide-input py-0"
-            >
-                <x-slot name="actions">
-                    @if ($this->activeSessions->count() > 1)
-                        <x-ui.button ghost="destructive" size="sm" wire:click="revokeOtherSessions"
-                                     wire:confirm="{{ __('pages.account.security.sessions_revoke_all_confirm') }}">
-                            {{ __('pages.account.security.btn_revoke_all') }}
-                        </x-ui.button>
-                    @endif
-                </x-slot>
-
-                @forelse ($this->activeSessions as $session)
-                    <div class="flex items-center justify-between gap-3 py-4 px-1">
-                        <div class="flex items-center gap-3">
-                            <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                                @if ($session->device === 'mobile')
-                                    @svg('lucide-smartphone', ['class' => 'size-4 text-primary'])
-                                @elseif ($session->device === 'tablet')
-                                    @svg('lucide-tablet', ['class' => 'size-4 text-primary'])
-                                @else
-                                    @svg('lucide-monitor', ['class' => 'size-4 text-primary'])
-                                @endif
-                            </div>
-                            <div class="flex flex-col gap-0.5">
-                                <div class="flex items-center gap-2">
-                                    <span class="text-sm font-medium text-foreground">
-                                        {{ $session->browser }} - {{ $session->platform }}
-                                    </span>
-                                    @if ($session->is_current)
-                                        <x-ui.badge variant="success" size="sm">
-                                            {{ __('pages.account.security.session_current') }}
-                                        </x-ui.badge>
+                    @forelse ($this->activeSessions as $session)
+                        <div class="flex items-center justify-between gap-3 py-4 px-1">
+                            <div class="flex items-center gap-3">
+                                <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                    @if ($session->device === 'mobile')
+                                        @svg('lucide-smartphone', ['class' => 'size-4 text-primary'])
+                                    @elseif ($session->device === 'tablet')
+                                        @svg('lucide-tablet', ['class' => 'size-4 text-primary'])
+                                    @else
+                                        @svg('lucide-monitor', ['class' => 'size-4 text-primary'])
                                     @endif
                                 </div>
-                                <span class="text-xs text-secondary-foreground">
-                                    {{ $session->ip_address }} · {{ __('pages.account.security.session_last_active') }} {{ $session->last_activity->diffForHumans() }}
-                                </span>
+                                <div class="flex flex-col gap-0.5">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-sm font-medium text-foreground">
+                                            {{ $session->browser }} - {{ $session->platform }}
+                                        </span>
+                                        @if ($session->is_current)
+                                            <x-ui.badge variant="success" size="sm">
+                                                {{ __('pages.account.security.session_current') }}
+                                            </x-ui.badge>
+                                        @endif
+                                    </div>
+                                    <span class="text-xs text-secondary-foreground">
+                                        {{ $session->ip_address }} · {{ __('pages.account.security.session_last_active') }} {{ $session->last_activity->diffForHumans() }}
+                                    </span>
+                                </div>
                             </div>
+                            @if (! $session->is_current)
+                                <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="x"
+                                             wire:click="revokeSession('{{ $session->id }}')"
+                                             :tooltip="__('pages.account.security.btn_revoke_session')"
+                                             tooltipPlacement="left" />
+                            @endif
                         </div>
-                        @if (! $session->is_current)
-                            <x-ui.button ghost="destructive" size="sm" :iconOnly="true" icon="x"
-                                         wire:click="revokeSession('{{ $session->id }}')"
-                                         :tooltip="__('pages.account.security.btn_revoke_session')"
-                                         tooltipPlacement="left" />
-                        @endif
-                    </div>
-                @empty
-                    <p class="text-sm text-secondary-foreground text-center py-6">
-                        {{ __('pages.account.security.sessions_empty') }}
-                    </p>
-                @endforelse
-            </x-ui.card-section>
+                    @empty
+                        <p class="text-sm text-secondary-foreground text-center py-6">
+                            {{ __('pages.account.security.sessions_empty') }}
+                        </p>
+                    @endforelse
+                </x-ui.card-section>
 
-            {{-- 4. Histórico de Acesso --}}
-            <x-ui.card-section
-                :title="__('pages.account.security.section_access_history')"
-                icon="lucide-history"
-                contentClass="flex flex-col divide-y divide-input py-0"
-            >
-                <x-slot name="subtitle">{{ __('pages.account.security.access_history_subtitle') }}</x-slot>
+                {{-- 4. Histórico de Acesso --}}
+                <x-ui.card-section
+                    :title="__('pages.account.security.section_access_history')"
+                    icon="lucide-history"
+                    contentClass="flex flex-col divide-y divide-input py-0"
+                >
+                    <x-slot name="subtitle">{{ __('pages.account.security.access_history_subtitle') }}</x-slot>
 
-                @forelse ($this->accessHistory as $log)
-                    <div class="flex items-center justify-between gap-3 py-3 px-1">
-                        <div class="flex items-center gap-3">
-                            <div @class([
-                                'size-8 rounded-full flex items-center justify-center shrink-0',
-                                'bg-success/10' => $log->event === 'login',
-                                'bg-secondary/10' => $log->event === 'logout',
-                                'bg-destructive/10' => $log->event === 'failed',
-                            ])>
-                                @if ($log->event === 'login')
-                                    @svg('lucide-log-in', ['class' => 'size-3.5 text-success'])
-                                @elseif ($log->event === 'logout')
-                                    @svg('lucide-log-out', ['class' => 'size-3.5 text-secondary-foreground'])
-                                @else
-                                    @svg('lucide-shield-alert', ['class' => 'size-3.5 text-destructive'])
-                                @endif
+                    @forelse ($this->accessHistory as $log)
+                        <div class="flex items-center justify-between gap-3 py-3 px-1">
+                            <div class="flex items-center gap-3">
+                                <div @class([
+                                    'size-8 rounded-full flex items-center justify-center shrink-0',
+                                    'bg-success/10' => $log->event === 'login',
+                                    'bg-secondary/10' => $log->event === 'logout',
+                                    'bg-destructive/10' => $log->event === 'failed',
+                                ])>
+                                    @if ($log->event === 'login')
+                                        @svg('lucide-log-in', ['class' => 'size-3.5 text-success'])
+                                    @elseif ($log->event === 'logout')
+                                        @svg('lucide-log-out', ['class' => 'size-3.5 text-secondary-foreground'])
+                                    @else
+                                        @svg('lucide-shield-alert', ['class' => 'size-3.5 text-destructive'])
+                                    @endif
+                                </div>
+                                <div class="flex flex-col gap-0.5">
+                                    <span class="text-sm font-medium text-foreground">
+                                        {{ $log->browser }} - {{ $log->platform }}
+                                    </span>
+                                    <span class="text-xs text-secondary-foreground">
+                                        {{ $log->ip_address }} · {{ $log->created_at->format('d/m/Y H:i') }}
+                                    </span>
+                                </div>
                             </div>
-                            <div class="flex flex-col gap-0.5">
-                                <span class="text-sm font-medium text-foreground">
-                                    {{ $log->browser }} - {{ $log->platform }}
-                                </span>
-                                <span class="text-xs text-secondary-foreground">
-                                    {{ $log->ip_address }} · {{ $log->created_at->format('d/m/Y H:i') }}
-                                </span>
-                            </div>
+                            <x-ui.badge
+                                variant="{{ $log->event === 'login' ? 'success' : ($log->event === 'failed' ? 'destructive' : 'secondary') }}"
+                                style="outline"
+                                size="sm">
+                                {{ __('pages.account.security.event_' . $log->event) }}
+                            </x-ui.badge>
                         </div>
-                        <x-ui.badge
-                            variant="{{ $log->event === 'login' ? 'success' : ($log->event === 'failed' ? 'destructive' : 'secondary') }}"
-                            style="outline"
-                            size="sm">
-                            {{ __('pages.account.security.event_' . $log->event) }}
-                        </x-ui.badge>
-                    </div>
-                @empty
-                    <p class="text-sm text-secondary-foreground text-center py-6">
-                        {{ __('pages.account.security.access_history_empty') }}
-                    </p>
-                @endforelse
-            </x-ui.card-section>
+                    @empty
+                        <p class="text-sm text-secondary-foreground text-center py-6">
+                            {{ __('pages.account.security.access_history_empty') }}
+                        </p>
+                    @endforelse
+                </x-ui.card-section>
 
-            {{-- 5. Excluir Conta --}}
-            <x-ui.card-section
-                :title="__('pages.account.security.section_delete_account')"
-                icon="lucide-trash-2"
-                :danger="true"
-                contentClass="flex flex-col gap-4 py-5"
-            >
-                <div class="flex items-start justify-between gap-4">
-                    <div class="flex flex-col gap-1">
-                        <p class="text-sm font-medium text-foreground">{{ __('pages.account.security.delete_account_label') }}</p>
-                        <p class="text-xs text-secondary-foreground">{{ __('pages.account.security.delete_account_description') }}</p>
+                {{-- 5. Excluir Conta --}}
+                <x-ui.card-section
+                    :title="__('pages.account.security.section_delete_account')"
+                    icon="lucide-trash-2"
+                    :danger="true"
+                    contentClass="flex flex-col gap-4 py-5"
+                >
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="flex flex-col gap-1">
+                            <p class="text-sm font-medium text-foreground">{{ __('pages.account.security.delete_account_label') }}</p>
+                            <p class="text-xs text-secondary-foreground">{{ __('pages.account.security.delete_account_description') }}</p>
+                        </div>
+                        <button type="button" onclick="document.getElementById('delete-account-modal').classList.remove('hidden')"
+                                class="kt-btn kt-btn-ghost kt-btn-destructive kt-btn-sm shrink-0">
+                            @svg('lucide-trash-2', ['class' => 'size-4'])
+                            {{ __('pages.account.security.btn_delete_account') }}
+                        </button>
                     </div>
-                    <button type="button" onclick="document.getElementById('delete-account-modal').classList.remove('hidden')"
-                            class="kt-btn kt-btn-ghost kt-btn-destructive kt-btn-sm shrink-0">
-                        @svg('lucide-trash-2', ['class' => 'size-4'])
-                        {{ __('pages.account.security.btn_delete_account') }}
-                    </button>
-                </div>
-            </x-ui.card-section>
+                </x-ui.card-section>
+
+            </div>
 
         </div>
 
@@ -528,10 +542,12 @@ new #[Title('Segurança')] class extends Component
         </div>
     </div>
 
-</div>
+    <script>
+        document.addEventListener('livewire:init', () => {
+            Livewire.on('toast', ({ variant, message }) => {
+                KTToast.show({ message, variant });
+            });
+        });
+    </script>
 
-<script>
-    Livewire.on('toast', ({ variant, message }) => {
-        KTToast.show({ message, variant });
-    });
-</script>
+</div>

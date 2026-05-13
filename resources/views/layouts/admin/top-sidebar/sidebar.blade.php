@@ -11,12 +11,20 @@
     }
 @endphp
 
-    <!-- Sidebar: fixed full height, flex-row (ícones + painel) -->
-<div class="fixed top-0 bottom-0 left-0 z-20 flex flex-row transition-[width] duration-300"
+    <!-- Sidebar -->
+{{--
+    SEM data-kt-drawer — evita o overlay/blur em desktop que o KTDrawer dispara.
+    Mobile é controlado pelo JS no top-sidebar.blade.php (transform + overlay manual).
+
+    BORDA DIREITA: fica no container #top_sidebar com border-e border-input.
+    O container não tem overflow:hidden, então a borda aparece sempre —
+    com painel aberto (278px) e colapsado (58px) — sem nunca duplicar.
+--}}
+<div class="fixed top-0 bottom-0 left-0 z-20 flex flex-row border-e border-input"
      id="top_sidebar"
      style="width: 278px;">
 
-    <!-- Coluna de ícones: sempre visível, 58px -->
+    <!-- Coluna de ícones: 58px fixo, border-e separa dos itens do painel -->
     <div class="flex flex-col items-center bg-muted border-e border-input shrink-0"
          style="width: 58px;">
 
@@ -54,12 +62,13 @@
     </div>
     <!-- End Coluna de ícones -->
 
-    <!-- Painel secundário: colapsável, 220px -->
-    <div class="flex flex-col bg-muted border-e border-input overflow-hidden transition-[width] duration-300"
+    <!-- Painel secundário: border-s separa das ícones visualmente.
+         overflow:hidden + width→0 faz a border-s sumir junto, sem duplicar a border-e. -->
+    <div class="flex flex-col bg-muted overflow-hidden"
          style="width: 220px;"
          id="top_sidebar_panel">
 
-        <!-- Cabeçalho: nome da seção ativa -->
+        <!-- Cabeçalho do painel -->
         <div class="flex items-center gap-2.5 px-4 shrink-0 border-b border-input"
              style="height: 58px;">
             @if ($activePrimary)
