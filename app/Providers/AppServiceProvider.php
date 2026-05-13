@@ -76,6 +76,9 @@ class AppServiceProvider extends ServiceProvider
 
             // two-column-sidebar (menu inline no próprio sidebar.blade.php)
             'layouts.admin.two-column-sidebar.sidebar',
+
+            // top-sidebar (Vyzor-style: icons + collapsible panel + top header)
+            'layouts.admin.top-sidebar.sidebar',
         ], SidebarMenuComposer::class);
     }
 }
