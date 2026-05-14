@@ -49,17 +49,57 @@
                                 {{-- Toolbar: sempre renderiza, altura fixa. --}}
                                 {{-- A div de ações existe sempre (flex justify-between),  --}}
                                 {{-- mas só mostra conteúdo se a página injetar toolbarActions. --}}
-                                <div class="border-input flex items-center" style="height: 44px;">
-                                    <div
-                                        class="{{ config('layout.container') }} flex items-center justify-between gap-3 py-0 h-full">
-                                        <div class="flex items-center gap-1 lg:gap-3">
-                                            {{ $toolbar ?? '' }}
+
+                                {{--                                <div class="border-b border-input flex items-center" style="height: 44px;">--}}
+                                {{--                                    <div class="{{ config('layout.container') }} flex items-center justify-between gap-3 py-0 h-full">--}}
+                                {{--                                        <div class="flex items-center gap-1 lg:gap-3">--}}
+                                {{--                                            {{ $toolbar ?? '' }}--}}
+                                {{--                                        </div>--}}
+                                {{--                                        <div class="flex items-center gap-2 shrink-0">--}}
+                                {{--                                            {{ $toolbarActions ?? '' }}--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+
+                                {{--                                <div class="border-input flex items-center">--}}
+                                {{--                                    <div class="{{ config('layout.container') }} h-[72px] flex items-center justify-between gap-30">--}}
+                                {{--                                        <div class="flex items-center gap-1 lg:gap-3">--}}
+                                {{--                                            {{ $toolbar ?? '' }}--}}
+                                {{--                                        </div>--}}
+
+                                {{--                                        <div class="flex items-center gap-2 shrink-0">--}}
+                                {{--                                            {{ $toolbarActions ?? '' }}--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+
+                                {{--                                <div class="border-input flex items-center">--}}
+                                {{--                                    <div class="{{ config('layout.container') }} h-auto md:h-[72px] flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-30py-4 md:py-0">--}}
+                                {{--                                        <div class="flex flex-wrap items-center gap-1 lg:gap-3 w-full md:w-auto">--}}
+                                {{--                                            {{ $toolbar ?? '' }}--}}
+                                {{--                                        </div>--}}
+
+                                {{--                                        <div class="flex flex-wrap items-center gap-2 shrink-0 w-full md:w-auto">--}}
+                                {{--                                            {{ $toolbarActions ?? '' }}--}}
+                                {{--                                        </div>--}}
+                                {{--                                    </div>--}}
+                                {{--                                </div>--}}
+
+                                <div class="border-input">
+                                    <div class="{{ config('layout.container') }} flex flex-col md:flex-row md:items-center md:justify-between gap-5 pt-6">
+                                        <div class="space-y-2">
+                                            <div class="flex items-center gap-1 lg:gap-3">
+                                                {{ $toolbar ?? '' }}
+                                            </div>
                                         </div>
-                                        <div class="flex items-center gap-2 shrink-0">
+
+                                        <div class="grid grid-cols-2 md:flex items-center gap-2 w-full md:w-auto">
                                             {{ $toolbarActions ?? '' }}
                                         </div>
                                     </div>
                                 </div>
+
+
                                 <main class="grow" id="content" role="content">
                                     <div class="{{ config('layout.container') }}">
                                         {{ $slot }}
