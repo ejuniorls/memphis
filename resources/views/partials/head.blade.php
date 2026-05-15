@@ -38,6 +38,70 @@
 <link href="{{ asset('assets/vendors/keenicons/styles.bundle.css') }}" rel="stylesheet"/>
 <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet"/>
 
-
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance
+
+@auth
+    {{-- ============================================================
+         CSS override: vem DEPOIS do styles.css, portanto tem
+         precedência sem precisar de !important em @layer.
+         Anula exatamente as regras que o KTui define no @media lg.
+         ============================================================ --}}
+    <style id="__appearance-layout">
+        @media (width >= 80rem) {
+            html.layout-fluid .kt-container-fixed {
+                max-width: 100%;
+                margin-inline: 0;
+            }
+        }
+    </style>
+
+    <script data-navigate-once>
+        (function () {
+            var prefs = @json(auth()->user()->appearancePreferences());
+
+            // ── Tema ──────────────────────────────────────────────────────
+            var themeMode = prefs.theme_mode || 'system';
+            if (themeMode === 'system') {
+                themeMode = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            localStorage.setItem('kt-theme', themeMode);
+            document.documentElement.classList.remove('light', 'dark');
+            document.documentElement.classList.add(themeMode);
+
+            // ── Layout Width ──────────────────────────────────────────────
+            if (prefs.layout_width === 'fluid') {
+                document.documentElement.classList.add('layout-fluid');
+            } else {
+                document.documentElement.classList.remove('layout-fluid');
+            }
+
+            // ── Sidebar ───────────────────────────────────────────────────
+            if (prefs.sidebar_default === 'collapsed' || prefs.sidebar_default === 'hidden') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    document.body.classList.add('kt-sidebar-collapse');
+                });
+            }
+
+            // ── Animações ─────────────────────────────────────────────────
+            if (prefs.animations === false) {
+                var style = document.createElement('style');
+                style.id = '__no-animations';
+                style.textContent = '*, *::before, *::after { transition: none !important; animation: none !important; }';
+                document.head.appendChild(style);
+            }
+
+            // ── Densidade ─────────────────────────────────────────────────
+            var densityMap = { compact: 'density-compact', comfortable: 'density-comfortable', spacious: 'density-spacious' };
+            document.documentElement.classList.add(densityMap[prefs.density] || 'density-comfortable');
+
+            // ── Font Size ─────────────────────────────────────────────────
+            var fontSizeMap = { sm: 'font-size-sm', md: 'font-size-md', lg: 'font-size-lg' };
+            document.documentElement.classList.add(fontSizeMap[prefs.font_size] || 'font-size-md');
+
+            // ── Font Family ───────────────────────────────────────────────
+            var fontFamilyMap = { inter: 'font-inter', system: 'font-system', mono: 'font-mono-custom' };
+            document.documentElement.classList.add(fontFamilyMap[prefs.font_family] || 'font-inter');
+        })();
+    </script>
+@endauth

@@ -20,14 +20,14 @@
             </div>
         </div>
         <!-- End of Mobile Logo -->
-        <livewire:shared.mega-menu />
+        @include('partials.mega-menu')
         <!-- Topbar -->
         <div class="flex items-center gap-2.5">
-            <livewire:shared.topbar-search-modal />
-            <livewire:shared.topbar-notification-dropdown />
-            <livewire:shared.topbar-chat />
-            <livewire:shared.topbar-apps />
-            <livewire:shared.topbar-user-dropdown />
+            @include('partials.topbar-search-modal')
+            @include('partials.topbar-notification-dropdown')
+            @include('partials.topbar-chat')
+            @include('partials.topbar-apps')
+            @include('partials.topbar-user-dropdown')
         </div>
         <!-- End of Topbar -->
     </div>

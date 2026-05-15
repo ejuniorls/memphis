@@ -5,41 +5,31 @@
         @livewireStyles
     </head>
     <body
-        class="antialiased flex h-full text-base text-foreground bg-background [--header-height:60px] [--sidebar-width:290px] bg-muted! lg:overflow-hidden">
-        @include('partials.scripts')
+        class="demo1 kt-sidebar-fixed kt-header-fixed flex h-full bg-background text-base text-foreground antialiased">
+        @include('partials.theme-toggle')
 
         <!-- Page -->
-        <!-- Base -->
+        <!-- Main -->
         <div class="flex grow">
-            @include('layouts.admin.workspace.header')
+            @include('layouts.admin.default.sidebar')
 
             <!-- Wrapper -->
-            <div class="flex flex-col lg:flex-row grow pt-(--header-height) lg:pt-0">
-                @include('layouts.admin.workspace.sidebar')
+            <div class="kt-wrapper flex grow flex-col">
+                @persist('mega-menu')
+                @include('layouts.admin.default.header')
+                @endpersist
 
-                <!-- Main -->
-                <div
-                    class="flex grow rounded-xl bg-background border border-input lg:ms-(--sidebar-width) mt-0 lg:mt-5 m-5">
-                    <div class="flex flex-col grow kt-scrollable-y-auto lg:[--kt-scrollbar-width:auto] pt-5"
-                         id="scrollable_content">
-                        <main class="grow" role="content">
-                            @include('layouts.admin.workspace.toolbar')
+                <!-- Content -->
+                <main class="grow pt-5" id="content" role="content">
+                    {{ $slot }}
+                </main>
+                <!-- End of Content -->
 
-                            <!-- Content -->
-                            <main class="grow" id="content" role="content">
-                                {{ $slot }}
-                            </main>
-                            <!-- End of Content -->
-
-                            @include('layouts.admin.workspace.footer')
-                        </main>
-                    </div>
-                </div>
-                <!-- End of Main -->
+                @include('layouts.admin.default.footer')
             </div>
             <!-- End of Wrapper -->
         </div>
-        <!-- End of Base -->
+        <!-- End of Main -->
         <!-- End of Page -->
 
         @include('partials.scripts')

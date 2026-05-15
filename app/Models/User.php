@@ -36,6 +36,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
     'profile_public',
     'show_email',
     'show_phone',
+    'appearance_preferences',
+    'notification_preferences',
 ])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail
@@ -47,11 +49,13 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return [
             'email_verified_at' => 'datetime',
-            'password'          => 'hashed',
-            'profile_public'    => 'boolean',
-            'show_email'        => 'boolean',
-            'show_phone'        => 'boolean',
-            'deleted_at'        => 'datetime',
+            'password' => 'hashed',
+            'profile_public' => 'boolean',
+            'show_email' => 'boolean',
+            'show_phone' => 'boolean',
+            'deleted_at' => 'datetime',
+            'appearance_preferences' => 'array',
+            'notification_preferences' => 'array',
         ];
     }
 
@@ -71,6 +75,29 @@ class User extends Authenticatable implements MustVerifyEmail
         }
 
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=random&color=fff&size=200';
+    }
+
+    /**
+     * Retorna as preferências de aparência mescladas com os defaults.
+     */
+    public function appearancePreferences(): array
+    {
+        $defaults = [
+            'layout_width' => 'fixed',
+            'sidebar_default' => 'expanded',
+            'sidebar_mini' => false,
+            'theme_mode' => 'system',
+            'primary_color' => 'blue',
+            'font_size' => 'md',
+            'font_family' => 'inter',
+            'density' => 'comfortable',
+            'topbar_sticky' => true,
+            'show_breadcrumbs' => true,
+            'show_page_title' => true,
+            'animations' => true,
+        ];
+
+        return array_merge($defaults, $this->appearance_preferences ?? []);
     }
 
     public function sendEmailVerificationNotification(): void
