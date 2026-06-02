@@ -53,8 +53,8 @@ return [
     // 'component_layout' => 'layouts.admin.advanced-mega-menu',    // theme 07
     // 'component_layout' => 'layouts.admin.dropdown-menu',         // theme 08
     // 'component_layout' => 'layouts.admin.extanded-header',       // theme 09
-    // 'component_layout' => 'layouts.admin.dark-sidebar',          // theme 10
-    'component_layout' => 'layouts.admin.top-sidebar',           // theme 11
+    'component_layout' => 'layouts.admin.dark-sidebar',          // theme 10
+    // 'component_layout' => 'layouts.admin.top-sidebar',           // theme 11
     /*
     |---------------------------------------------------------------------------
     | Lazy Loading Placeholder

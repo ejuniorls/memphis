@@ -1,26 +1,28 @@
 @props([
-    'id'         => null,           // string — gerado automaticamente se omitido
-    'expandAll'  => false,          // bool — permite múltiplos itens abertos simultaneamente
-    'bordered'   => false,          // bool — estilo com bordas (kt-accordion-bordered)
-    'flushed'    => false,          // bool — estilo sem bordas laterais/externas (kt-accordion-flushed)
-    'separated'  => false,          // bool — itens com espaçamento entre si (kt-accordion-separated)
+    'id'        => null,    // string — gerado automaticamente se omitido
+    'expandAll' => false,   // bool — permite múltiplos itens abertos simultaneamente
+    'outline'   => false,   // bool — adiciona bordas em cada item (kt-accordion-outline)
+    'flushed'   => false,   // bool — remove bordas laterais, alinha ao container (kt-accordion-flushed)
+    'separated' => false,   // bool — adiciona espaçamento entre os itens (kt-accordion-separated)
 ])
 
 @php
     $id = $id ?? 'accordion_' . uniqid();
 
     $classes = 'kt-accordion';
-    if ($bordered)  $classes .= ' kt-accordion-bordered';
+    if ($outline)   $classes .= ' kt-accordion-outline';
     if ($flushed)   $classes .= ' kt-accordion-flushed';
     if ($separated) $classes .= ' kt-accordion-separated';
 
-    $extraAttrs = $expandAll ? 'data-kt-accordion-expand-all="true"' : '';
+    // NOTE: {!! !!} é necessário pois o atributo condicional dentro de tags HTML
+    // não é suportado pelo Blade/Livewire via @if/@endif
+    $expandAllAttr = $expandAll ? 'data-kt-accordion-expand-all="true"' : '';
 @endphp
 
 <div
     id="{{ $id }}"
     data-kt-accordion="true"
-    {!! $extraAttrs !!}
+    {!! $expandAllAttr !!}
     {{ $attributes->merge(['class' => $classes]) }}
 >
     {{ $slot }}

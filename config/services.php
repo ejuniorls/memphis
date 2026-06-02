@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'fundepag' => [
+        'url'      => env('FUNDEPAG_API_URL'),
+        'email'    => env('FUNDEPAG_API_EMAIL'),
+        'password' => env('FUNDEPAG_API_PASSWORD'),
+    ],
+
 ];

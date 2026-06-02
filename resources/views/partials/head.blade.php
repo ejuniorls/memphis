@@ -1,21 +1,12 @@
 <title>{{ filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel') }}</title>
 
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
-
-{{-- theme metronic --}}
-<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
 <meta content="follow, index" name="robots"/>
 <link href="{{ url(request()->path()) }}" rel="canonical"/>
-<meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
 <meta content="" name="description"/>
+
+{{-- Open Graph / Twitter --}}
 <meta content="@keenthemes" name="twitter:site"/>
 <meta content="@keenthemes" name="twitter:creator"/>
 <meta content="summary_large_image" name="twitter:card"/>
@@ -29,11 +20,18 @@
 <meta content="Metronic - Tailwind CSS " property="og:title"/>
 <meta content="" property="og:description"/>
 <meta content="{{ asset('assets/media/app/og-image.png') }}" property="og:image"/>
+
+{{-- Favicon --}}
+<link href="{{ asset('assets/media/app/favicon.ico') }}" rel="icon" sizes="any"/>
+<link href="{{ asset('assets/media/app/favicon.svg') }}" rel="icon" type="image/svg+xml"/>
 <link href="{{ asset('assets/media/app/apple-touch-icon.png') }}" rel="apple-touch-icon" sizes="180x180"/>
-<link href="{{ asset('assets/media/app/favicon-32x32.png') }}" rel="icon" sizes="32x32" type="image/png"/>
-<link href="{{ asset('assets/media/app/favicon-16x16.png') }}" rel="icon" sizes="16x16" type="image/png"/>
-<link href="{{ asset('assets/media/app/favicon.ico') }}" rel="shortcut icon"/>
+
+{{-- Fonts --}}
+<link rel="preconnect" href="https://fonts.bunny.net">
+<link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+
+{{-- Vendor CSS --}}
 <link href="{{ asset('assets/vendors/apexcharts/apexcharts.css') }}" rel="stylesheet"/>
 <link href="{{ asset('assets/vendors/keenicons/styles.bundle.css') }}" rel="stylesheet"/>
 <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet"/>
@@ -42,11 +40,11 @@
 @fluxAppearance
 
 @auth
-    {{-- ============================================================
-         CSS override: vem DEPOIS do styles.css, portanto tem
-         precedência sem precisar de !important em @layer.
-         Anula exatamente as regras que o KTui define no @media lg.
-         ============================================================ --}}
+    {{--
+        CSS override: carregado após styles.css para ter precedência natural.
+        Anula as regras de largura que o KTui define dentro do @media lg,
+        sem precisar de !important.
+    --}}
     <style id="__appearance-layout">
         @media (width >= 80rem) {
             html.layout-fluid .kt-container-fixed {

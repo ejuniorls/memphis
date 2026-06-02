@@ -101,4 +101,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::livewire('/audit-log', 'pages::settings.system.audit-log')->name('audit-log');
         });
     });
+
+    // ------------------------------------------------------------------
+    // Fundepag
+    // ------------------------------------------------------------------
+    Route::prefix('fundepag')->name('fundepag.')->group(function () {
+        Route::livewire('/institutos', 'pages::fundepag.institutes.index')->name('institutes.index');
+        Route::livewire('/centros',    'pages::fundepag.centers.index')->name('centers.index');
+        Route::livewire('/contratos',  'pages::fundepag.contracts.index')->name('contracts.index');
+    });
+
 });
