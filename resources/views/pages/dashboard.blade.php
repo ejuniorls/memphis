@@ -807,6 +807,261 @@ class extends Component {
                 </div>
             </div>
             <!-- end: grid -->
+
+            <!-- begin: alerts test -->
+            <div class="kt-card">
+                <div class="kt-card-header">
+                    <h3 class="kt-card-title">Alerts</h3>
+                </div>
+                <div class="kt-card-content">
+
+                    {{-- Solid --}}
+                    <p class="text-xs font-medium text-secondary-foreground uppercase tracking-wider mb-3">Solid</p>
+                    <div class="space-y-3 mb-7">
+                        <div class="kt-alert kt-alert-primary" id="alert_solid_1">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Primary alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_solid_1"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-success" id="alert_solid_2">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Success alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_solid_2"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-info" id="alert_solid_3">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Info alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_solid_3"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-warning" id="alert_solid_4">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Warning alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_solid_4"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-destructive" id="alert_solid_5">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Destructive alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_solid_5"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-mono" id="alert_solid_6">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Mono alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined kt-link-inverse">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_solid_6"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                    </div>
+
+                    {{-- Light --}}
+                    <p class="text-xs font-medium text-secondary-foreground uppercase tracking-wider mb-3">Light</p>
+                    <div class="space-y-3 mb-7">
+                        <div class="kt-alert kt-alert-light kt-alert-primary" id="alert_light_1">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Primary alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_light_1"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-light kt-alert-success" id="alert_light_2">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Success alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_light_2"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-light kt-alert-info" id="alert_light_3">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Info alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_light_3"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-light kt-alert-warning" id="alert_light_4">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Warning alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_light_4"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-light kt-alert-destructive" id="alert_light_5">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Destructive alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_light_5"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                    </div>
+
+                    {{-- Outline --}}
+                    <p class="text-xs font-medium text-secondary-foreground uppercase tracking-wider mb-3">Outline</p>
+                    <div class="space-y-3 mb-7">
+                        <div class="kt-alert kt-alert-outline kt-alert-primary" id="alert_outline_1">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Primary alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_outline_1"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-success" id="alert_outline_2">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Success alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_outline_2"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-info" id="alert_outline_3">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Info alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_outline_3"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-warning" id="alert_outline_4">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Warning alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_outline_4"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-destructive" id="alert_outline_5">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Destructive alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_outline_5"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                    </div>
+
+                    {{-- Mono --}}
+                    <p class="text-xs font-medium text-secondary-foreground uppercase tracking-wider mb-3">Mono</p>
+                    <div class="space-y-3 mb-7">
+                        <div class="kt-alert kt-alert-mono kt-alert-primary" id="alert_mono_1">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Primary alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_mono_1"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-mono kt-alert-success" id="alert_mono_2">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Success alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_mono_2"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-mono kt-alert-info" id="alert_mono_3">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Info alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_mono_3"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-mono kt-alert-warning" id="alert_mono_4">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Warning alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_mono_4"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-mono kt-alert-destructive" id="alert_mono_5">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Destructive alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-link kt-link-xs kt-link-underlined text-mono-foreground">Upgrade</button>
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_mono_5"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                    </div>
+
+                    {{-- Com descrição --}}
+                    <p class="text-xs font-medium text-secondary-foreground uppercase tracking-wider mb-3">Com descrição</p>
+                    <div class="space-y-3 mb-7">
+                        <div class="kt-alert kt-alert-outline kt-alert-warning" id="alert_desc_1">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-triangle-caution"></i></div>
+                            <div class="kt-alert-content">
+                                <h3 class="kt-alert-title">Atenção necessária</h3>
+                                <p class="kt-alert-description">Este bolsista está vinculado a outra bolsa ativa. Verifique antes de prosseguir.</p>
+                                <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                        <button class="kt-link kt-link-xs kt-link-underlined text-mono">Ver detalhes</button>
+                                        <button class="kt-link kt-link-xs text-mono">Ignorar</button>
+                                    </div></div>
+                            </div>
+                            <button class="kt-alert-close" data-kt-dismiss="#alert_desc_1"><i class="ki-filled ki-cross"></i></button>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-destructive" id="alert_desc_2">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-triangle-caution"></i></div>
+                            <div class="kt-alert-content">
+                                <h3 class="kt-alert-title">Saldo insuficiente</h3>
+                                <p class="kt-alert-description">O contrato não possui saldo disponível para esta solicitação.</p>
+                                <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                        <button class="kt-link kt-link-xs kt-link-underlined text-mono">Ver contrato</button>
+                                        <button class="kt-link kt-link-xs text-mono">Fechar</button>
+                                    </div></div>
+                            </div>
+                            <button class="kt-alert-close" data-kt-dismiss="#alert_desc_2"><i class="ki-filled ki-cross"></i></button>
+                        </div>
+                    </div>
+
+                    {{-- Tamanhos --}}
+                    <p class="text-xs font-medium text-secondary-foreground uppercase tracking-wider mb-3">Tamanhos</p>
+                    <div class="space-y-3">
+                        <div class="kt-alert kt-alert-outline kt-alert-primary kt-alert-sm" id="alert_sm">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Small alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_sm"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-primary" id="alert_md">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Default alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_md"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                        <div class="kt-alert kt-alert-outline kt-alert-primary kt-alert-lg" id="alert_lg">
+                            <div class="kt-alert-icon"><i class="ki-filled ki-information-2"></i></div>
+                            <div class="kt-alert-title">Large alert</div>
+                            <div class="kt-alert-toolbar"><div class="kt-alert-actions">
+                                    <button class="kt-alert-close" data-kt-dismiss="#alert_lg"><i class="ki-filled ki-cross"></i></button>
+                                </div></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end: alerts test -->
+
         </div>
     </div>
     <!-- End of Container -->

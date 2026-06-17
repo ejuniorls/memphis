@@ -235,71 +235,159 @@ class extends Component {
 
                     @php
                         $code = <<<'BLADE'
-        <x-ui.alert variant="success" title="Salvo!" description="Os dados foram salvos com sucesso." />
-        <x-ui.alert variant="destructive" title="Erro" description="Não foi possível processar a solicitação." />
-        <x-ui.alert variant="warning" title="Atenção" description="Revise antes de continuar." />
-        <x-ui.alert variant="info" title="Dica" description="Você pode editar isso a qualquer momento." />
-        BLADE;
+                <x-ui.alert title="This is a default alert" />
+                <x-ui.alert variant="primary" title="Primary alert" />
+                <x-ui.alert variant="success" title="Success alert" />
+                <x-ui.alert variant="info" title="Info alert" />
+                <x-ui.alert variant="warning" title="Warning alert" />
+                <x-ui.alert variant="destructive" title="Destructive alert" />
+                <x-ui.alert variant="mono" title="Mono alert" />
+                BLADE;
                     @endphp
-                    <x-ui-doc-section title="Alert - Variantes"
-                                      description="Ícone padrão resolvido automaticamente pelo <code>variant</code>."
+                    <x-ui-doc-section title="Alert - Solid"
+                                      description="Variante padrão (solid). Fundo sólido com cor do <code>variant</code>."
                                       :code="$code">
                         <div class="flex flex-col gap-3">
-                            <x-ui.alert variant="success" title="Salvo!"
-                                        description="Os dados foram salvos com sucesso."/>
-                            <x-ui.alert variant="destructive" title="Erro"
-                                        description="Não foi possível processar a solicitação."/>
-                            <x-ui.alert variant="warning" title="Atenção"
-                                        description="Revise as informações antes de continuar."/>
-                            <x-ui.alert variant="info" title="Dica"
-                                        description="Você pode editar isso a qualquer momento."/>
+                            <x-ui.alert title="Default alert"/>
+                            <x-ui.alert variant="primary" title="Primary alert"/>
+                            <x-ui.alert variant="success" title="Success alert"/>
+                            <x-ui.alert variant="info" title="Info alert"/>
+                            <x-ui.alert variant="warning" title="Warning alert"/>
+                            <x-ui.alert variant="destructive" title="Destructive alert"/>
+                            <x-ui.alert variant="mono" title="Mono alert"/>
                         </div>
                     </x-ui-doc-section>
 
                     @php
                         $code = <<<'BLADE'
-        <x-ui.alert variant="primary" style="outline" title="Outline" description="Estilo contornado." />
-        <x-ui.alert variant="primary" style="light" title="Light" description="Estilo claro com fundo suave." />
-        BLADE;
+                <x-ui.alert style="light" variant="primary" title="Primary alert" />
+                <x-ui.alert style="light" variant="success" title="Success alert" />
+                <x-ui.alert style="light" variant="info" title="Info alert" />
+                <x-ui.alert style="light" variant="warning" title="Warning alert" />
+                <x-ui.alert style="light" variant="destructive" title="Destructive alert" />
+                BLADE;
                     @endphp
-                    <x-ui-doc-section title="Alert - Estilos"
-                                      description="Prop <code>style</code>: <code>outline</code>, <code>light</code>."
+                    <x-ui-doc-section title="Alert - Light"
+                                      description="Estilo <code>light</code>: fundo pastel suave com borda colorida."
                                       :code="$code">
                         <div class="flex flex-col gap-3">
-                            <x-ui.alert variant="primary" style="outline" title="Outline"
-                                        description="Estilo contornado."/>
-                            <x-ui.alert variant="primary" style="light" title="Light"
-                                        description="Estilo claro com fundo suave."/>
+                            <x-ui.alert style="light" variant="primary" title="Primary alert"/>
+                            <x-ui.alert style="light" variant="success" title="Success alert"/>
+                            <x-ui.alert style="light" variant="info" title="Info alert"/>
+                            <x-ui.alert style="light" variant="warning" title="Warning alert"/>
+                            <x-ui.alert style="light" variant="destructive" title="Destructive alert"/>
                         </div>
                     </x-ui-doc-section>
 
                     @php
                         $code = <<<'BLADE'
-        <x-ui.alert
-            variant="primary"
-            title="Nova atualização disponível"
-            description="Uma nova versão foi lançada com melhorias de segurança."
-            actionLabel="Ver detalhes"
-            actionHref="#"
-            :dismissible="true"
-        />
-        BLADE;
+                <x-ui.alert style="outline" variant="primary" title="Primary alert" />
+                <x-ui.alert style="outline" variant="success" title="Success alert" />
+                <x-ui.alert style="outline" variant="info" title="Info alert" />
+                <x-ui.alert style="outline" variant="warning" title="Warning alert" />
+                <x-ui.alert style="outline" variant="destructive" title="Destructive alert" />
+                BLADE;
                     @endphp
-                    <x-ui-doc-section title="Alert - Com ação e dismissível"
-                                      description="Props <code>actionLabel</code>, <code>actionHref</code> e <code>dismissible</code>."
+                    <x-ui-doc-section title="Alert - Outline"
+                                      description="Estilo <code>outline</code>: fundo transparente com borda e texto colorido."
                                       :code="$code">
-                        <x-ui.alert
-                            variant="primary"
-                            title="Nova atualização disponível"
-                            description="Uma nova versão foi lançada com melhorias de segurança e performance."
-                            actionLabel="Ver detalhes"
-                            actionHref="#"
-                            :dismissible="true"
-                        />
+                        <div class="flex flex-col gap-3">
+                            <x-ui.alert style="outline" variant="primary" title="Primary alert"/>
+                            <x-ui.alert style="outline" variant="success" title="Success alert"/>
+                            <x-ui.alert style="outline" variant="info" title="Info alert"/>
+                            <x-ui.alert style="outline" variant="warning" title="Warning alert"/>
+                            <x-ui.alert style="outline" variant="destructive" title="Destructive alert"/>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+                <x-ui.alert style="mono" variant="primary" title="Primary alert" />
+                <x-ui.alert style="mono" variant="success" title="Success alert" />
+                <x-ui.alert style="mono" variant="info" title="Info alert" />
+                <x-ui.alert style="mono" variant="warning" title="Warning alert" />
+                <x-ui.alert style="mono" variant="destructive" title="Destructive alert" />
+                BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Alert - Mono"
+                                      description="Estilo <code>mono</code>: fundo escuro com ícone colorido pelo <code>variant</code>."
+                                      :code="$code">
+                        <div class="flex flex-col gap-3">
+                            <x-ui.alert style="mono" variant="primary" title="Primary alert"/>
+                            <x-ui.alert style="mono" variant="success" title="Success alert"/>
+                            <x-ui.alert style="mono" variant="info" title="Info alert"/>
+                            <x-ui.alert style="mono" variant="warning" title="Warning alert"/>
+                            <x-ui.alert style="mono" variant="destructive" title="Destructive alert"/>
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+                <x-ui.alert
+                    style="outline"
+                    variant="warning"
+                    title="Atenção necessária"
+                    description="Este bolsista está vinculado a outra bolsa ativa. Verifique antes de prosseguir."
+                    actionLabel="Ver detalhes"
+                    actionHref="#"
+                    :dismissible="true"
+                />
+                <x-ui.alert
+                    style="outline"
+                    variant="destructive"
+                    title="Saldo insuficiente"
+                    description="O contrato não possui saldo disponível para esta solicitação."
+                    actionLabel="Ver contrato"
+                    actionHref="#"
+                    :dismissible="true"
+                />
+                BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Alert - Com descrição e ações"
+                                      description="Props <code>description</code>, <code>actionLabel</code>, <code>actionHref</code> e <code>dismissible</code>."
+                                      :code="$code">
+                        <div class="flex flex-col gap-3">
+                            <x-ui.alert
+                                style="outline"
+                                variant="warning"
+                                title="Atenção necessária"
+                                description="Este bolsista está vinculado a outra bolsa ativa. Verifique antes de prosseguir."
+                                actionLabel="Ver detalhes"
+                                actionHref="#"
+                                :dismissible="true"
+                            />
+                            <x-ui.alert
+                                style="outline"
+                                variant="destructive"
+                                title="Saldo insuficiente"
+                                description="O contrato não possui saldo disponível para esta solicitação."
+                                actionLabel="Ver contrato"
+                                actionHref="#"
+                                :dismissible="true"
+                            />
+                        </div>
+                    </x-ui-doc-section>
+
+                    @php
+                        $code = <<<'BLADE'
+                <x-ui.alert style="outline" variant="primary" size="sm" title="Small alert" :dismissible="true" />
+                <x-ui.alert style="outline" variant="primary" title="Default alert" :dismissible="true" />
+                <x-ui.alert style="outline" variant="primary" size="lg" title="Large alert" :dismissible="true" />
+                BLADE;
+                    @endphp
+                    <x-ui-doc-section title="Alert - Tamanhos"
+                                      description="Prop <code>size</code>: <code>sm</code>, padrão (sem prop) e <code>lg</code>."
+                                      :code="$code">
+                        <div class="flex flex-col gap-3">
+                            <x-ui.alert style="outline" variant="primary" size="sm" title="Small alert"
+                                        :dismissible="true"/>
+                            <x-ui.alert style="outline" variant="primary" title="Default alert" :dismissible="true"/>
+                            <x-ui.alert style="outline" variant="primary" size="lg" title="Large alert"
+                                        :dismissible="true"/>
+                        </div>
                     </x-ui-doc-section>
 
                 </div>
-
 
                 {{-- ══════════ INPUT ══════════ --}}
                 <div x-show="activeSection === 'input'" class="flex flex-col gap-6">

@@ -1,26 +1,24 @@
 @props([
-    'variant'     => null,        // null | 'primary' | 'success' | 'info' | 'destructive' | 'warning' | 'mono'
-    'style'       => null,        // null | 'mono' | 'outline' | 'light'
-    'size'        => null,        // null | 'sm' | 'lg'
-    'title'       => null,        // string
-    'description' => null,        // string
-    'icon'        => null,        // string nome do ícone lucide (ex: 'info', 'triangle-alert') | false (oculta)
-    'dismissible' => false,       // bool — mostra o botão de fechar (X)
-    'id'          => null,        // string — gerado automaticamente se omitido
-    'actionLabel' => null,        // string — atalho para uma única ação simples
-    'actionHref'  => '#',         // string — href da ação simples
+    'variant'     => null,
+    'style'       => null,
+    'size'        => null,
+    'title'       => null,
+    'description' => null,
+    'icon'        => null,
+    'dismissible' => false,
+    'id'          => null,
+    'actionLabel' => null,
+    'actionHref'  => '#',
 ])
 
 @php
     $id = $id ?? 'alert_' . uniqid();
 
-    // Monta as classes do container
     $classes = 'kt-alert';
     if ($style)   $classes .= ' kt-alert-' . $style;
     if ($variant) $classes .= ' kt-alert-' . $variant;
     if ($size)    $classes .= ' kt-alert-' . $size;
 
-    // Ícone padrão por variante
     $defaultIcons = [
         'success'     => 'circle-check',
         'destructive' => 'circle-x',
@@ -30,7 +28,6 @@
         'mono'        => 'info',
     ];
 
-    // Resolve o nome do ícone lucide a renderizar
     $resolvedIcon = null;
     if ($icon !== false) {
         if ($icon) {
@@ -42,7 +39,6 @@
         }
     }
 
-    // Classe do link de ação varia conforme style/variant
     $actionLinkClass = match(true) {
         $style === 'light'                    => 'kt-link kt-link-xs kt-link-underlined text-mono',
         in_array($style, ['mono', 'outline']) => 'kt-link kt-link-xs kt-link-underlined text-mono-foreground',
@@ -50,24 +46,33 @@
         default                               => 'kt-link kt-link-xs kt-link-underlined',
     };
 
-    // Slots e ações
     $hasDescription = $description || $slot->isNotEmpty();
     $hasActionsSlot = isset($actions) && $actions->isNotEmpty();
     $hasActionLabel = !empty($actionLabel);
     $hasAnyAction   = $hasActionsSlot || $hasActionLabel;
     $hasToolbar     = $hasAnyAction || $dismissible;
+
+    $iconStyle = '';
+    if ($style === 'light' && $variant) {
+        $iconStyle = match($variant) {
+            'primary'     => 'color: var(--primary-500)',
+            'success'     => 'color: var(--success-500)',
+            'info'        => 'color: var(--info-500)',
+            'warning'     => 'color: var(--warning-500)',
+            'destructive' => 'color: var(--destructive-500)',
+            default       => '',
+        };
+    }
 @endphp
 
 <div {{ $attributes->merge(['class' => $classes, 'id' => $id]) }}>
 
-    {{-- Ícone --}}
     @if ($resolvedIcon !== null)
-        <div class="kt-alert-icon">
+        <div class="kt-alert-icon" @if($iconStyle) style="{{ $iconStyle }}" @endif>
             @svg('lucide-' . $resolvedIcon)
         </div>
     @endif
 
-    {{-- Layout COM descrição → usa kt-alert-content --}}
     @if ($hasDescription)
         <div class="kt-alert-content">
 
@@ -92,14 +97,12 @@
 
         </div>
 
-        {{-- Botão fechar FORA do content (padrão KTUI com descrição) --}}
         @if ($dismissible)
             <button class="kt-alert-close" data-kt-dismiss="#{{ $id }}" aria-label="Fechar">
                 @svg('lucide-x')
             </button>
         @endif
 
-        {{-- Layout SIMPLES → título + toolbar na mesma linha --}}
     @else
 
         @if ($title)
