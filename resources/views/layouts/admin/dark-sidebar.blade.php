@@ -22,13 +22,25 @@
                 @include('layouts.admin.dark-sidebar.sidebar')
                 <!-- End of Sidebar -->
                 <!-- Main -->
-                <div
-                    class="flex flex-col grow lg:rounded-l-xl bg-background border border-input lg:ms-(--sidebar-width)">
+                <div class="flex flex-col grow lg:rounded-l-xl bg-background border border-input lg:ms-(--sidebar-width)">
                     <div class="flex flex-col grow kt-scrollable-y-auto lg:[--kt-scrollbar-width:auto] pt-5"
                          id="scrollable_content">
                         <main class="grow" role="content">
                             <!-- Toolbar -->
-                            @include('layouts.admin.dark-sidebar.toolbar')
+                            @isset($toolbar)
+                                <div class="pb-5">
+                                    <div class="kt-container-fixed flex items-center justify-between flex-wrap gap-3">
+                                        <div class="flex flex-col flex-wrap gap-1">
+                                            {{ $toolbar }}
+                                        </div>
+                                        <div class="flex items-center flex-wrap gap-1.5 lg:gap-2.5">
+                                            @isset($toolbarActions)
+                                                {{ $toolbarActions }}
+                                            @endisset
+                                        </div>
+                                    </div>
+                                </div>
+                            @endisset
                             <!-- End of Toolbar -->
                             <!-- Container -->
                             <div class="{{ config('layout.container') }}">

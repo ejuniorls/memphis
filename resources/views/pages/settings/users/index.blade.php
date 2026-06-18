@@ -98,7 +98,6 @@ class extends Component {
 }; ?>
 
 <div>
-
     <x-slot name="toolbar">
         <x-ui.breadcrumb>
             <x-ui.breadcrumb-item :first="true" href="{{ route('dashboard') }}">Home</x-ui.breadcrumb-item>
