@@ -24,8 +24,8 @@ class extends Component {
         </div>
     </x-ui.card>
 
-    {{-- 2. Variants --}}
-    <x-ui.card title="Variants">
+    {{-- 2. Solid --}}
+    <x-ui.card title="Solid">
         <div class="kt-card-content flex flex-wrap gap-3">
             <x-ui.button :outline="true" class="text-primary"
                          onclick="KTToast.show({ message: 'Primary notification.', variant: 'primary' })">
@@ -53,6 +53,74 @@ class extends Component {
             </x-ui.button>
             <x-ui.button :outline="true" class="text-muted-foreground"
                          onclick="KTToast.show({ message: 'Secondary notification.', variant: 'secondary' })">
+                Secondary Toast
+            </x-ui.button>
+        </div>
+    </x-ui.card>
+
+    {{-- 3. Lights --}}
+    <x-ui.card title="Light">
+        <div class="kt-card-content flex flex-wrap gap-3">
+            <x-ui.button :outline="true" class="text-primary"
+                         onclick="KTToast.show({ message: 'Primary notification.', variant: 'primary', appearance: 'light' })">
+                Primary Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-green-500"
+                         onclick="KTToast.show({ message: 'Action completed successfully.', variant: 'success', appearance: 'light' })">
+                Success Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-yellow-500"
+                         onclick="KTToast.show({ message: 'Please review before continuing.', variant: 'warning', appearance: 'light' })">
+                Warning Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-destructive"
+                         onclick="KTToast.show({ message: 'Something went wrong.', variant: 'destructive', appearance: 'light' })">
+                Destructive Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-violet-500"
+                         onclick="KTToast.show({ message: 'Here is some useful info.', variant: 'info', appearance: 'light' })">
+                Info Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-mono"
+                         onclick="KTToast.show({ message: 'Mono notification.', variant: 'mono', appearance: 'light' })">
+                Mono Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-muted-foreground"
+                         onclick="KTToast.show({ message: 'Secondary notification.', variant: 'secondary', appearance: 'light' })">
+                Secondary Toast
+            </x-ui.button>
+        </div>
+    </x-ui.card>
+
+    {{-- 4. Outline --}}
+    <x-ui.card title="Outline">
+        <div class="kt-card-content flex flex-wrap gap-3">
+            <x-ui.button :outline="true" class="text-primary"
+                         onclick="KTToast.show({ message: 'Primary notification.', variant: 'primary', appearance: 'outline' })">
+                Primary Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-green-500"
+                         onclick="KTToast.show({ message: 'Action completed successfully.', variant: 'success', appearance: 'outline' })">
+                Success Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-yellow-500"
+                         onclick="KTToast.show({ message: 'Please review before continuing.', variant: 'warning', appearance: 'outline' })">
+                Warning Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-destructive"
+                         onclick="KTToast.show({ message: 'Something went wrong.', variant: 'destructive', appearance: 'outline' })">
+                Destructive Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-violet-500"
+                         onclick="KTToast.show({ message: 'Here is some useful info.', variant: 'info', appearance: 'outline' })">
+                Info Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-mono"
+                         onclick="KTToast.show({ message: 'Mono notification.', variant: 'mono', appearance: 'outline' })">
+                Mono Toast
+            </x-ui.button>
+            <x-ui.button :outline="true" class="text-muted-foreground"
+                         onclick="KTToast.show({ message: 'Secondary notification.', variant: 'secondary', appearance: 'outline' })">
                 Secondary Toast
             </x-ui.button>
         </div>
