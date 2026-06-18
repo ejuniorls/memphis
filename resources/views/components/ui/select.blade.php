@@ -1,26 +1,24 @@
 @props([
-    'size'              => null,         // null | 'sm' | 'md' | 'lg'
-    'placeholder'       => null,         // string
-    'multiple'          => false,        // bool
-    'tags'              => false,        // bool — modo tags para múltipla seleção
-    'maxSelections'     => null,         // int — limite de seleções (multiple)
-    'preSelected'       => null,         // string — valores pré-selecionados separados por vírgula
-    'search'            => false,        // bool — habilita busca no dropdown
-    'searchPlaceholder' => 'Search...', // string
-    'remote'            => false,        // bool — carrega opções via API
-    'dataUrl'           => null,         // string — URL da API (remote=true)
-    'dataFieldValue'    => null,         // string — campo do valor na API
-    'dataFieldText'     => null,         // string — campo do texto na API
-    'disabled'          => false,        // bool
-    'optionsScrollable' => false,        // bool — adiciona scroll no dropdown
-    'config'            => null,         // string|array — JSON config avançado
+    'size'              => null,
+    'placeholder'       => null,
+    'multiple'          => false,
+    'tags'              => false,
+    'maxSelections'     => null,
+    'preSelected'       => null,
+    'search'            => false,
+    'searchPlaceholder' => 'Search...',
+    'remote'            => false,
+    'dataUrl'           => null,
+    'dataFieldValue'    => null,
+    'dataFieldText'     => null,
+    'disabled'          => false,
+    'optionsScrollable' => false,
+    'config'            => null,
 ])
 
 @php
-    $classes = 'kt-select';
-    if ($size) $classes .= ' kt-select-' . $size;
+    $classes = 'kt-select' . ($size ? ' kt-select-' . $size : '');
 
-    // Monta data-kt-select-config
     $configData = [];
     if ($optionsScrollable) {
         $configData['optionsClass'] = 'kt-scrollable overflow-auto max-h-[250px]';
@@ -30,24 +28,32 @@
         $configData = array_merge($configData, $extra ?? []);
     }
     $configJson = !empty($configData) ? json_encode($configData) : null;
+
+    // Monta todos os data-attributes como array para merge — evita @if dentro de tag HTML
+    $dataAttrs = ['data-kt-select' => 'true'];
+
+    if ($placeholder)   $dataAttrs['data-kt-select-placeholder']        = $placeholder;
+    if ($multiple)      $dataAttrs['data-kt-select-multiple']           = 'true';
+    if ($tags)          $dataAttrs['data-kt-select-tags']               = 'true';
+    if ($maxSelections) $dataAttrs['data-kt-select-max-selections']     = $maxSelections;
+    if ($preSelected)   $dataAttrs['data-kt-select-pre-selected']       = $preSelected;
+    if ($search)        $dataAttrs['data-kt-select-enable-search']      = 'true';
+    if ($remote)        $dataAttrs['data-kt-select-remote']             = 'true';
+    if ($dataUrl)       $dataAttrs['data-kt-select-data-url']           = $dataUrl;
+    if ($dataFieldValue)$dataAttrs['data-kt-select-data-field-value']   = $dataFieldValue;
+    if ($dataFieldText) $dataAttrs['data-kt-select-data-field-text']    = $dataFieldText;
+    if ($configJson)    $dataAttrs['data-kt-select-config']             = $configJson;
+
+    if ($searchPlaceholder !== 'Search...') {
+        $dataAttrs['data-kt-select-search-placeholder'] = $searchPlaceholder;
+    }
+
+    if ($disabled) {
+        $dataAttrs['disabled']                    = true;
+        $dataAttrs['data-kt-select-disabled']     = 'true';
+    }
 @endphp
 
-<select
-    {{ $attributes->merge(['class' => $classes]) }}
-    data-kt-select="true"
-    @if ($placeholder)            data-kt-select-placeholder="{{ $placeholder }}" @endif
-    @if ($multiple)               data-kt-select-multiple="true" @endif
-    @if ($tags)                   data-kt-select-tags="true" @endif
-    @if ($maxSelections)          data-kt-select-max-selections="{{ $maxSelections }}" @endif
-    @if ($preSelected)            data-kt-select-pre-selected="{{ $preSelected }}" @endif
-    @if ($search)                 data-kt-select-enable-search="true" @endif
-    @if ($searchPlaceholder !== 'Search...') data-kt-select-search-placeholder="{{ $searchPlaceholder }}" @endif
-    @if ($remote)                 data-kt-select-remote="true" @endif
-    @if ($dataUrl)                data-kt-select-data-url="{{ $dataUrl }}" @endif
-    @if ($dataFieldValue)         data-kt-select-data-field-value="{{ $dataFieldValue }}" @endif
-    @if ($dataFieldText)          data-kt-select-data-field-text="{{ $dataFieldText }}" @endif
-    @if ($disabled)               disabled data-kt-select-disabled="true" @endif
-    @if ($configJson)             data-kt-select-config='{{ $configJson }}' @endif
->
+<select {{ $attributes->merge(array_merge(['class' => $classes], $dataAttrs)) }}>
     {{ $slot }}
 </select>

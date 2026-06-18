@@ -30,7 +30,21 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
     return redirect()->route('dashboard')->with('just_verified', true);
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
-Route::livewire('/ui', 'pages::ui-showcase')->name('ui.showcase');
+Route::group(['prefix' => 'ui', 'as' => 'pages::ui.'], function () {
+    Route::livewire('/',            'pages::ui-showcase')->name('showcase');
+    Route::livewire('/accordion',   'pages::ui.accordion')->name('accordion');
+    Route::livewire('/alert',       'pages::ui.alert')->name('alert');
+    Route::livewire('/badge',       'pages::ui.badge')->name('badge');
+    Route::livewire('/breadcrumb',  'pages::ui.breadcrumb')->name('breadcrumb');
+    Route::livewire('/button',      'pages::ui.button')->name('button');
+    Route::livewire('/card',        'pages::ui.card')->name('card');
+    Route::livewire('/checkbox',    'pages::ui.checkbox')->name('checkbox');
+    Route::livewire('/input',       'pages::ui.input')->name('input');
+    Route::livewire('/link',        'pages::ui.link')->name('link');
+    Route::livewire('/modal',       'pages::ui.modal')->name('modal');
+    Route::livewire('/select',      'pages::ui.select')->name('select');
+    Route::livewire('/toast',      'pages::ui.toast')->name('toast');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
