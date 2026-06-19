@@ -44,8 +44,12 @@ Route::group(['prefix' => 'ui', 'as' => 'pages::ui.'], function () {
     Route::livewire('/modal',       'pages::ui.modal')->name('modal');
     Route::livewire('/pagination',  'pages::ui.pagination')->name('pagination');
     Route::livewire('/select',      'pages::ui.select')->name('select');
+    Route::livewire('/stepper',     'pages::ui.stepper')->name('stepper');
     Route::livewire('/toast',       'pages::ui.toast')->name('toast');
 });
+
+Route::livewire('/stepper-wizard', 'pages::ui.stepper-wizard')->name('stepper-wizard');
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
