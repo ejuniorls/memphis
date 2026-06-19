@@ -42,8 +42,9 @@ Route::group(['prefix' => 'ui', 'as' => 'pages::ui.'], function () {
     Route::livewire('/input',       'pages::ui.input')->name('input');
     Route::livewire('/link',        'pages::ui.link')->name('link');
     Route::livewire('/modal',       'pages::ui.modal')->name('modal');
+    Route::livewire('/pagination',  'pages::ui.pagination')->name('pagination');
     Route::livewire('/select',      'pages::ui.select')->name('select');
-    Route::livewire('/toast',      'pages::ui.toast')->name('toast');
+    Route::livewire('/toast',       'pages::ui.toast')->name('toast');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
