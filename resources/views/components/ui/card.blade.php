@@ -3,6 +3,8 @@
     'title'       => null,    // string  — título do cabeçalho (atalho para kt-card-title)
     'description' => null,    // string  — subtítulo abaixo do título
     'overflow'    => false,   // bool    — adiciona overflow-hidden (ex: cards com imagem)
+    'tag'         => 'div',   // 'div' | 'a' | 'button' — elemento raiz do card
+    'href'        => null,    // string  — usado quando tag='a'
 ])
 
 @php
@@ -15,45 +17,106 @@
     $hasToolbar = isset($toolbar) && trim((string) $toolbar) !== '';
 @endphp
 
-<div {{ $attributes->merge(['class' => $classes]) }}>
+@if ($tag === 'a')
+    <a href="{{ $href ?? '#' }}" {{ $attributes->merge(['class' => $classes]) }}>
 
-    {{-- Cabeçalho opcional --}}
-    @if ($hasHeader)
-        <div class="kt-card-header">
-            <div class="kt-card-heading">
-
-                {{-- Slot customizado de cabeçalho ou atalho title/description --}}
-                @if (isset($header) && trim((string) $header) !== '')
-                    {{ $header }}
-                @else
-                    @if ($title)
-                        <h3 class="kt-card-title">{{ $title }}</h3>
+        @if ($hasHeader)
+            <div class="kt-card-header">
+                <div class="kt-card-heading">
+                    @if (isset($header) && trim((string) $header) !== '')
+                        {{ $header }}
+                    @else
+                        @if ($title)
+                            <h3 class="kt-card-title">{{ $title }}</h3>
+                        @endif
+                        @if ($description)
+                            <p class="kt-card-description">{{ $description }}</p>
+                        @endif
                     @endif
-
-                    @if ($description)
-                        <p class="kt-card-description">{{ $description }}</p>
-                    @endif
-                @endif
-
-            </div>
-
-            {{-- Slot de ações no canto direito do cabeçalho --}}
-            @if ($hasToolbar)
-                <div class="kt-card-toolbar">
-                    {{ $toolbar }}
                 </div>
-            @endif
-        </div>
-    @endif
+                @if ($hasToolbar)
+                    <div class="kt-card-toolbar">
+                        {{ $toolbar }}
+                    </div>
+                @endif
+            </div>
+        @endif
 
-    {{-- Conteúdo principal --}}
-    {{ $slot }}
+        {{ $slot }}
 
-    {{-- Rodapé opcional --}}
-    @if ($hasFooter)
-        <div class="kt-card-footer">
-            {{ $footer }}
-        </div>
-    @endif
+        @if ($hasFooter)
+            <div class="kt-card-footer">
+                {{ $footer }}
+            </div>
+        @endif
 
-</div>
+    </a>
+@elseif ($tag === 'button')
+    <button type="button" {{ $attributes->merge(['class' => $classes]) }}>
+
+        @if ($hasHeader)
+            <div class="kt-card-header">
+                <div class="kt-card-heading">
+                    @if (isset($header) && trim((string) $header) !== '')
+                        {{ $header }}
+                    @else
+                        @if ($title)
+                            <h3 class="kt-card-title">{{ $title }}</h3>
+                        @endif
+                        @if ($description)
+                            <p class="kt-card-description">{{ $description }}</p>
+                        @endif
+                    @endif
+                </div>
+                @if ($hasToolbar)
+                    <div class="kt-card-toolbar">
+                        {{ $toolbar }}
+                    </div>
+                @endif
+            </div>
+        @endif
+
+        {{ $slot }}
+
+        @if ($hasFooter)
+            <div class="kt-card-footer">
+                {{ $footer }}
+            </div>
+        @endif
+
+    </button>
+@else
+    <div {{ $attributes->merge(['class' => $classes]) }}>
+
+        @if ($hasHeader)
+            <div class="kt-card-header">
+                <div class="kt-card-heading">
+                    @if (isset($header) && trim((string) $header) !== '')
+                        {{ $header }}
+                    @else
+                        @if ($title)
+                            <h3 class="kt-card-title">{{ $title }}</h3>
+                        @endif
+                        @if ($description)
+                            <p class="kt-card-description">{{ $description }}</p>
+                        @endif
+                    @endif
+                </div>
+                @if ($hasToolbar)
+                    <div class="kt-card-toolbar">
+                        {{ $toolbar }}
+                    </div>
+                @endif
+            </div>
+        @endif
+
+        {{ $slot }}
+
+        @if ($hasFooter)
+            <div class="kt-card-footer">
+                {{ $footer }}
+            </div>
+        @endif
+
+    </div>
+@endif

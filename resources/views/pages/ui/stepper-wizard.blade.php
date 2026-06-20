@@ -6,10 +6,11 @@ use Livewire\Attributes\Title;
 new #[Title('New Project Wizard')]
 class extends Component {
     //
-}; ?>
+};
+?>
 
 <div class="kt-page">
-
+    <!-- Container -->
     <div class="kt-page-header">
         <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
             <div class="flex flex-col justify-center gap-2">
@@ -20,7 +21,9 @@ class extends Component {
             </div>
         </div>
     </div>
+    <!-- End of Container -->
 
+    <!-- Container -->
     <div class="kt-page-content">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-7.5">
             <div class="col-span-2">
@@ -355,5 +358,5 @@ class extends Component {
             </div>
         </div>
     </div>
-
+    <!-- End of Container -->
 </div>

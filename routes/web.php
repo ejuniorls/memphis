@@ -34,6 +34,7 @@ Route::group(['prefix' => 'ui', 'as' => 'pages::ui.'], function () {
     Route::livewire('/',            'pages::ui-showcase')->name('showcase');
     Route::livewire('/accordion',   'pages::ui.accordion')->name('accordion');
     Route::livewire('/alert',       'pages::ui.alert')->name('alert');
+    Route::livewire('/avatar',      'pages::ui.avatar')->name('avatar');
     Route::livewire('/badge',       'pages::ui.badge')->name('badge');
     Route::livewire('/breadcrumb',  'pages::ui.breadcrumb')->name('breadcrumb');
     Route::livewire('/button',      'pages::ui.button')->name('button');

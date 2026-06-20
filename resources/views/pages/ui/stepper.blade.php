@@ -6,7 +6,8 @@ use Livewire\Attributes\Title;
 new #[Title('Stepper')]
 class extends Component {
     //
-}; ?>
+};
+?>
 
 @php
     $circle = 'shrink-0 rounded-full size-8 flex items-center justify-center text-sm font-semibold bg-muted text-muted-foreground kt-stepper-item-active:bg-primary kt-stepper-item-active:text-primary-foreground kt-stepper-item-completed:bg-green-500 kt-stepper-item-completed:text-white';
@@ -14,7 +15,7 @@ class extends Component {
 @endphp
 
 <div class="kt-page">
-
+    <!-- Container -->
     <div class="kt-page-header">
         <div class="flex flex-wrap items-center lg:items-end justify-between gap-5 pb-7.5">
             <div class="flex flex-col justify-center gap-2">
@@ -25,7 +26,9 @@ class extends Component {
             </div>
         </div>
     </div>
+    <!-- End of Container -->
 
+    <!-- Container -->
     <div class="kt-page-content">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-7.5">
             <div class="col-span-2">
@@ -322,5 +325,5 @@ class extends Component {
             </div>
         </div>
     </div>
-
+    <!-- End of Container -->
 </div>

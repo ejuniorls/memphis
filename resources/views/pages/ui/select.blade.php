@@ -48,7 +48,7 @@ class extends Component {
     <!-- End of Container -->
 
     <!-- Container -->
-    <div class="kt-apce-content">
+    <div class="kt-page-content">
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 lg:gap-7.5">
             <div class="col-span-2">
                 <div class="flex flex-col gap-5 lg:gap-7.5">
