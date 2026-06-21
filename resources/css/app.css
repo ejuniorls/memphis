@@ -64,3 +64,47 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+/*
+ * KTCarousel — oculta scrollbars nativas do viewport e thumbnails por padrão
+ * (a menos que data-kt-carousel-show-scrollbar="true" esteja setado), e define
+ * cursor/transições para os controles. Copiado de @keenthemes/ktui/src/components/
+ * carousel/carousel.css — não usa @apply nem tokens de cor, seguro para colar
+ * direto sem risco de regressão (ao contrário de importar dist/styles.css inteiro).
+ */
+@layer components {
+    [data-kt-carousel]:not([data-kt-carousel-show-scrollbar="true"])
+    [data-kt-carousel-viewport],
+    [data-kt-carousel]:not([data-kt-carousel-show-scrollbar="true"])
+    [data-kt-carousel-thumbnails] {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    [data-kt-carousel]:not([data-kt-carousel-show-scrollbar="true"])
+    [data-kt-carousel-viewport]::-webkit-scrollbar,
+    [data-kt-carousel]:not([data-kt-carousel-show-scrollbar="true"])
+    [data-kt-carousel-thumbnails]::-webkit-scrollbar {
+        display: none;
+    }
+
+    [data-kt-carousel-thumbnail]:not(:disabled),
+    [data-kt-carousel-pagination-item]:not(:disabled),
+    [data-kt-carousel-prev]:not(:disabled),
+    [data-kt-carousel-next]:not(:disabled) {
+        cursor: pointer;
+    }
+
+    [data-kt-carousel-thumbnail] {
+        transition-property: border-color, background-color, color, box-shadow, opacity;
+        transition-duration: 0.2s;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        [data-kt-carousel-thumbnail] {
+            transition-duration: 0.01ms;
+            transition-property: none;
+        }
+    }
+}
