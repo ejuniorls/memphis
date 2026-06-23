@@ -36,14 +36,16 @@ class extends Component {
 
     <!-- Container -->
     <div class="kt-page-content">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
             @foreach ([
                 ['label' => 'Accordion',  'route' => 'pages::ui.accordion',  'icon' => 'chevrons-up-down'],
                 ['label' => 'Alert',      'route' => 'pages::ui.alert',      'icon' => 'triangle-alert'],
+                ['label' => 'Avatar',     'route' => 'pages::ui.avatar',     'icon' => 'circle-user-round'],
                 ['label' => 'Badge',      'route' => 'pages::ui.badge',      'icon' => 'tag'],
                 ['label' => 'Breadcrumb', 'route' => 'pages::ui.breadcrumb', 'icon' => 'ellipsis'],
                 ['label' => 'Button',     'route' => 'pages::ui.button',     'icon' => 'square-mouse-pointer'],
                 ['label' => 'Card',       'route' => 'pages::ui.card',       'icon' => 'layout-panel-top'],
+                ['label' => 'Carousel',   'route' => 'pages::ui.carousel',   'icon' => 'gallery-horizontal'],
                 ['label' => 'Checkbox',   'route' => 'pages::ui.checkbox',   'icon' => 'square-check'],
                 ['label' => 'Input',      'route' => 'pages::ui.input',      'icon' => 'text-cursor-input'],
                 ['label' => 'Link',       'route' => 'pages::ui.link',       'icon' => 'link'],
