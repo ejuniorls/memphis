@@ -40,6 +40,7 @@ Route::group(['prefix' => 'ui', 'as' => 'pages::ui.'], function () {
     Route::livewire('/button',      'pages::ui.button')->name('button');
     Route::livewire('/card',        'pages::ui.card')->name('card');
     Route::livewire('/carousel',    'pages::ui.carousel')->name('carousel');
+    Route::livewire('/clipboard',   'pages::ui.clipboard')->name('clipboard');
     Route::livewire('/checkbox',    'pages::ui.checkbox')->name('checkbox');
     Route::livewire('/input',       'pages::ui.input')->name('input');
     Route::livewire('/link',        'pages::ui.link')->name('link');
